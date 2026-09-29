@@ -3,7 +3,12 @@ import { jwtVerify } from "jose";
 
 const COOKIE_NAME = "tp_session";
 
-const PUBLIC_PATHS = ["/login", "/api/auth/login", "/api/setup"];
+const PUBLIC_PATHS = [
+  "/login",
+  "/api/auth/login",
+  "/api/setup",
+  "/api/debug",
+];
 
 function isPublic(pathname: string) {
   return PUBLIC_PATHS.some(
@@ -28,7 +33,6 @@ export async function middleware(req: NextRequest) {
   const token = req.cookies.get(COOKIE_NAME)?.value;
   const valid = await isValidSession(token);
 
-  // اگر لاگین است و می‌رود /login → بفرست /today
   if (pathname === "/login" && valid) {
     return NextResponse.redirect(new URL("/today", req.url));
   }
@@ -37,7 +41,6 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // مسیرهای API به جز login و setup نیاز به session دارند
   if (pathname.startsWith("/api/")) {
     if (!valid) {
       return NextResponse.json({ error: "unauthorized" }, { status: 401 });
@@ -45,10 +48,8 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // صفحات داخلی
   if (!valid) {
-    const loginUrl = new URL("/login", req.url);
-    return NextResponse.redirect(loginUrl);
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
   return NextResponse.next();
