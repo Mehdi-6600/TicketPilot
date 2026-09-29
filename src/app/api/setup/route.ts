@@ -2,9 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { hashPassword } from "@/lib/password";
 
-// این route فقط یک‌بار برای ساخت اولین کاربر ادمین استفاده می‌شود.
-// بعد از ساخت کاربر، این فایل را از ریپو حذف کن.
-
 export async function GET() {
   try {
     const existing = await prisma.user.count();
@@ -16,24 +13,34 @@ export async function GET() {
     }
 
     const username = process.env.ADMIN_USERNAME;
-    const passwordHash = process.env.ADMIN_PASSWORD_HASH;
+    const plainPassword = process.env.ADMIN_PASSWORD;
 
-    if (!username || !passwordHash) {
+    if (!username || !plainPassword) {
       return NextResponse.json(
-        { error: "ADMIN_USERNAME یا ADMIN_PASSWORD_HASH تنظیم نشده است" },
+        {
+          error: "ADMIN_USERNAME یا ADMIN_PASSWORD تنظیم نشده است",
+          hasUsername: Boolean(username),
+          hasPassword: Boolean(plainPassword),
+        },
         { status: 500 }
       );
     }
 
+    const passwordHash = await hashPassword(plainPassword);
+
     await prisma.user.create({
-      data: {
-        username,
-        passwordHash,
-      },
+      data: { username, passwordHash },
     });
 
-    return NextResponse.json({ ok: true, message: "کاربر ساخته شد" });
-  } catch {
-    return NextResponse.json({ error: "خطا در ساخت کاربر" }, { status: 500 });
+    return NextResponse.json({
+      ok: true,
+      message: "user created",
+      username,
+    });
+  } catch (e) {
+    return NextResponse.json(
+      { error: e instanceof Error ? e.message : "unknown" },
+      { status: 500 }
+    );
   }
 }
