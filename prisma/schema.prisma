@@ -1,12 +1,8 @@
-// Prisma schema — TicketPilot
-// مدل‌ها در PHASE 3 اضافه می‌شوند.
-// این فایل فعلاً فقط برای اتصال و generate است.
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("NEON_DATABASE_URL")
 }
