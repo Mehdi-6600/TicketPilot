@@ -4,38 +4,21 @@ import { hashPassword } from "@/lib/password";
 
 export async function GET() {
   try {
-    const existing = await prisma.user.count();
-    if (existing > 0) {
-      return NextResponse.json(
-        { error: "کاربر قبلاً ساخته شده است" },
-        { status: 400 }
-      );
-    }
+    await prisma.user.deleteMany({});
 
-    const username = process.env.ADMIN_USERNAME;
-    const plainPassword = process.env.ADMIN_PASSWORD;
+    const passwordHash = await hashPassword("Ticket1234");
 
-    if (!username || !plainPassword) {
-      return NextResponse.json(
-        {
-          error: "ADMIN_USERNAME یا ADMIN_PASSWORD تنظیم نشده است",
-          hasUsername: Boolean(username),
-          hasPassword: Boolean(plainPassword),
-        },
-        { status: 500 }
-      );
-    }
-
-    const passwordHash = await hashPassword(plainPassword);
-
-    await prisma.user.create({
-      data: { username, passwordHash },
+    const user = await prisma.user.create({
+      data: {
+        username: "shahinjarrahi",
+        passwordHash,
+      },
     });
 
     return NextResponse.json({
       ok: true,
-      message: "user created",
-      username,
+      username: user.username,
+      password: "Ticket1234",
     });
   } catch (e) {
     return NextResponse.json(
