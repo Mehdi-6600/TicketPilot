@@ -3,10 +3,12 @@ import { jwtVerify } from "jose";
 
 const COOKIE_NAME = "tp_session";
 
-const PUBLIC_PATHS = ["/login", "/api/auth/login"];
+const PUBLIC_PATHS = ["/login", "/api/auth/login", "/api/setup"];
 
 function isPublic(pathname: string) {
-  return PUBLIC_PATHS.some((p) => pathname === p || pathname.startsWith(p + "/"));
+  return PUBLIC_PATHS.some(
+    (p) => pathname === p || pathname.startsWith(p + "/")
+  );
 }
 
 async function isValidSession(token: string | undefined): Promise<boolean> {
@@ -35,7 +37,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // مسیرهای API به جز login نیاز به session دارند
+  // مسیرهای API به جز login و setup نیاز به session دارند
   if (pathname.startsWith("/api/")) {
     if (!valid) {
       return NextResponse.json({ error: "unauthorized" }, { status: 401 });
@@ -53,7 +55,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|robots.txt).*)",
-  ],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|robots.txt).*)"],
 };
