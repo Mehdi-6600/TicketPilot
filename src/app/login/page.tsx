@@ -22,9 +22,9 @@ export default function LoginPage() {
         body: JSON.stringify({ username, password }),
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError(data.error ?? "خطا در ورود");
+        setError(data.error ?? `خطا (${res.status})`);
         setLoading(false);
         return;
       }
@@ -46,9 +46,7 @@ export default function LoginPage() {
         <h1 className="mb-1 text-center text-2xl font-bold text-brand-700">
           TicketPilot
         </h1>
-        <p className="mb-6 text-center text-sm text-slate-500">
-          ورود به پنل
-        </p>
+        <p className="mb-6 text-center text-sm text-slate-500">ورود به پنل</p>
 
         <label className="mb-3 block">
           <span className="mb-1 block text-sm text-slate-600">نام کاربری</span>
