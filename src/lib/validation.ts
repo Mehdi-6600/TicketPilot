@@ -29,6 +29,8 @@ export const activityTypeEnum = z.enum([
   "OTHER",
 ]);
 
+export const currencyEnum = z.enum(["TOMAN", "OMR", "USD"]);
+
 export const activitySchema = z.object({
   type: activityTypeEnum,
   customerId: z.string().min(1, "مشتری الزامی است"),
@@ -37,6 +39,7 @@ export const activitySchema = z.object({
     .union([z.number().int().nonnegative(), z.null()])
     .optional()
     .transform((v) => (v === undefined ? null : v)),
+  currency: currencyEnum.default("TOMAN"),
 });
 
 export type ActivityInput = z.infer<typeof activitySchema>;
