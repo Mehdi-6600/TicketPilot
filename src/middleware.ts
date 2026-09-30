@@ -8,6 +8,7 @@ const PUBLIC_PATHS = [
   "/api/auth/login",
   "/api/setup",
   "/api/reset",
+  "/api/whoami",
 ];
 
 function isPublic(pathname: string) {
