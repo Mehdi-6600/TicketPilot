@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import EmptyState from "@/components/EmptyState";
 import TravelItem from "@/components/TravelItem";
 import { startOfTodayTehran, endOfTomorrowTehran } from "@/lib/date";
+import type { Prisma } from "@prisma/client";
 
 export const dynamic = "force-dynamic";
 
@@ -24,15 +25,16 @@ export default async function TravelersPage({ searchParams }: Props) {
   const todayStart = startOfTodayTehran();
   const tomorrowEnd = endOfTomorrowTehran();
 
-  const where =
-    filter === "active"
-      ? { status: "IN_TRIP" as const }
-      : filter === "upcoming"
-        ? {
-            status: { in: ["BOOKED", "TICKETED"] as const },
-            departDate: { gte: todayStart, lte: tomorrowEnd },
-          }
-        : {};
+  let where: Prisma.TravelWhereInput = {};
+
+  if (filter === "active") {
+    where = { status: "IN_TRIP" };
+  } else if (filter === "upcoming") {
+    where = {
+      status: { in: ["BOOKED", "TICKETED"] },
+      departDate: { gte: todayStart, lte: tomorrowEnd },
+    };
+  }
 
   const travels = await prisma.travel.findMany({
     where,
