@@ -1,8 +1,15 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import {
+  needsPasswordMigration,
+  hashPassword,
+  verifyPassword,
+} from "@/lib/password";
 import { loginSchema } from "@/lib/validation";
-import { verifyPassword } from "@/lib/password";
 import { createSession } from "@/lib/auth";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
@@ -11,48 +18,61 @@ export async function POST(req: Request) {
 
     if (!parsed.success) {
       return NextResponse.json(
-        { error: "اطلاعات ورودی نامعتبر است" },
+        { error: "نام کاربری و رمز عبور را وارد کنید" },
         { status: 400 }
       );
     }
 
     const { username, password } = parsed.data;
 
-    const user = await prisma.user.findUnique({ where: { username } });
+    const user = await prisma.user.findUnique({
+      where: { username },
+      select: {
+        id: true,
+        username: true,
+        passwordHash: true,
+      },
+    });
+
     if (!user) {
-      const allUsers = await prisma.user.findMany({
-        select: { username: true },
+      return NextResponse.json(
+        { error: "نام کاربری یا رمز عبور اشتباه است" },
+        { status: 401 }
+      );
+    }
+
+    const validPassword = await verifyPassword(
+      password,
+      user.passwordHash
+    );
+
+    if (!validPassword) {
+      return NextResponse.json(
+        { error: "نام کاربری یا رمز عبور اشتباه است" },
+        { status: 401 }
+      );
+    }
+
+    if (needsPasswordMigration(user.passwordHash)) {
+      const newPasswordHash = await hashPassword(password);
+
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { passwordHash: newPasswordHash },
       });
-      return NextResponse.json(
-        {
-          error: "کاربر یافت نشد",
-          debug: {
-            searched: username,
-            availableUsers: allUsers.map((u) => u.username),
-            dbUrlPrefix: (process.env.NEON_DATABASE_URL ?? "").slice(0, 35),
-          },
-        },
-        { status: 401 }
-      );
     }
 
-    const ok = await verifyPassword(password, user.passwordHash);
-    if (!ok) {
-      return NextResponse.json(
-        { error: "رمز عبور اشتباه است" },
-        { status: 401 }
-      );
-    }
-
-    await createSession({ userId: user.id, username: user.username });
+    await createSession({
+      userId: user.id,
+      username: user.username,
+    });
 
     return NextResponse.json({ ok: true });
-  } catch (e) {
+  } catch (error) {
+    console.error("LOGIN_ERROR", error);
+
     return NextResponse.json(
-      {
-        error: "خطای سرور",
-        detail: e instanceof Error ? e.message : String(e),
-      },
+      { error: "خطای سرور هنگام ورود" },
       { status: 500 }
     );
   }
