@@ -179,17 +179,3 @@ ALTER TABLE "Activity" ADD CONSTRAINT "Activity_bookingId_fkey" FOREIGN KEY ("bo
 
 -- AddForeignKey
 ALTER TABLE "Activity" ADD CONSTRAINT "Activity_travelId_fkey" FOREIGN KEY ("travelId") REFERENCES "Travel"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- Seed initial admin user
--- username: shahinjarrahi
--- password: Ticket1234
--- passwordHash format: pbkdf2$<iterations>$<saltHex>$<hashHex>
--- generated with PBKDF2-SHA256, 32-byte key, 16-byte salt, 100000 iterations
-INSERT INTO "User" ("id", "username", "passwordHash", "createdAt", "updatedAt")
-VALUES (
-  'clticketpilotadmin00000001',
-  'shahinjarrahi',
-  'pbkdf2$100000$5f3e9c1a7b2d4e8f0a1c3b5d7e9f2a4c$c9a7e5f3b1d8c6a4e2f0b9d7c5a3e1f8b6d4c2a0e9f7b5d3c1a8e6f4b2d0c9a7',
-  CURRENT_TIMESTAMP,
-  CURRENT_TIMESTAMP
-);
