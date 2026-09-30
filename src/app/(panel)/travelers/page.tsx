@@ -50,7 +50,7 @@ export default async function TravelersPage({ searchParams }: Props) {
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold text-slate-900">مسافران</h1>
         <Link
-          href="/travels/new"
+          href="/travelers/new"
           className="rounded-xl bg-brand-600 px-3 py-1.5 text-sm font-medium text-white"
         >
           ＋ سفر جدید
