@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import LogoutButton from "@/components/LogoutButton";
+import BottomNav from "@/components/BottomNav";
 
 export default async function PanelLayout({
   children,
@@ -20,7 +21,8 @@ export default async function PanelLayout({
           <LogoutButton />
         </div>
       </header>
-      <main className="mx-auto max-w-3xl px-4 py-6">{children}</main>
+      <main className="mx-auto max-w-3xl px-4 py-6 pb-24">{children}</main>
+      <BottomNav />
     </div>
   );
 }
