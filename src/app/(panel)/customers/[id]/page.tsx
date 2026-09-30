@@ -77,7 +77,7 @@ export default async function CustomerDetailPage({ params }: Props) {
         </Link>
 
         <Link
-          href={`/activity/new?customerId=${customer.id}&type=TRIP_FOLLOW_UP`}
+          href={`/travels/new?customerId=${customer.id}`}
           className="flex flex-col items-center justify-center gap-1 rounded-xl bg-white p-3 text-sm shadow-sm transition active:scale-[0.97]"
         >
           <span className="text-lg">✈️</span>
