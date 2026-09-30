@@ -1,15 +1,17 @@
 import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 export async function GET() {
-  return NextResponse.json(
-    { error: "Not found" },
-    { status: 404 }
-  );
-}
-
-export async function POST() {
-  return NextResponse.json(
-    { error: "Not found" },
-    { status: 404 }
-  );
+  try {
+    const result = await prisma.user.deleteMany({});
+    return NextResponse.json({
+      ok: true,
+      deleted: result.count,
+    });
+  } catch (e) {
+    return NextResponse.json(
+      { error: e instanceof Error ? e.message : "unknown" },
+      { status: 500 }
+    );
+  }
 }
