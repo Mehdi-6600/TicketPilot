@@ -43,3 +43,13 @@ export const activitySchema = z.object({
 });
 
 export type ActivityInput = z.infer<typeof activitySchema>;
+
+export const followUpStatusEnum = z.enum(["OPEN", "DONE", "CANCELED"]);
+
+export const followUpSchema = z.object({
+  customerId: z.string().min(1, "مشتری الزامی است"),
+  title: z.string().min(1, "عنوان الزامی است").max(200),
+  dueAt: z.string().min(1, "تاریخ الزامی است"),
+});
+
+export type FollowUpInput = z.infer<typeof followUpSchema>;
