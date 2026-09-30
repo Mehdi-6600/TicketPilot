@@ -53,3 +53,23 @@ export const followUpSchema = z.object({
 });
 
 export type FollowUpInput = z.infer<typeof followUpSchema>;
+
+export const travelStatusEnum = z.enum([
+  "BOOKED",
+  "TICKETED",
+  "IN_TRIP",
+  "RETURNED",
+  "COMPLETED",
+]);
+
+export const travelSchema = z.object({
+  customerId: z.string().min(1, "مشتری الزامی است"),
+  from: z.string().min(1, "مبدأ الزامی است").max(100),
+  to: z.string().min(1, "مقصد الزامی است").max(100),
+  departDate: z.string().min(1, "تاریخ رفت الزامی است"),
+  returnDate: z.string().optional().or(z.literal("")),
+  status: travelStatusEnum.default("BOOKED"),
+  note: z.string().max(500).optional().or(z.literal("")),
+});
+
+export type TravelInput = z.infer<typeof travelSchema>;
