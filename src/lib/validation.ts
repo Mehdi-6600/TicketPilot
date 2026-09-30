@@ -14,3 +14,29 @@ export const customerSchema = z.object({
 });
 
 export type CustomerInput = z.infer<typeof customerSchema>;
+
+export const activityTypeEnum = z.enum([
+  "CALL",
+  "REPLY",
+  "INQUIRY",
+  "PRICE_QUOTE",
+  "FOLLOW_UP",
+  "BOOKING",
+  "SALE",
+  "CANCEL",
+  "CHANGE",
+  "TRIP_FOLLOW_UP",
+  "OTHER",
+]);
+
+export const activitySchema = z.object({
+  type: activityTypeEnum,
+  customerId: z.string().min(1, "مشتری الزامی است"),
+  note: z.string().max(500).optional().or(z.literal("")),
+  amount: z
+    .union([z.number().int().nonnegative(), z.null()])
+    .optional()
+    .transform((v) => (v === undefined ? null : v)),
+});
+
+export type ActivityInput = z.infer<typeof activitySchema>;
