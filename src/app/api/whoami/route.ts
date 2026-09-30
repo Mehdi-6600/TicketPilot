@@ -1,25 +1,21 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { getSession } from "@/lib/auth";
 
 export async function GET() {
-  try {
-    const users = await prisma.user.findMany({
-      select: {
-        id: true,
-        username: true,
-        passwordHash: true,
-        createdAt: true,
-      },
-    });
+  const session = await getSession();
 
-    return NextResponse.json({
-      count: users.length,
-      users,
-    });
-  } catch (e) {
+  if (!session) {
     return NextResponse.json(
-      { error: e instanceof Error ? e.message : "unknown" },
-      { status: 500 }
+      { error: "unauthorized" },
+      { status: 401 }
     );
   }
+
+  return NextResponse.json({
+    authenticated: true,
+    user: {
+      id: session.userId,
+      username: session.username,
+    },
+  });
 }
