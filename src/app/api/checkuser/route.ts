@@ -1,18 +1,17 @@
 import { NextResponse } from "next/server";
-import { getSession } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 
 export async function GET() {
-  const session = await getSession();
+  const url = process.env.NEON_DATABASE_URL ?? "(not set)";
+  const masked = url.length > 50 ? url.slice(0, 50) + "..." : url;
 
-  if (!session) {
-    return NextResponse.json(
-      { error: "unauthorized" },
-      { status: 401 }
-    );
-  }
+  const users = await prisma.user.findMany({
+    select: { username: true, passwordHash: true },
+  });
 
   return NextResponse.json({
-    authenticated: true,
-    username: session.username,
+    dbUrlPrefix: masked,
+    userCount: users.length,
+    users,
   });
 }
