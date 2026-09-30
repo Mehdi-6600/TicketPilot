@@ -12,14 +12,6 @@ type Props = {
   params: { id: string };
 };
 
-const QUICK_ACTIONS = [
-  { type: "CALL", label: "تماس", icon: "📞" },
-  { type: "FOLLOW_UP", label: "پیگیری", icon: "🔔" },
-  { type: "BOOKING", label: "رزرو", icon: "🎫" },
-  { type: "TRIP_FOLLOW_UP", label: "سفر", icon: "✈️" },
-  { type: "PRICE_QUOTE", label: "قیمت", icon: "💰" },
-] as const;
-
 export default async function CustomerDetailPage({ params }: Props) {
   const customer = await prisma.customer.findUnique({
     where: { id: params.id },
@@ -60,16 +52,46 @@ export default async function CustomerDetailPage({ params }: Props) {
       </div>
 
       <div className="grid grid-cols-3 gap-2">
-        {QUICK_ACTIONS.map((a) => (
-          <Link
-            key={a.type}
-            href={`/activity/new?customerId=${customer.id}&type=${a.type}`}
-            className="flex flex-col items-center justify-center gap-1 rounded-xl bg-white p-3 text-sm shadow-sm transition active:scale-[0.97]"
-          >
-            <span className="text-lg">{a.icon}</span>
-            <span className="text-slate-700">{a.label}</span>
-          </Link>
-        ))}
+        <Link
+          href={`/activity/new?customerId=${customer.id}&type=CALL`}
+          className="flex flex-col items-center justify-center gap-1 rounded-xl bg-white p-3 text-sm shadow-sm transition active:scale-[0.97]"
+        >
+          <span className="text-lg">📞</span>
+          <span className="text-slate-700">تماس</span>
+        </Link>
+
+        <Link
+          href={`/followups/new?customerId=${customer.id}`}
+          className="flex flex-col items-center justify-center gap-1 rounded-xl bg-white p-3 text-sm shadow-sm transition active:scale-[0.97]"
+        >
+          <span className="text-lg">🔔</span>
+          <span className="text-slate-700">پیگیری</span>
+        </Link>
+
+        <Link
+          href={`/activity/new?customerId=${customer.id}&type=BOOKING`}
+          className="flex flex-col items-center justify-center gap-1 rounded-xl bg-white p-3 text-sm shadow-sm transition active:scale-[0.97]"
+        >
+          <span className="text-lg">🎫</span>
+          <span className="text-slate-700">رزرو</span>
+        </Link>
+
+        <Link
+          href={`/activity/new?customerId=${customer.id}&type=TRIP_FOLLOW_UP`}
+          className="flex flex-col items-center justify-center gap-1 rounded-xl bg-white p-3 text-sm shadow-sm transition active:scale-[0.97]"
+        >
+          <span className="text-lg">✈️</span>
+          <span className="text-slate-700">سفر</span>
+        </Link>
+
+        <Link
+          href={`/activity/new?customerId=${customer.id}&type=PRICE_QUOTE`}
+          className="flex flex-col items-center justify-center gap-1 rounded-xl bg-white p-3 text-sm shadow-sm transition active:scale-[0.97]"
+        >
+          <span className="text-lg">💰</span>
+          <span className="text-slate-700">قیمت</span>
+        </Link>
+
         <Link
           href={`/activity/new?customerId=${customer.id}`}
           className="flex flex-col items-center justify-center gap-1 rounded-xl bg-slate-900 p-3 text-sm text-white shadow-sm transition active:scale-[0.97]"
