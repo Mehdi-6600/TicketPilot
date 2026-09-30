@@ -72,3 +72,26 @@ export function toPersianTime(date: Date): string {
     return date.toISOString().slice(11, 16);
   }
 }
+
+// تبدیل input datetime-local (YYYY-MM-DDTHH:mm) به Date UTC
+// input در timezone Tehran تفسیر میشه
+export function parseTehranInput(value: string): Date {
+  if (!value) return new Date();
+  // YYYY-MM-DDTHH:mm
+  const [datePart, timePart] = value.split("T");
+  const [y, m, d] = datePart.split("-").map(Number);
+  const [hh, mm] = (timePart ?? "00:00").split(":").map(Number);
+  const utcMs = Date.UTC(y, m - 1, d, hh, mm, 0);
+  return new Date(utcMs - TEHRAN_OFFSET_MINUTES * 60 * 1000);
+}
+
+// تبدیل Date به مقدار input datetime-local در timezone Tehran
+export function toTehranInputValue(date: Date): string {
+  const t = new Date(date.getTime() + TEHRAN_OFFSET_MINUTES * 60 * 1000);
+  const y = t.getUTCFullYear();
+  const m = String(t.getUTCMonth() + 1).padStart(2, "0");
+  const d = String(t.getUTCDate()).padStart(2, "0");
+  const hh = String(t.getUTCHours()).padStart(2, "0");
+  const mm = String(t.getUTCMinutes()).padStart(2, "0");
+  return `${y}-${m}-${d}T${hh}:${mm}`;
+}
