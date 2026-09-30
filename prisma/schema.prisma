@@ -7,10 +7,164 @@ datasource db {
   url      = env("NEON_DATABASE_URL")
 }
 
+// ==========================
+// Auth
+// ==========================
+
 model User {
   id           String   @id @default(cuid())
   username     String   @unique
   passwordHash String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+// ==========================
+// Enums
+// ==========================
+
+enum ActivityType {
+  CALL
+  REPLY
+  INQUIRY
+  PRICE_QUOTE
+  FOLLOW_UP
+  BOOKING
+  SALE
+  CANCEL
+  CHANGE
+  TRIP_FOLLOW_UP
+  OTHER
+}
+
+enum BookingStatus {
+  INQUIRY
+  PRICE_QUOTED
+  WAITING_CUSTOMER
+  BOOKED
+  TICKETED
+  SOLD
+  CANCELED
+}
+
+enum TravelStatus {
+  BOOKED
+  TICKETED
+  IN_TRIP
+  RETURNED
+  COMPLETED
+}
+
+enum FollowUpStatus {
+  OPEN
+  DONE
+  CANCELED
+}
+
+// ==========================
+// CRM
+// ==========================
+
+model Customer {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  note      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  travels    Travel[]
+  bookings   Booking[]
+  followUps  FollowUp[]
+  activities Activity[]
+
+  @@index([name])
+  @@index([phone])
+}
+
+model Travel {
+  id         String       @id @default(cuid())
+  customerId String
+  from       String
+  to         String
+  departDate DateTime
+  returnDate DateTime?
+  status     TravelStatus @default(BOOKED)
+  note       String?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  customer   Customer    @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  bookings   Booking[]
+  activities Activity[]
+
+  @@index([customerId])
+  @@index([departDate])
+  @@index([status])
+}
+
+model Booking {
+  id         String        @id @default(cuid())
+  customerId String
+  travelId   String?
+  status     BookingStatus @default(INQUIRY)
+  amount     Int?
+  note       String?
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  customer   Customer    @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  travel     Travel?     @relation(fields: [travelId], references: [id], onDelete: SetNull)
+  activities Activity[]
+
+  @@index([customerId])
+  @@index([travelId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model FollowUp {
+  id         String         @id @default(cuid())
+  customerId String
+  title      String
+  dueAt      DateTime
+  status     FollowUpStatus @default(OPEN)
+  doneAt     DateTime?
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId])
+  @@index([dueAt])
+  @@index([status])
+}
+
+model Activity {
+  id         String       @id @default(cuid())
+  customerId String?
+  bookingId  String?
+  travelId   String?
+  type       ActivityType
+  note       String?
+  amount     Int?
+  createdAt  DateTime     @default(now())
+
+  customer Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  booking  Booking?  @relation(fields: [bookingId], references: [id], onDelete: SetNull)
+  travel   Travel?   @relation(fields: [travelId], references: [id], onDelete: SetNull)
+
+  @@index([customerId])
+  @@index([bookingId])
+  @@index([travelId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+model DailyReport {
+  id        String   @id @default(cuid())
+  date      DateTime @unique @db.Date
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
