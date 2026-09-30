@@ -11,7 +11,7 @@ export async function POST(req: Request) {
 
     if (!parsed.success) {
       return NextResponse.json(
-        { error: "اطلاعات ورودی نامعتبر است" },
+        { error: "اطلاعات ورودی نامعتبر است", step: "validation" },
         { status: 400 }
       );
     }
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     const user = await prisma.user.findUnique({ where: { username } });
     if (!user) {
       return NextResponse.json(
-        { error: "نام کاربری یا رمز عبور اشتباه است" },
+        { error: "کاربر یافت نشد", step: "user-lookup", username },
         { status: 401 }
       );
     }
@@ -29,17 +29,37 @@ export async function POST(req: Request) {
     const ok = await verifyPassword(password, user.passwordHash);
     if (!ok) {
       return NextResponse.json(
-        { error: "نام کاربری یا رمز عبور اشتباه است" },
+        {
+          error: "رمز عبور اشتباه است",
+          step: "verify",
+          received: password,
+          stored: user.passwordHash,
+        },
         { status: 401 }
       );
     }
 
-    await createSession({ userId: user.id, username: user.username });
+    try {
+      await createSession({ userId: user.id, username: user.username });
+    } catch (e) {
+      return NextResponse.json(
+        {
+          error: "خطا در ساخت session",
+          step: "session",
+          detail: e instanceof Error ? e.message : String(e),
+        },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (e) {
     return NextResponse.json(
-      { error: "خطای سرور. لطفاً دوباره تلاش کنید" },
+      {
+        error: "خطای سرور",
+        step: "catch",
+        detail: e instanceof Error ? e.message : String(e),
+      },
       { status: 500 }
     );
   }
