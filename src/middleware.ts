@@ -11,6 +11,7 @@ const PUBLIC_PATHS = [
   "/api/reset",
   "/api/whoami",
   "/api/checkuser",
+  "/api/admin/baseline",
 ];
 
 function isPublic(pathname: string) {
