@@ -79,7 +79,6 @@ export default async function TodayPage() {
 
   return (
     <div className="space-y-5">
-      {/* سلام */}
       <div className="rounded-2xl bg-white p-5 shadow-sm">
         <div className="flex items-start justify-between">
           <div>
@@ -91,16 +90,23 @@ export default async function TodayPage() {
         </div>
       </div>
 
-      {/* دکمه ثبت فعالیت */}
-      <Link
-        href="/activity/new"
-        className="flex items-center justify-center gap-2 rounded-2xl bg-brand-600 px-4 py-3 font-medium text-white shadow-sm transition active:scale-[0.98]"
-      >
-        <span className="text-lg">＋</span>
-        <span>ثبت فعالیت</span>
-      </Link>
+      <div className="grid grid-cols-2 gap-3">
+        <Link
+          href="/activity/new"
+          className="flex items-center justify-center gap-2 rounded-2xl bg-brand-600 px-4 py-3 font-medium text-white shadow-sm transition active:scale-[0.98]"
+        >
+          <span className="text-lg">＋</span>
+          <span>ثبت فعالیت</span>
+        </Link>
+        <Link
+          href="/customers/new"
+          className="flex items-center justify-center gap-2 rounded-2xl bg-slate-900 px-4 py-3 font-medium text-white shadow-sm transition active:scale-[0.98]"
+        >
+          <span className="text-lg">＋</span>
+          <span>مشتری جدید</span>
+        </Link>
+      </div>
 
-      {/* پیگیری عقب‌افتاده */}
       {overdueCount > 0 && (
         <Link
           href="/followups?filter=overdue"
@@ -111,7 +117,6 @@ export default async function TodayPage() {
         </Link>
       )}
 
-      {/* آمار */}
       <div className="grid grid-cols-2 gap-3">
         <StatCard
           label="تماس امروز"
@@ -141,7 +146,6 @@ export default async function TodayPage() {
         />
       </div>
 
-      {/* پیگیری‌های امروز */}
       <section>
         <div className="mb-2 flex items-center justify-between px-1">
           <h2 className="font-semibold text-slate-800">پیگیری‌های امروز</h2>
@@ -178,7 +182,6 @@ export default async function TodayPage() {
         )}
       </section>
 
-      {/* سفرهای نزدیک */}
       <section>
         <div className="mb-2 flex items-center justify-between px-1">
           <h2 className="font-semibold text-slate-800">سفرهای نزدیک</h2>
@@ -217,7 +220,6 @@ export default async function TodayPage() {
         )}
       </section>
 
-      {/* پیگیری‌های عقب‌افتاده */}
       {overdueCount > 0 && (
         <section>
           <div className="mb-2 flex items-center justify-between px-1">
