@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ACTIVITY_TYPES, getActivityMeta } from "@/lib/activity";
-import type { ActivityType } from "@prisma/client";
+import { CURRENCIES } from "@/lib/format";
+import type { ActivityType, Currency } from "@prisma/client";
 
 type CustomerLite = {
   id: string;
@@ -22,10 +23,10 @@ export default function NewActivityPage() {
   const [customer, setCustomer] = useState<CustomerLite | null>(null);
   const [note, setNote] = useState("");
   const [amount, setAmount] = useState("");
+  const [currency, setCurrency] = useState<Currency>("TOMAN");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // اگر customerId پاس داده شده، مستقیم انتخابش کن
   useEffect(() => {
     if (!presetCustomerId) return;
     (async () => {
@@ -62,6 +63,7 @@ export default function NewActivityPage() {
           customerId: customer.id,
           note,
           amount: amountNumber,
+          currency,
         }),
       });
 
@@ -80,7 +82,6 @@ export default function NewActivityPage() {
     }
   }
 
-  // مرحله ۱: نوع فعالیت
   if (step === "type") {
     return (
       <div className="space-y-4">
@@ -115,25 +116,18 @@ export default function NewActivityPage() {
     );
   }
 
-  // مرحله ۲: انتخاب مشتری
   if (step === "customer") {
     return (
       <CustomerPicker
         onBack={() => setStep("type")}
         onPick={(c) => {
           setCustomer(c);
-          const meta = type ? getActivityMeta(type) : null;
-          if (meta?.needsAmount) {
-            setStep("details");
-          } else {
-            setStep("details");
-          }
+          setStep("details");
         }}
       />
     );
   }
 
-  // مرحله ۳: جزئیات و ذخیره
   const meta = type ? getActivityMeta(type) : null;
 
   return (
@@ -162,19 +156,43 @@ export default function NewActivityPage() {
       </div>
 
       {meta?.needsAmount && (
-        <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">
-            مبلغ (تومان)
-          </span>
-          <input
-            type="text"
-            inputMode="numeric"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="مثلاً ۱۵۰۰۰۰۰۰"
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
-          />
-        </label>
+        <div className="rounded-2xl bg-white p-4 shadow-sm space-y-3">
+          <span className="block text-sm text-slate-600">مبلغ</span>
+
+          {/* Select کشویی واحد پول */}
+          <div className="flex gap-2">
+            <select
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value as Currency)}
+              className="rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            >
+              {CURRENCIES.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
+
+            <input
+              type="text"
+              inputMode="numeric"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder={
+                currency === "TOMAN"
+                  ? "مثلاً 15000000"
+                  : currency === "OMR"
+                    ? "مثلاً 250"
+                    : "مثلاً 500"
+              }
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            />
+          </div>
+
+          <p className="text-xs text-slate-500">
+            واحد پول رو از منوی کشویی انتخاب کن و مبلغ رو وارد کن
+          </p>
+        </div>
       )}
 
       <label className="block">
@@ -275,10 +293,7 @@ function CustomerPicker({
         <div className="rounded-2xl border-2 border-dashed border-slate-200 p-6 text-center text-slate-500">
           مشتری پیدا نشد
           <div className="mt-3">
-            <Link
-              href="/customers/new"
-              className="text-sm text-brand-600"
-            >
+            <Link href="/customers/new" className="text-sm text-brand-600">
               ＋ افزودن مشتری جدید
             </Link>
           </div>
