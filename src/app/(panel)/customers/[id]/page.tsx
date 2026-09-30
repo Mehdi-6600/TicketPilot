@@ -59,7 +59,6 @@ export default async function CustomerDetailPage({ params }: Props) {
         )}
       </div>
 
-      {/* Quick Actions — همه لینک به activity/new با customerId و type */}
       <div className="grid grid-cols-3 gap-2">
         {QUICK_ACTIONS.map((a) => (
           <Link
@@ -80,7 +79,6 @@ export default async function CustomerDetailPage({ params }: Props) {
         </Link>
       </div>
 
-      {/* پیگیری‌ها */}
       <section>
         <h2 className="mb-2 font-semibold text-slate-800">پیگیری‌ها</h2>
         {customer.followUps.length === 0 ? (
@@ -101,7 +99,6 @@ export default async function CustomerDetailPage({ params }: Props) {
         )}
       </section>
 
-      {/* سفرها */}
       <section>
         <h2 className="mb-2 font-semibold text-slate-800">سفرها</h2>
         {customer.travels.length === 0 ? (
@@ -124,7 +121,6 @@ export default async function CustomerDetailPage({ params }: Props) {
         )}
       </section>
 
-      {/* رزروها */}
       <section>
         <h2 className="mb-2 font-semibold text-slate-800">رزروها</h2>
         {customer.bookings.length === 0 ? (
@@ -136,7 +132,7 @@ export default async function CustomerDetailPage({ params }: Props) {
                 <div className="flex items-center justify-between">
                   <span className="font-medium">{b.status}</span>
                   <span className="text-xs text-slate-500">
-                    {formatAmount(b.amount)}
+                    {formatAmount(b.amount, b.currency)}
                   </span>
                 </div>
               </li>
@@ -145,7 +141,6 @@ export default async function CustomerDetailPage({ params }: Props) {
         )}
       </section>
 
-      {/* فعالیت‌ها */}
       <section>
         <h2 className="mb-2 font-semibold text-slate-800">فعالیت‌ها</h2>
         {customer.activities.length === 0 ? (
@@ -169,7 +164,7 @@ export default async function CustomerDetailPage({ params }: Props) {
                   )}
                   {a.amount !== null && (
                     <div className="mt-1 text-sm font-medium text-emerald-700">
-                      {formatAmount(a.amount)}
+                      {formatAmount(a.amount, a.currency)}
                     </div>
                   )}
                 </li>
