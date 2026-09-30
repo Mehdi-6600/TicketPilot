@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const { type, customerId, note, amount } = parsed.data;
+    const { type, customerId, note, amount, currency } = parsed.data;
 
     const activity = await prisma.activity.create({
       data: {
@@ -22,6 +22,7 @@ export async function POST(req: Request) {
         customerId,
         note: note?.trim() || null,
         amount: amount ?? null,
+        currency,
       },
     });
 
