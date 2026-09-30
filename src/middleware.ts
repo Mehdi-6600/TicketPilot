@@ -5,38 +5,25 @@ const COOKIE_NAME = "tp_session";
 
 const PUBLIC_PATHS = [
   "/login",
-  "/api/auth/signin",
-  "/api/auth/logout",
+  "/api/auth/login",
+  "/api/setup",
+  "/api/reset",
+  "/api/whoami",
+  "/api/checkuser",
 ];
 
-function isPublic(pathname: string): boolean {
+function isPublic(pathname: string) {
   return PUBLIC_PATHS.some(
-    (path) => pathname === path || pathname.startsWith(`${path}/`)
+    (p) => pathname === p || pathname.startsWith(p + "/")
   );
 }
 
-async function isValidSession(
-  token: string | undefined
-): Promise<boolean> {
-  if (!token) {
-    return false;
-  }
-
+async function isValidSession(token: string | undefined): Promise<boolean> {
+  if (!token) return false;
   const secret = process.env.SESSION_SECRET;
-
-  if (!secret || secret.length < 16) {
-    return false;
-  }
-
+  if (!secret) return false;
   try {
-    await jwtVerify(
-      token,
-      new TextEncoder().encode(secret),
-      {
-        algorithms: ["HS256"],
-      }
-    );
-
+    await jwtVerify(token, new TextEncoder().encode(secret));
     return true;
   } catch {
     return false;
@@ -45,49 +32,31 @@ async function isValidSession(
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-
-  const publicPath = isPublic(pathname);
-
-  if (publicPath) {
-    if (pathname === "/login") {
-      const token = req.cookies.get(COOKIE_NAME)?.value;
-      const valid = await isValidSession(token);
-
-      if (valid) {
-        return NextResponse.redirect(
-          new URL("/today", req.url)
-        );
-      }
-    }
-
-    return NextResponse.next();
-  }
-
   const token = req.cookies.get(COOKIE_NAME)?.value;
   const valid = await isValidSession(token);
 
+  if (pathname === "/login" && valid) {
+    return NextResponse.redirect(new URL("/today", req.url));
+  }
+
+  if (isPublic(pathname)) {
+    return NextResponse.next();
+  }
+
   if (pathname.startsWith("/api/")) {
     if (!valid) {
-      return NextResponse.json(
-        { error: "unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "unauthorized" }, { status: 401 });
     }
-
     return NextResponse.next();
   }
 
   if (!valid) {
-    return NextResponse.redirect(
-      new URL("/login", req.url)
-    );
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|robots.txt).*)",
-  ],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|robots.txt).*)"],
 };
