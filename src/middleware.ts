@@ -6,6 +6,7 @@ const COOKIE_NAME = "tp_session";
 const PUBLIC_PATHS = [
   "/login",
   "/api/auth/login",
+  "/api/auth/logout",
   "/api/setup",
   "/api/reset",
   "/api/whoami",
