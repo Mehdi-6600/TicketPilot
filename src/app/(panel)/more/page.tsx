@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const ITEMS = [
+  { href: "/plan", label: "برنامه کاری", icon: "📋" },
   { href: "/travelers", label: "مسافران در سفر", icon: "✈️" },
   { href: "/reports", label: "گزارش روز", icon: "📝" },
   { href: "/settings", label: "تنظیمات", icon: "⚙️" },
