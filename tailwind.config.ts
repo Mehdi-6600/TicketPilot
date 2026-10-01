@@ -8,32 +8,25 @@ const config: Config = {
         sans: ["Vazirmatn", "system-ui", "sans-serif"],
       },
       colors: {
-        // iOS System Colors (Sharp)
+        // پالت نرم از تصویر مرجع
+        soft: {
+          cobalt: "#2563EB",   // آبی اصلی
+          sky: "#3B82F6",
+          mist: "#E0E7FF",     // آبی خیلی روشن
+          ivory: "#F8FAFC",    // سفید مایل به آبی خیلی کم
+          charcoal: "#1E293B",
+        },
         ios: {
-          blue: "#007AFF",
+          blue: "#2563EB",
           green: "#34C759",
           orange: "#FF9500",
           red: "#FF3B30",
           gray: "#8E8E93",
-          grayLight: "#C7C7CC",
+          grayLight: "#E2E8F0",
         },
-        // Pastel palette for cards
-        pastel: {
-          lavender: "#EDE9FE",
-          lavenderLight: "#F5F3FF",
-          pink: "#FCE7F3",
-          pinkLight: "#FDF2F8",
-          blue: "#DBEAFE",
-          blueLight: "#EFF6FF",
-          peach: "#FED7AA",
-          peachLight: "#FFF7ED",
-          mint: "#D1FAE5",
-          mintLight: "#ECFDF5",
-        },
-        // Text colors
         ink: {
-          DEFAULT: "#1E1B4B",
-          soft: "#4C1D95",
+          DEFAULT: "#1E293B",
+          soft: "#334155",
           muted: "#64748B",
         },
       },
@@ -43,33 +36,28 @@ const config: Config = {
         "3xl": "1.5rem",
       },
       boxShadow: {
-        soft: "0 4px 20px rgba(30, 27, 75, 0.06)",
-        card: "0 2px 12px rgba(30, 27, 75, 0.08), 0 1px 3px rgba(30, 27, 75, 0.04)",
-        "card-hover":
-          "0 8px 28px rgba(30, 27, 75, 0.12), 0 2px 6px rgba(30, 27, 75, 0.06)",
-        "inner-soft":
-          "inset 0 2px 6px rgba(30, 27, 75, 0.06), inset 0 1px 2px rgba(30, 27, 75, 0.04)",
-        glow: "0 0 20px rgba(139, 92, 246, 0.25)",
+        // سایه برجسته (raised) برای کارت و آیکون
+        raised:
+          "8px 8px 16px rgba(148, 163, 184, 0.25), -8px -8px 16px rgba(255, 255, 255, 0.9)",
+        "raised-sm":
+          "4px 4px 10px rgba(148, 163, 184, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.85)",
+        "raised-lg":
+          "12px 12px 24px rgba(148, 163, 184, 0.28), -12px -12px 24px rgba(255, 255, 255, 0.95)",
+
+        // سایه فرورفته (inset) برای اینپوت‌ها
+        inset:
+          "inset 6px 6px 12px rgba(148, 163, 184, 0.25), inset -6px -6px 12px rgba(255, 255, 255, 0.9)",
+        "inset-sm":
+          "inset 3px 3px 6px rgba(148, 163, 184, 0.2), inset -3px -3px 6px rgba(255, 255, 255, 0.85)",
+
+        // سایه‌های قبلی (اگر هنوز استفاده می‌کنی نگه دار)
+        soft: "0 4px 20px rgba(30, 41, 59, 0.06)",
+        card: "0 2px 12px rgba(30, 41, 59, 0.08)",
       },
       backgroundImage: {
-        "app-gradient":
-          "linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 25%, #FCE7F3 55%, #DBEAFE 100%)",
-        "card-gradient":
-          "linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%)",
-      },
-      keyframes: {
-        "pulse-fast": {
-          "0%, 100%": { opacity: "1", transform: "scale(1)" },
-          "50%": { opacity: "0.4", transform: "scale(1.4)" },
-        },
-        "fade-in-up": {
-          "0%": { opacity: "0", transform: "translateY(8px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-      },
-      animation: {
-        "pulse-fast": "pulse-fast 1.2s ease-in-out infinite",
-        "fade-in-up": "fade-in-up 250ms ease-out",
+        // پس‌زمینه سفید با فیلتر آبی خیلی ملایم
+        "app-soft":
+          "linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 50%, #F8FAFC 100%)",
       },
     },
   },
