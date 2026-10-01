@@ -8,12 +8,11 @@ const config: Config = {
         sans: ["Vazirmatn", "system-ui", "sans-serif"],
       },
       colors: {
-        // پالت نرم از تصویر مرجع
         soft: {
-          cobalt: "#2563EB",   // آبی اصلی
+          cobalt: "#2563EB",
           sky: "#3B82F6",
-          mist: "#E0E7FF",     // آبی خیلی روشن
-          ivory: "#F8FAFC",    // سفید مایل به آبی خیلی کم
+          mist: "#E0E7FF",
+          ivory: "#F8FAFC",
           charcoal: "#1E293B",
         },
         ios: {
@@ -36,26 +35,20 @@ const config: Config = {
         "3xl": "1.5rem",
       },
       boxShadow: {
-        // سایه برجسته (raised) برای کارت و آیکون
         raised:
           "8px 8px 16px rgba(148, 163, 184, 0.25), -8px -8px 16px rgba(255, 255, 255, 0.9)",
         "raised-sm":
           "4px 4px 10px rgba(148, 163, 184, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.85)",
         "raised-lg":
           "12px 12px 24px rgba(148, 163, 184, 0.28), -12px -12px 24px rgba(255, 255, 255, 0.95)",
-
-        // سایه فرورفته (inset) برای اینپوت‌ها
         inset:
           "inset 6px 6px 12px rgba(148, 163, 184, 0.25), inset -6px -6px 12px rgba(255, 255, 255, 0.9)",
         "inset-sm":
           "inset 3px 3px 6px rgba(148, 163, 184, 0.2), inset -3px -3px 6px rgba(255, 255, 255, 0.85)",
-
-        // سایه‌های قبلی (اگر هنوز استفاده می‌کنی نگه دار)
         soft: "0 4px 20px rgba(30, 41, 59, 0.06)",
         card: "0 2px 12px rgba(30, 41, 59, 0.08)",
       },
       backgroundImage: {
-        // پس‌زمینه سفید با فیلتر آبی خیلی ملایم
         "app-soft":
           "linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 50%, #F8FAFC 100%)",
       },
