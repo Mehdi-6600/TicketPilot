@@ -56,11 +56,27 @@ export default function TravelItem({
     }
   }
 
+  const needsAction =
+    currentStatus === "BOOKED" || currentStatus === "TICKETED";
+  const isInTrip = currentStatus === "IN_TRIP";
+  const isDone =
+    currentStatus === "RETURNED" || currentStatus === "COMPLETED";
+
   return (
-    <div className="rounded-2xl bg-white p-4 shadow-sm">
+    <div className="relative rounded-2xl bg-white p-4 shadow-sm">
+      {needsAction && (
+        <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-amber-500" />
+      )}
+      {isInTrip && (
+        <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-red-500" />
+      )}
+      {isDone && (
+        <span className="absolute right-3 top-3 h-2.5 w-2.5 rounded-full bg-emerald-500" />
+      )}
+
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1">
-          <div className="font-medium text-slate-900">
+          <div className="pr-5 font-medium text-slate-900">
             {from} → {to}
           </div>
 
