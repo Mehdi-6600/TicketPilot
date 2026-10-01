@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Search, X } from "lucide-react";
 
 type Customer = { id: string; name: string; phone: string };
 type Booking = {
@@ -75,50 +76,56 @@ export default function GlobalSearch() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="rounded-lg px-2 py-1 text-slate-600 transition hover:bg-slate-100"
+        className="rounded-xl p-2 text-ink-muted transition-all duration-150 hover:bg-white/60 active:scale-95"
         aria-label="جستجو"
       >
-        🔍
+        <Search size={20} strokeWidth={2} />
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 p-4 pt-20">
+        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 p-4 pt-20 backdrop-blur-sm">
           <div
-            className="w-full max-w-lg rounded-2xl bg-white p-4 shadow-xl"
+            className="w-full max-w-lg rounded-3xl border border-white/60 bg-white/95 p-4 shadow-card backdrop-blur-xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-3 flex items-center gap-2">
-              <input
-                type="text"
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-                placeholder="جستجو در مشتریان، رزروها، سفرها..."
-                autoFocus
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-brand-500 focus:bg-white"
-              />
+              <div className="relative flex-1">
+                <Search
+                  size={18}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-muted"
+                />
+                <input
+                  type="text"
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                  placeholder="جستجو در مشتریان، رزروها، سفرها..."
+                  autoFocus
+                  className="input-soft pr-10"
+                />
+              </div>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="rounded-xl bg-slate-100 px-3 py-2 text-sm text-slate-700"
+                className="btn-ios-gray px-3 py-2.5"
               >
-                بستن
+                <X size={18} />
               </button>
             </div>
 
             {q.trim().length < 2 && (
-              <p className="py-4 text-center text-sm text-slate-500">
+              <p className="py-4 text-center text-sm text-ink-muted">
                 حداقل ۲ حرف بنویس
               </p>
             )}
 
             {loading && (
-              <p className="py-3 text-center text-sm text-slate-500">
+              <p className="py-3 text-center text-sm text-ink-muted">
                 در حال جستجو...
               </p>
             )}
 
             {empty && (
-              <p className="py-4 text-center text-sm text-slate-500">
+              <p className="py-4 text-center text-sm text-ink-muted">
                 نتیجه‌ای پیدا نشد
               </p>
             )}
@@ -126,7 +133,7 @@ export default function GlobalSearch() {
             <div className="max-h-[60vh] space-y-3 overflow-y-auto">
               {customers.length > 0 && (
                 <div>
-                  <div className="mb-1 px-1 text-xs font-medium text-slate-500">
+                  <div className="mb-1 px-1 text-xs font-medium text-ink-muted">
                     مشتریان
                   </div>
                   <ul className="space-y-1">
@@ -135,10 +142,10 @@ export default function GlobalSearch() {
                         <Link
                           href={`/customers/${c.id}`}
                           onClick={() => setOpen(false)}
-                          className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-sm hover:bg-slate-100"
+                          className="flex items-center justify-between rounded-2xl bg-pastel-lavenderLight px-3 py-2.5 text-sm transition-all duration-150 hover:bg-pastel-lavender active:scale-[0.98]"
                         >
-                          <span>👤 {c.name}</span>
-                          <span className="text-xs text-slate-500">
+                          <span className="text-ink">👤 {c.name}</span>
+                          <span className="text-xs text-ink-muted">
                             {c.phone}
                           </span>
                         </Link>
@@ -150,7 +157,7 @@ export default function GlobalSearch() {
 
               {bookings.length > 0 && (
                 <div>
-                  <div className="mb-1 px-1 text-xs font-medium text-slate-500">
+                  <div className="mb-1 px-1 text-xs font-medium text-ink-muted">
                     رزروها
                   </div>
                   <ul className="space-y-1">
@@ -159,11 +166,11 @@ export default function GlobalSearch() {
                         <Link
                           href={`/customers/${b.customer.id}`}
                           onClick={() => setOpen(false)}
-                          className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-sm hover:bg-slate-100"
+                          className="flex items-center justify-between rounded-2xl bg-pastel-pinkLight px-3 py-2.5 text-sm transition-all duration-150 hover:bg-pastel-pink active:scale-[0.98]"
                         >
-                          <span>🎫 {b.customer.name}</span>
+                          <span className="text-ink">🎫 {b.customer.name}</span>
                           {b.travel && (
-                            <span className="text-xs text-slate-500">
+                            <span className="text-xs text-ink-muted">
                               {b.travel.from} → {b.travel.to}
                             </span>
                           )}
@@ -176,7 +183,7 @@ export default function GlobalSearch() {
 
               {travels.length > 0 && (
                 <div>
-                  <div className="mb-1 px-1 text-xs font-medium text-slate-500">
+                  <div className="mb-1 px-1 text-xs font-medium text-ink-muted">
                     سفرها
                   </div>
                   <ul className="space-y-1">
@@ -185,10 +192,10 @@ export default function GlobalSearch() {
                         <Link
                           href={`/customers/${t.customer.id}`}
                           onClick={() => setOpen(false)}
-                          className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-sm hover:bg-slate-100"
+                          className="flex items-center justify-between rounded-2xl bg-pastel-blueLight px-3 py-2.5 text-sm transition-all duration-150 hover:bg-pastel-blue active:scale-[0.98]"
                         >
-                          <span>✈️ {t.from} → {t.to}</span>
-                          <span className="text-xs text-slate-500">
+                          <span className="text-ink">✈️ {t.from} → {t.to}</span>
+                          <span className="text-xs text-ink-muted">
                             {t.customer.name}
                           </span>
                         </Link>
