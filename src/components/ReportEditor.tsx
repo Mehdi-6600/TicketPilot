@@ -9,49 +9,22 @@ type Props = {
   initialContent: string;
 };
 
-// تبدیل markdown-lite به HTML ایمن برای پیش‌نمایش بولد
-function renderPreview(content: string): string {
-  const escapeHtml = (s: string) =>
-    s
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
 
+function renderPreview(content: string): string {
   const lines = content.split("\n");
   const out: string[] = [];
 
   for (const raw of lines) {
-    const line = escapeHtml(raw);
-
     // خط جداکننده
-    if (/^━{3,}$/.test(raw.trim())) {
+    if (/^▬{3,}$/.test(raw.trim())) {
       out.push(
-        `<div style="border-top:2px solid #cbd5e1;margin:14px 0;"></div>`
-      );
-      continue;
-    }
-
-    // تیتر بخش: شروع با عدد فارسی + ) مثل ۱) یا ۲)
-    // یا خطی که با 📊/📞/🔍/🔔/🎫/✈️/📝/⚠️/📅 شروع می‌شود
-    const isSectionHeader =
-      /^[\u06F0-\u06F9\d]+\)/.test(raw.trim()) ||
-      /^(📊|📞|🔍|🔔|🎫|✈️|📝|⚠️|📅|💵|💰|📌|🛫|✅|🕐|🚨|📋|🔴|✍️|🇮🇷|🇴🇲|🇺🇸)/.test(
-        raw.trim()
-      );
-
-    // تیتر اصلی (گزارش کار ...)
-    const isMainTitle = raw.startsWith("🛫");
-
-    if (isMainTitle) {
-      out.push(
-        `<div style="font-size:18px;font-weight:800;color:#0f172a;margin:6px 0;">${line}</div>`
-      );
-      continue;
-    }
-
-    if (isSectionHeader) {
-      out.push(
-        `<div style="font-weight:800;color:#1e293b;margin:8px 0 4px 0;">${line}</div>`
+        `<div style="border-top:1px solid #cbd5e1;margin:10px 0;width:60%;"></div>`
       );
       continue;
     }
@@ -61,12 +34,26 @@ function renderPreview(content: string): string {
       continue;
     }
 
-    // سایر خطوط — با حفظ فاصله ابتدای خط
+    // بولد: **متن**
+    const boldMatch = raw.match(/^\*\*(.+)\*\*\s*$/);
+    if (boldMatch) {
+      out.push(
+        `<div style="font-weight:800;color:#0f172a;margin:6px 0;font-size:15px;">${escapeHtml(
+          boldMatch[1]
+        )}</div>`
+      );
+      continue;
+    }
+
+    // خطوط عادی
     const leading = raw.match(/^\s*/)?.[0] ?? "";
     const indent = leading.replace(/\t/g, "    ").length;
     const padding = Math.min(indent, 12) * 6;
+
     out.push(
-      `<div style="padding-right:${padding}px;margin:2px 0;">${line.trimStart()}</div>`
+      `<div style="padding-right:${padding}px;margin:2px 0;">${escapeHtml(
+        raw.trimStart()
+      )}</div>`
     );
   }
 
@@ -109,8 +96,10 @@ export default function ReportEditor({
   }
 
   async function onCopy() {
+    // حذف ** از متن برای کپی تمیز
+    const clean = content.replace(/\*\*/g, "");
     try {
-      await navigator.clipboard.writeText(content);
+      await navigator.clipboard.writeText(clean);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -154,7 +143,6 @@ export default function ReportEditor({
         </Link>
       </div>
 
-      {/* تب‌های حالت */}
       <div className="flex gap-2">
         <button
           type="button"
