@@ -73,3 +73,27 @@ export const travelSchema = z.object({
 });
 
 export type TravelInput = z.infer<typeof travelSchema>;
+
+export const bookingStatusEnum = z.enum([
+  "INQUIRY",
+  "PRICE_QUOTED",
+  "WAITING_CUSTOMER",
+  "BOOKED",
+  "TICKETED",
+  "SOLD",
+  "CANCELED",
+]);
+
+export const bookingSchema = z.object({
+  customerId: z.string().min(1, "مشتری الزامی است"),
+  travelId: z.string().optional().or(z.literal("")),
+  status: bookingStatusEnum.default("INQUIRY"),
+  amount: z
+    .union([z.number().int().nonnegative(), z.null()])
+    .optional()
+    .transform((v) => (v === undefined ? null : v)),
+  currency: currencyEnum.default("TOMAN"),
+  note: z.string().max(500).optional().or(z.literal("")),
+});
+
+export type BookingInput = z.infer<typeof bookingSchema>;
