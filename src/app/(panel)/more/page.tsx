@@ -4,6 +4,7 @@ const ITEMS = [
   { href: "/plan", label: "برنامه کاری", icon: "📋" },
   { href: "/travelers", label: "مسافران در سفر", icon: "✈️" },
   { href: "/reports", label: "گزارش روز", icon: "📝" },
+  { href: "/sales", label: "فروش ۳۰ روز اخیر", icon: "📊" },
   { href: "/settings", label: "تنظیمات", icon: "⚙️" },
 ];
 
