@@ -9,6 +9,7 @@ import {
   TRAVEL_STATUS_COLORS,
   TRAVEL_STATUSES,
 } from "@/lib/travel";
+import ConfirmDelete from "@/components/ConfirmDelete";
 import type { TravelStatus } from "@prisma/client";
 
 type Props = {
@@ -77,9 +78,7 @@ export default function TravelItem({
             </Link>
           )}
 
-          {note && (
-            <div className="mt-2 text-sm text-slate-600">{note}</div>
-          )}
+          {note && <div className="mt-2 text-sm text-slate-600">{note}</div>}
 
           <div className="mt-2">
             <span
@@ -91,6 +90,16 @@ export default function TravelItem({
             </span>
           </div>
         </div>
+      </div>
+
+      <div className="mt-3 flex items-center justify-end gap-2">
+        <Link
+          href={`/travelers/${id}/edit`}
+          className="rounded-xl bg-slate-100 px-3 py-1.5 text-xs text-slate-700"
+        >
+          ✏️ ویرایش
+        </Link>
+        <ConfirmDelete url={`/api/travels/${id}`} />
       </div>
 
       <div className="mt-3 flex flex-wrap gap-1.5">
