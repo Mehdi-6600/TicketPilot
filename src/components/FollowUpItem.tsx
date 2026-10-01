@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toPersianDateTime } from "@/lib/date";
+import ContactSheet from "@/components/ContactSheet";
+import ConfirmDelete from "@/components/ConfirmDelete";
 
 type Props = {
   id: string;
@@ -91,12 +93,18 @@ export default function FollowUpItem({
           <div className="mt-1 text-xs text-slate-500">
             {toPersianDateTime(new Date(dueAt))}
           </div>
-          <Link
-            href={`/customers/${customer.id}`}
-            className="mt-1 block text-sm text-slate-600"
-          >
-            {customer.name} — {customer.phone}
-          </Link>
+          <div className="mt-1 flex items-center gap-2 text-sm text-slate-600">
+            <Link href={`/customers/${customer.id}`}>
+              {customer.name}
+            </Link>
+            <ContactSheet
+              phone={customer.phone}
+              customerName={customer.name}
+              className="text-brand-700 underline decoration-dotted"
+            >
+              {customer.phone}
+            </ContactSheet>
+          </div>
         </div>
 
         <div className="flex flex-col gap-2">
@@ -120,6 +128,13 @@ export default function FollowUpItem({
               بازگردانی
             </button>
           )}
+          <Link
+            href={`/followups/${id}/edit`}
+            className="rounded-xl bg-slate-100 px-3 py-1.5 text-center text-xs text-slate-700"
+          >
+            ✏️ ویرایش
+          </Link>
+          <ConfirmDelete url={`/api/followups/${id}`} />
         </div>
       </div>
     </div>
