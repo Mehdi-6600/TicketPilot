@@ -3,6 +3,7 @@ import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import StatCard from "@/components/StatCard";
 import EmptyState from "@/components/EmptyState";
+import ContactSheet from "@/components/ContactSheet";
 import {
   startOfTodayTehran,
   endOfTodayTehran,
@@ -189,8 +190,15 @@ export default async function TodayPage() {
                     {toPersianDateTime(f.dueAt)}
                   </div>
                 </div>
-                <div className="mt-1 text-sm text-slate-500">
-                  {f.customer.name} — {f.customer.phone}
+                <div className="mt-1 flex items-center gap-2 text-sm text-slate-500">
+                  <span>{f.customer.name}</span>
+                  <ContactSheet
+                    phone={f.customer.phone}
+                    customerName={f.customer.name}
+                    className="text-brand-700"
+                  >
+                    {f.customer.phone}
+                  </ContactSheet>
                 </div>
               </li>
             ))}
@@ -227,8 +235,15 @@ export default async function TodayPage() {
                     {toPersianDateTime(t.departDate)}
                   </div>
                 </div>
-                <div className="mt-1 text-sm text-slate-500">
-                  {t.customer.name} — {t.customer.phone}
+                <div className="mt-1 flex items-center gap-2 text-sm text-slate-500">
+                  <span>{t.customer.name}</span>
+                  <ContactSheet
+                    phone={t.customer.phone}
+                    customerName={t.customer.name}
+                    className="text-brand-700"
+                  >
+                    {t.customer.phone}
+                  </ContactSheet>
                 </div>
               </li>
             ))}
@@ -256,8 +271,15 @@ export default async function TodayPage() {
                     {toPersianDateTime(f.dueAt)}
                   </div>
                 </div>
-                <div className="mt-1 text-sm text-amber-800">
-                  {f.customer.name} — {f.customer.phone}
+                <div className="mt-1 flex items-center gap-2 text-sm text-amber-800">
+                  <span>{f.customer.name}</span>
+                  <ContactSheet
+                    phone={f.customer.phone}
+                    customerName={f.customer.name}
+                    className="underline decoration-dotted"
+                  >
+                    {f.customer.phone}
+                  </ContactSheet>
                 </div>
               </li>
             ))}
