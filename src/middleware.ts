@@ -13,6 +13,7 @@ const PUBLIC_PATHS = [
   "/api/checkuser",
   "/api/admin/baseline",
   "/api/admin/apply-currency",
+  "/api/debug",
 ];
 
 function isPublic(pathname: string) {
