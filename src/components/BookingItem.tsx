@@ -10,6 +10,7 @@ import {
   BOOKING_STATUS_COLORS,
   BOOKING_STATUSES,
 } from "@/lib/booking";
+import ConfirmDelete from "@/components/ConfirmDelete";
 import type { BookingStatus } from "@prisma/client";
 
 type Props = {
@@ -98,6 +99,16 @@ export default function BookingItem({
 
           {note && <div className="mt-2 text-sm text-slate-600">{note}</div>}
         </div>
+      </div>
+
+      <div className="mt-3 flex items-center justify-end gap-2">
+        <Link
+          href={`/bookings/${id}/edit`}
+          className="rounded-xl bg-slate-100 px-3 py-1.5 text-xs text-slate-700"
+        >
+          ✏️ ویرایش
+        </Link>
+        <ConfirmDelete url={`/api/bookings/${id}`} />
       </div>
 
       <div className="mt-3 flex flex-wrap gap-1.5">
