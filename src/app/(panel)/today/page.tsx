@@ -107,6 +107,14 @@ export default async function TodayPage() {
         </Link>
       </div>
 
+      <Link
+        href="/reports/new"
+        className="flex items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-4 py-3 font-medium text-white shadow-sm transition active:scale-[0.98]"
+      >
+        <span className="text-lg">📝</span>
+        <span>گزارش روز را بنویس</span>
+      </Link>
+
       {overdueCount > 0 && (
         <Link
           href="/followups?filter=overdue"
