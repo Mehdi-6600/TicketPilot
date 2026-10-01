@@ -60,11 +60,29 @@ export default function BookingItem({
     }
   }
 
+  const needsAction =
+    currentStatus === "INQUIRY" ||
+    currentStatus === "PRICE_QUOTED" ||
+    currentStatus === "WAITING_CUSTOMER";
+
+  const isDone = currentStatus === "SOLD";
+  const isCanceled = currentStatus === "CANCELED";
+
   return (
-    <div className="rounded-2xl bg-white p-4 shadow-sm">
+    <div className="relative rounded-2xl bg-white p-4 shadow-sm">
+      {needsAction && (
+        <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-amber-500" />
+      )}
+      {isDone && (
+        <span className="absolute right-3 top-3 h-2.5 w-2.5 rounded-full bg-emerald-500" />
+      )}
+      {isCanceled && (
+        <span className="absolute right-3 top-3 h-2.5 w-2.5 rounded-full bg-slate-400" />
+      )}
+
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 pr-5">
             <span
               className={`inline-block rounded-lg px-2 py-0.5 text-xs ${
                 BOOKING_STATUS_COLORS[currentStatus]
