@@ -23,85 +23,89 @@
 }
 
 @layer components {
-  /* کارت برجسته */
-  .soft-card {
-    @apply rounded-3xl bg-white p-4 transition-all duration-200;
+  /* ========== کارت‌های برجسته (برای همه جا) ========== */
+  .soft-card,
+  .rounded-2xl.bg-white,
+  .rounded-3xl.bg-white {
     box-shadow: 8px 8px 16px rgba(148, 163, 184, 0.22),
-                -8px -8px 16px rgba(255, 255, 255, 0.9);
+                -8px -8px 16px rgba(255, 255, 255, 0.9) !important;
+    border: none !important;
   }
 
-  .soft-card:hover {
+  .soft-card:hover,
+  .rounded-2xl.bg-white:hover,
+  .rounded-3xl.bg-white:hover {
     box-shadow: 10px 10px 20px rgba(148, 163, 184, 0.28),
-                -10px -10px 20px rgba(255, 255, 255, 0.95);
+                -10px -10px 20px rgba(255, 255, 255, 0.95) !important;
   }
 
-  .soft-card:active {
-    @apply scale-[0.985];
-  }
-
-  /* آیکون / دکمه کوچک برجسته */
-  .soft-icon {
-    @apply rounded-2xl bg-white transition-all duration-150;
-    box-shadow: 4px 4px 10px rgba(148, 163, 184, 0.2),
-                -4px -4px 10px rgba(255, 255, 255, 0.85);
-  }
-
-  .soft-icon:active {
-    box-shadow: inset 3px 3px 6px rgba(148, 163, 184, 0.2),
-                inset -3px -3px 6px rgba(255, 255, 255, 0.85);
-  }
-
-  /* اینپوت فرورفته */
-  .input-soft {
-    @apply w-full rounded-2xl bg-slate-100/80 px-4 py-3 text-ink outline-none transition-all duration-200 placeholder:text-ink-muted;
-    box-shadow: inset 5px 5px 10px rgba(148, 163, 184, 0.22),
-                inset -5px -5px 10px rgba(255, 255, 255, 0.9);
-  }
-
-  .input-soft:focus {
-    @apply bg-white;
-    box-shadow: inset 6px 6px 12px rgba(37, 99, 235, 0.12),
-                inset -6px -6px 12px rgba(255, 255, 255, 0.95);
-  }
-
-  /* دکمه اصلی */
-  .btn-soft-primary {
-    @apply rounded-2xl bg-soft-cobalt px-5 py-3 font-medium text-white transition-all duration-150;
-    box-shadow: 6px 6px 12px rgba(37, 99, 235, 0.25),
-                -4px -4px 10px rgba(255, 255, 255, 0.4);
-  }
-
-  .btn-soft-primary:active {
-    @apply scale-[0.97];
-    box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.15);
-  }
-
-  /* دکمه ثانویه */
-  .btn-soft-secondary {
-    @apply rounded-2xl bg-white px-5 py-3 font-medium text-ink transition-all duration-150;
+  /* ========== StatPill و کارت‌های کوچک ========== */
+  .shadow-sm {
     box-shadow: 5px 5px 12px rgba(148, 163, 184, 0.2),
-                -5px -5px 12px rgba(255, 255, 255, 0.9);
+                -5px -5px 12px rgba(255, 255, 255, 0.85) !important;
   }
 
-  .btn-soft-secondary:active {
-    box-shadow: inset 3px 3px 6px rgba(148, 163, 184, 0.2),
-                inset -3px -3px 6px rgba(255, 255, 255, 0.85);
+  /* ========== اینپوت فرورفته ========== */
+  .input-soft,
+  input[type="text"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="email"],
+  input[type="number"],
+  input[type="password"],
+  textarea,
+  select {
+    box-shadow: inset 5px 5px 10px rgba(148, 163, 184, 0.22),
+                inset -5px -5px 10px rgba(255, 255, 255, 0.9) !important;
+    border: none !important;
+    background-color: #f1f5f9 !important;
   }
 
-  /* ناوبری پایین */
-  .soft-nav {
-    @apply rounded-3xl bg-white px-2 py-2;
-    box-shadow: 8px 8px 20px rgba(148, 163, 184, 0.25),
-                -8px -8px 20px rgba(255, 255, 255, 0.9);
+  input:focus,
+  textarea:focus,
+  select:focus {
+    box-shadow: inset 6px 6px 12px rgba(37, 99, 235, 0.12),
+                inset -6px -6px 12px rgba(255, 255, 255, 0.95) !important;
+    background-color: white !important;
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  /* ========== دکمه‌های اصلی (آبی) ========== */
+  .btn-soft-primary,
+  a.bg-brand-600,
+  button.bg-brand-600,
+  a.bg-ios-blue,
+  button.bg-ios-blue {
+    box-shadow: 6px 6px 14px rgba(37, 99, 235, 0.3),
+                -3px -3px 8px rgba(255, 255, 255, 0.4) !important;
+  }
+
+  /* ========== دکمه‌های تیره ========== */
+  a.bg-slate-900,
+  button.bg-slate-900 {
+    box-shadow: 6px 6px 14px rgba(15, 23, 42, 0.3),
+                -3px -3px 8px rgba(255, 255, 255, 0.3) !important;
+  }
+
+  /* ========== دکمه‌های سبز ========== */
+  a.bg-emerald-600,
+  button.bg-emerald-600 {
+    box-shadow: 6px 6px 14px rgba(5, 150, 105, 0.3),
+                -3px -3px 8px rgba(255, 255, 255, 0.3) !important;
+  }
+
+  /* ========== ناوبری پایین ========== */
+  nav.fixed.bottom-0 {
+    box-shadow: 0 -8px 24px rgba(148, 163, 184, 0.2) !important;
+    background: white !important;
+    border-top: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* ========== هدر ========== */
+  header.sticky {
+    box-shadow: 0 4px 16px rgba(148, 163, 184, 0.15) !important;
+    background: white !important;
+    border-bottom: none !important;
+    backdrop-filter: none !important;
   }
 }
