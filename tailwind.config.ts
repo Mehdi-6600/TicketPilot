@@ -8,12 +8,8 @@ const config: Config = {
         sans: ["Vazirmatn", "system-ui", "sans-serif"],
       },
       colors: {
-        soft: {
-          cobalt: "#2563EB",
-          sky: "#3B82F6",
-          mist: "#E0E7FF",
-          ivory: "#F8FAFC",
-          charcoal: "#1E293B",
+        brand: {
+          600: "#2563EB",
         },
         ios: {
           blue: "#2563EB",
@@ -35,22 +31,12 @@ const config: Config = {
         "3xl": "1.5rem",
       },
       boxShadow: {
-        raised:
-          "8px 8px 16px rgba(148, 163, 184, 0.25), -8px -8px 16px rgba(255, 255, 255, 0.9)",
-        "raised-sm":
-          "4px 4px 10px rgba(148, 163, 184, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.85)",
-        "raised-lg":
-          "12px 12px 24px rgba(148, 163, 184, 0.28), -12px -12px 24px rgba(255, 255, 255, 0.95)",
-        inset:
-          "inset 6px 6px 12px rgba(148, 163, 184, 0.25), inset -6px -6px 12px rgba(255, 255, 255, 0.9)",
-        "inset-sm":
-          "inset 3px 3px 6px rgba(148, 163, 184, 0.2), inset -3px -3px 6px rgba(255, 255, 255, 0.85)",
-        soft: "0 4px 20px rgba(30, 41, 59, 0.06)",
-        card: "0 2px 12px rgba(30, 41, 59, 0.08)",
+        soft: "6px 6px 12px rgba(163, 177, 198, 0.4), -6px -6px 12px rgba(255, 255, 255, 0.9)",
+        "soft-sm": "4px 4px 10px rgba(163, 177, 198, 0.3), -4px -4px 10px rgba(255, 255, 255, 0.9)",
+        inset: "inset 4px 4px 8px rgba(163, 177, 198, 0.35), inset -4px -4px 8px rgba(255, 255, 255, 0.9)",
       },
       backgroundImage: {
-        "app-soft":
-          "linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 50%, #F8FAFC 100%)",
+        "app-soft": "linear-gradient(180deg, #F1F5F9 0%, #E2E8F0 100%)",
       },
     },
   },
