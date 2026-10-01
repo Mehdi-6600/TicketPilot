@@ -86,18 +86,18 @@ export default async function TodayPage() {
 
   return (
     <div className="space-y-5">
-      {/* کارت خوش‌آمدگویی با تصویر + گرادینت */}
+      {/* کارت خوش‌آمدگویی با تصویر + گرادینت ملایم */}
       <div className="relative overflow-hidden rounded-3xl bg-white shadow-sm">
         <div className="flex flex-row-reverse items-stretch">
-          {/* تصویر سمت چپ - عرض متعادل */}
-          <div className="relative w-32 flex-shrink-0 sm:w-36">
+          {/* تصویر سمت چپ */}
+          <div className="relative w-36 flex-shrink-0 sm:w-40">
             <img
-              src="/E9A3E89E-F996-414C-A7D4-24E761EDC606.png"
+              src="/0CE5F415-A4AE-4D0A-8308-8EE602952067.png"
               alt="پروفایل"
               className="h-full w-full object-cover"
             />
-            {/* گرادینت از سمت راست تصویر (نزدیک نوشته‌ها) */}
-            <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-l from-white via-white/70 to-transparent" />
+            {/* گرادینت ملایم فقط روی لبه راست تصویر (نزدیک نوشته‌ها) */}
+            <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-l from-white to-transparent" />
           </div>
 
           {/* متن سمت راست */}
