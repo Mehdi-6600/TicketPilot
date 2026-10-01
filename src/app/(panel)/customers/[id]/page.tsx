@@ -5,6 +5,7 @@ import EmptyState from "@/components/EmptyState";
 import { toPersianDate, toPersianDateTime } from "@/lib/date";
 import { formatAmount } from "@/lib/format";
 import { getActivityMeta } from "@/lib/activity";
+import { BOOKING_STATUS_LABELS } from "@/lib/booking";
 
 export const dynamic = "force-dynamic";
 
@@ -69,7 +70,7 @@ export default async function CustomerDetailPage({ params }: Props) {
         </Link>
 
         <Link
-          href={`/activity/new?customerId=${customer.id}&type=BOOKING`}
+          href={`/bookings/new?customerId=${customer.id}`}
           className="flex flex-col items-center justify-center gap-1 rounded-xl bg-white p-3 text-sm shadow-sm transition active:scale-[0.97]"
         >
           <span className="text-lg">🎫</span>
@@ -77,7 +78,7 @@ export default async function CustomerDetailPage({ params }: Props) {
         </Link>
 
         <Link
-          href={`/travels/new?customerId=${customer.id}`}
+          href={`/travelers/new?customerId=${customer.id}`}
           className="flex flex-col items-center justify-center gap-1 rounded-xl bg-white p-3 text-sm shadow-sm transition active:scale-[0.97]"
         >
           <span className="text-lg">✈️</span>
@@ -152,7 +153,9 @@ export default async function CustomerDetailPage({ params }: Props) {
             {customer.bookings.map((b) => (
               <li key={b.id} className="rounded-2xl bg-white p-3 shadow-sm">
                 <div className="flex items-center justify-between">
-                  <span className="font-medium">{b.status}</span>
+                  <span className="font-medium">
+                    {BOOKING_STATUS_LABELS[b.status]}
+                  </span>
                   <span className="text-xs text-slate-500">
                     {formatAmount(b.amount, b.currency)}
                   </span>
