@@ -3,18 +3,7 @@ import { jwtVerify } from "jose";
 
 const COOKIE_NAME = "tp_session";
 
-const PUBLIC_PATHS = [
-  "/login",
-  "/api/auth/login",
-  "/api/auth/logout",
-  "/api/setup",
-  "/api/reset",
-  "/api/whoami",
-  "/api/checkuser",
-  "/api/admin/baseline",
-  "/api/admin/apply-currency",
-  "/api/debug",
-];
+const PUBLIC_PATHS = ["/login", "/api/auth/login", "/api/auth/logout"];
 
 function isPublic(pathname: string) {
   return PUBLIC_PATHS.some(
