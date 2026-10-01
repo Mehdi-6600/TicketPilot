@@ -9,12 +9,77 @@ type Props = {
   initialContent: string;
 };
 
+// تبدیل markdown-lite به HTML ایمن برای پیش‌نمایش بولد
+function renderPreview(content: string): string {
+  const escapeHtml = (s: string) =>
+    s
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
+  const lines = content.split("\n");
+  const out: string[] = [];
+
+  for (const raw of lines) {
+    const line = escapeHtml(raw);
+
+    // خط جداکننده
+    if (/^━{3,}$/.test(raw.trim())) {
+      out.push(
+        `<div style="border-top:2px solid #cbd5e1;margin:14px 0;"></div>`
+      );
+      continue;
+    }
+
+    // تیتر بخش: شروع با عدد فارسی + ) مثل ۱) یا ۲)
+    // یا خطی که با 📊/📞/🔍/🔔/🎫/✈️/📝/⚠️/📅 شروع می‌شود
+    const isSectionHeader =
+      /^[\u06F0-\u06F9\d]+\)/.test(raw.trim()) ||
+      /^(📊|📞|🔍|🔔|🎫|✈️|📝|⚠️|📅|💵|💰|📌|🛫|✅|🕐|🚨|📋|🔴|✍️|🇮🇷|🇴🇲|🇺🇸)/.test(
+        raw.trim()
+      );
+
+    // تیتر اصلی (گزارش کار ...)
+    const isMainTitle = raw.startsWith("🛫");
+
+    if (isMainTitle) {
+      out.push(
+        `<div style="font-size:18px;font-weight:800;color:#0f172a;margin:6px 0;">${line}</div>`
+      );
+      continue;
+    }
+
+    if (isSectionHeader) {
+      out.push(
+        `<div style="font-weight:800;color:#1e293b;margin:8px 0 4px 0;">${line}</div>`
+      );
+      continue;
+    }
+
+    if (raw.trim() === "") {
+      out.push(`<div style="height:6px;"></div>`);
+      continue;
+    }
+
+    // سایر خطوط — با حفظ فاصله ابتدای خط
+    const leading = raw.match(/^\s*/)?.[0] ?? "";
+    const indent = leading.replace(/\t/g, "    ").length;
+    const padding = Math.min(indent, 12) * 6;
+    out.push(
+      `<div style="padding-right:${padding}px;margin:2px 0;">${line.trimStart()}</div>`
+    );
+  }
+
+  return out.join("");
+}
+
 export default function ReportEditor({
   id,
   dateLabel,
   initialContent,
 }: Props) {
   const [content, setContent] = useState(initialContent);
+  const [mode, setMode] = useState<"preview" | "edit">("preview");
   const [savedAt, setSavedAt] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -71,6 +136,7 @@ export default function ReportEditor({
       }
       setContent(data.report.content);
       setLoading(false);
+      setMode("preview");
     } catch {
       setError("خطای شبکه");
       setLoading(false);
@@ -88,13 +154,47 @@ export default function ReportEditor({
         </Link>
       </div>
 
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        rows={22}
-        className="w-full rounded-2xl border border-slate-200 bg-white p-4 text-sm leading-7 outline-none focus:border-brand-500"
-        style={{ fontFamily: "inherit", direction: "rtl" }}
-      />
+      {/* تب‌های حالت */}
+      <div className="flex gap-2">
+        <button
+          type="button"
+          onClick={() => setMode("preview")}
+          className={`rounded-xl px-3 py-1.5 text-sm transition ${
+            mode === "preview"
+              ? "bg-brand-600 text-white"
+              : "bg-white text-slate-700 shadow-sm"
+          }`}
+        >
+          👁️ پیش‌نمایش
+        </button>
+        <button
+          type="button"
+          onClick={() => setMode("edit")}
+          className={`rounded-xl px-3 py-1.5 text-sm transition ${
+            mode === "edit"
+              ? "bg-brand-600 text-white"
+              : "bg-white text-slate-700 shadow-sm"
+          }`}
+        >
+          ✏️ ویرایش متن
+        </button>
+      </div>
+
+      {mode === "preview" ? (
+        <div
+          className="rounded-2xl border border-slate-200 bg-white p-4 text-sm leading-7 text-slate-800"
+          style={{ direction: "rtl", fontFamily: "inherit" }}
+          dangerouslySetInnerHTML={{ __html: renderPreview(content) }}
+        />
+      ) : (
+        <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          rows={22}
+          className="w-full rounded-2xl border border-slate-200 bg-white p-4 text-sm leading-7 outline-none focus:border-brand-500"
+          style={{ fontFamily: "inherit", direction: "rtl" }}
+        />
+      )}
 
       {error && (
         <div className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">
