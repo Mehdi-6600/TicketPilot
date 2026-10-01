@@ -86,9 +86,22 @@ export default async function TodayPage() {
 
   return (
     <div className="space-y-5">
-      <div className="rounded-2xl bg-white p-5 shadow-sm">
-        <div className="flex items-start justify-between">
-          <div>
+      {/* کارت خوش‌آمدگویی با تصویر + گرادینت */}
+      <div className="relative overflow-hidden rounded-3xl bg-white shadow-sm">
+        <div className="flex items-stretch">
+          {/* تصویر سمت چپ */}
+          <div className="relative w-36 flex-shrink-0 sm:w-44">
+            <img
+              src="/profile-hero.jpg"
+              alt="پروفایل"
+              className="h-full w-full object-cover"
+            />
+            {/* گرادینت نرم از تصویر به سمت راست */}
+            <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-l from-white via-white/80 to-transparent" />
+          </div>
+
+          {/* متن سمت راست */}
+          <div className="flex flex-1 flex-col justify-center py-5 pl-4 pr-5">
             <h1 className="text-xl font-bold text-slate-900">امروز</h1>
             <p className="mt-1 text-sm text-slate-500">
               {session?.username} — {toPersianDate(new Date())}
