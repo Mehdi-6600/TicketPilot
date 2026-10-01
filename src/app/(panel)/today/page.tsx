@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import StatCard from "@/components/StatCard";
+import StatPill from "@/components/StatPill";
 import EmptyState from "@/components/EmptyState";
 import ContactSheet from "@/components/ContactSheet";
 import {
@@ -28,6 +28,7 @@ export default async function TodayPage() {
     followUpsOverdue,
     bookingsToday,
     salesToday,
+    bookingsWaiting,
     upcomingTravels,
   ] = await Promise.all([
     prisma.activity.count({
@@ -63,6 +64,11 @@ export default async function TodayPage() {
       where: {
         type: "SALE",
         createdAt: { gte: todayStart, lte: todayEnd },
+      },
+    }),
+    prisma.booking.count({
+      where: {
+        status: { in: ["INQUIRY", "PRICE_QUOTED", "WAITING_CUSTOMER"] },
       },
     }),
     prisma.travel.findMany({
@@ -124,6 +130,50 @@ export default async function TodayPage() {
         <span>برنامه کاری روز</span>
       </Link>
 
+      <div className="flex gap-1.5">
+        <StatPill
+          label="تماس"
+          value={formatNumber(callsToday)}
+          icon="📞"
+          href="/activity/new?type=CALL"
+          pulse={callsToday > 0 ? "green" : "none"}
+        />
+        <StatPill
+          label="پیگیری"
+          value={formatNumber(followUpsToday.length)}
+          icon="🔔"
+          href="/followups?filter=today"
+          pulse={
+            followUpsToday.length === 0
+              ? "none"
+              : overdueCount > 0
+                ? "red"
+                : "orange"
+          }
+        />
+        <StatPill
+          label="سفر"
+          value={formatNumber(upcomingTravels.length)}
+          icon="✈️"
+          href="/travelers?filter=upcoming"
+          pulse={upcomingTravels.length > 0 ? "orange" : "none"}
+        />
+        <StatPill
+          label="رزرو"
+          value={formatNumber(bookingsToday)}
+          icon="🎫"
+          href="/bookings?filter=open"
+          pulse={bookingsWaiting > 0 ? "orange" : "none"}
+        />
+        <StatPill
+          label="فروش"
+          value={formatNumber(salesToday)}
+          icon="💰"
+          href="/sales"
+          pulse={salesToday > 0 ? "green" : "none"}
+        />
+      </div>
+
       {overdueCount > 0 && (
         <Link
           href="/followups?filter=overdue"
@@ -133,35 +183,6 @@ export default async function TodayPage() {
           <span>›</span>
         </Link>
       )}
-
-      <div className="grid grid-cols-2 gap-3">
-        <StatCard
-          label="تماس امروز"
-          value={formatNumber(callsToday)}
-          icon="📞"
-        />
-        <StatCard
-          label="پیگیری امروز"
-          value={formatNumber(followUpsToday.length)}
-          icon="🔔"
-        />
-        <StatCard
-          label="سفر نزدیک"
-          value={formatNumber(upcomingTravels.length)}
-          icon="✈️"
-        />
-        <StatCard
-          label="رزرو امروز"
-          value={formatNumber(bookingsToday)}
-          icon="🎫"
-        />
-        <StatCard
-          label="فروش امروز"
-          value={formatNumber(salesToday)}
-          icon="💰"
-          tone="success"
-        />
-      </div>
 
       <section>
         <div className="mb-2 flex items-center justify-between px-1">
@@ -182,9 +203,16 @@ export default async function TodayPage() {
             {followUpsToday.map((f) => (
               <li
                 key={f.id}
-                className="rounded-2xl bg-white p-4 shadow-sm"
+                className="relative rounded-2xl bg-white p-4 shadow-sm"
               >
-                <div className="flex items-center justify-between">
+                <span
+                  className={`absolute right-3 top-3 h-2.5 w-2.5 rounded-full ${
+                    f.dueAt < todayStart
+                      ? "bg-red-500 animate-pulse-fast"
+                      : "bg-amber-500 animate-pulse-fast"
+                  }`}
+                />
+                <div className="flex items-center justify-between pr-5">
                   <div className="font-medium text-slate-800">{f.title}</div>
                   <div className="text-xs text-slate-500">
                     {toPersianDateTime(f.dueAt)}
@@ -225,9 +253,10 @@ export default async function TodayPage() {
             {upcomingTravels.map((t) => (
               <li
                 key={t.id}
-                className="rounded-2xl bg-white p-4 shadow-sm"
+                className="relative rounded-2xl bg-white p-4 shadow-sm"
               >
-                <div className="flex items-center justify-between">
+                <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-amber-500" />
+                <div className="flex items-center justify-between pr-5">
                   <div className="font-medium text-slate-800">
                     {t.from} → {t.to}
                   </div>
@@ -263,9 +292,10 @@ export default async function TodayPage() {
             {followUpsOverdue.map((f) => (
               <li
                 key={f.id}
-                className="rounded-2xl bg-amber-50 p-4 shadow-sm"
+                className="relative rounded-2xl bg-amber-50 p-4 shadow-sm"
               >
-                <div className="flex items-center justify-between">
+                <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-red-500" />
+                <div className="flex items-center justify-between pr-5">
                   <div className="font-medium text-amber-900">{f.title}</div>
                   <div className="text-xs text-amber-700">
                     {toPersianDateTime(f.dueAt)}
