@@ -12,9 +12,9 @@
   }
 
   body {
-    @apply bg-app-gradient text-ink antialiased;
+    @apply bg-app-soft text-ink antialiased;
     min-height: 100vh;
-    background-attachment: fixed;
+    background-color: #F8FAFC;
   }
 
   button {
@@ -23,73 +23,76 @@
 }
 
 @layer components {
-  /* کارت شیشه‌ای با انیمیشن */
-  .glass-card {
-    @apply rounded-3xl border border-white/60 bg-white/70 p-4 shadow-card backdrop-blur-md transition-all duration-200;
+  /* کارت برجسته */
+  .soft-card {
+    @apply rounded-3xl bg-white p-4 transition-all duration-200;
+    box-shadow: 8px 8px 16px rgba(148, 163, 184, 0.22),
+                -8px -8px 16px rgba(255, 255, 255, 0.9);
   }
 
-  .glass-card:hover {
-    @apply shadow-card-hover;
+  .soft-card:hover {
+    box-shadow: 10px 10px 20px rgba(148, 163, 184, 0.28),
+                -10px -10px 20px rgba(255, 255, 255, 0.95);
   }
 
-  .glass-card:active {
-    @apply scale-[0.985] shadow-soft;
+  .soft-card:active {
+    @apply scale-[0.985];
   }
 
-  /* دکمه اصلی iOS Blue */
-  .btn-ios-blue {
-    @apply rounded-2xl bg-ios-blue px-4 py-3 font-medium text-white shadow-soft transition-all duration-150;
+  /* آیکون / دکمه کوچک برجسته */
+  .soft-icon {
+    @apply rounded-2xl bg-white transition-all duration-150;
+    box-shadow: 4px 4px 10px rgba(148, 163, 184, 0.2),
+                -4px -4px 10px rgba(255, 255, 255, 0.85);
   }
 
-  .btn-ios-blue:hover {
-    @apply brightness-110;
+  .soft-icon:active {
+    box-shadow: inset 3px 3px 6px rgba(148, 163, 184, 0.2),
+                inset -3px -3px 6px rgba(255, 255, 255, 0.85);
   }
 
-  .btn-ios-blue:active {
-    @apply scale-[0.97] brightness-95;
-  }
-
-  /* دکمه‌های iOS رنگارنگ */
-  .btn-ios-green {
-    @apply rounded-2xl bg-ios-green px-4 py-3 font-medium text-white shadow-soft transition-all duration-150;
-  }
-
-  .btn-ios-green:active {
-    @apply scale-[0.97] brightness-95;
-  }
-
-  .btn-ios-orange {
-    @apply rounded-2xl bg-ios-orange px-4 py-3 font-medium text-white shadow-soft transition-all duration-150;
-  }
-
-  .btn-ios-orange:active {
-    @apply scale-[0.97] brightness-95;
-  }
-
-  .btn-ios-red {
-    @apply rounded-2xl bg-ios-red px-4 py-3 font-medium text-white shadow-soft transition-all duration-150;
-  }
-
-  .btn-ios-red:active {
-    @apply scale-[0.97] brightness-95;
-  }
-
-  .btn-ios-gray {
-    @apply rounded-2xl bg-ios-grayLight px-4 py-3 font-medium text-ink shadow-soft transition-all duration-150;
-  }
-
-  .btn-ios-gray:active {
-    @apply scale-[0.97] brightness-95;
-  }
-
-  /* اینپوت با حس فرورفته */
+  /* اینپوت فرورفته */
   .input-soft {
-    @apply w-full rounded-2xl border border-white/60 bg-slate-100/80 px-4 py-3 text-ink shadow-inner-soft outline-none transition-all duration-200 placeholder:text-ink-muted focus:border-violet-300 focus:bg-white;
+    @apply w-full rounded-2xl bg-slate-100/80 px-4 py-3 text-ink outline-none transition-all duration-200 placeholder:text-ink-muted;
+    box-shadow: inset 5px 5px 10px rgba(148, 163, 184, 0.22),
+                inset -5px -5px 10px rgba(255, 255, 255, 0.9);
   }
 
-  /* جداکننده نرم */
-  .divider-soft {
-    @apply my-4 h-px w-full bg-gradient-to-r from-transparent via-white/80 to-transparent;
+  .input-soft:focus {
+    @apply bg-white;
+    box-shadow: inset 6px 6px 12px rgba(37, 99, 235, 0.12),
+                inset -6px -6px 12px rgba(255, 255, 255, 0.95);
+  }
+
+  /* دکمه اصلی */
+  .btn-soft-primary {
+    @apply rounded-2xl bg-soft-cobalt px-5 py-3 font-medium text-white transition-all duration-150;
+    box-shadow: 6px 6px 12px rgba(37, 99, 235, 0.25),
+                -4px -4px 10px rgba(255, 255, 255, 0.4);
+  }
+
+  .btn-soft-primary:active {
+    @apply scale-[0.97];
+    box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  /* دکمه ثانویه */
+  .btn-soft-secondary {
+    @apply rounded-2xl bg-white px-5 py-3 font-medium text-ink transition-all duration-150;
+    box-shadow: 5px 5px 12px rgba(148, 163, 184, 0.2),
+                -5px -5px 12px rgba(255, 255, 255, 0.9);
+  }
+
+  .btn-soft-secondary:active {
+    box-shadow: inset 3px 3px 6px rgba(148, 163, 184, 0.2),
+                inset -3px -3px 6px rgba(255, 255, 255, 0.85);
+  }
+
+  /* ناوبری پایین */
+  .soft-nav {
+    @apply rounded-3xl bg-white px-2 py-2;
+    box-shadow: 8px 8px 20px rgba(148, 163, 184, 0.25),
+                -8px -8px 20px rgba(255, 255, 255, 0.9);
   }
 }
 
