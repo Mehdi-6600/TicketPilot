@@ -35,6 +35,87 @@ const CURRENCY_EMOJI: Record<string, string> = {
   USD: "🇺🇸",
 };
 
+// تبدیل متن فارسی/انگلیسی به Unicode Bold
+// چون textarea فونت بولد را نمایش نمی‌دهد، از کاراکترهای یونیکد استفاده می‌کنیم
+const BOLD_MAP: Record<string, string> = {
+  "0": "𝟎",
+  "1": "𝟏",
+  "2": "𝟐",
+  "3": "𝟑",
+  "4": "𝟒",
+  "5": "𝟓",
+  "6": "𝟔",
+  "7": "𝟕",
+  "8": "𝟖",
+  "9": "𝟗",
+  A: "𝗔",
+  B: "𝗕",
+  C: "𝗖",
+  D: "𝗗",
+  E: "𝗘",
+  F: "𝗙",
+  G: "𝗚",
+  H: "𝗛",
+  I: "𝗜",
+  J: "𝗝",
+  K: "𝗞",
+  L: "𝗟",
+  M: "𝗠",
+  N: "𝗡",
+  O: "𝗢",
+  P: "𝗣",
+  Q: "𝗤",
+  R: "𝗥",
+  S: "𝗦",
+  T: "𝗧",
+  U: "𝗨",
+  V: "𝗩",
+  W: "𝗪",
+  X: "𝗫",
+  Y: "𝗬",
+  Z: "𝗭",
+  a: "𝗮",
+  b: "𝗯",
+  c: "𝗰",
+  d: "𝗱",
+  e: "𝗲",
+  f: "𝗳",
+  g: "𝗴",
+  h: "𝗵",
+  i: "𝗶",
+  j: "𝗷",
+  k: "𝗸",
+  l: "𝗹",
+  m: "𝗺",
+  n: "𝗻",
+  o: "𝗼",
+  p: "𝗽",
+  q: "𝗾",
+  r: "𝗿",
+  s: "𝘀",
+  t: "𝘁",
+  u: "𝘂",
+  v: "𝘃",
+  w: "𝘄",
+  x: "𝘅",
+  y: "𝘆",
+  z: "𝘇",
+};
+
+function bold(input: string): string {
+  return input
+    .split("")
+    .map((ch) => BOLD_MAP[ch] ?? ch)
+    .join("");
+}
+
+const SEP = "━━━━━━━━━━━━━━━━━━━━";
+
+function sectionHeader(emoji: string, title: string): string[] {
+  // فقط یک خط جداکننده بالا — بدون خط پایین
+  return [SEP, `${emoji} ${bold(title)}`, ""];
+}
+
 function sumByCurrency(
   items: { amount: number | null; currency: "TOMAN" | "OMR" | "USD" }[]
 ): { TOMAN: number; OMR: number; USD: number } {
@@ -114,7 +195,6 @@ export async function buildReportContent(date: Date): Promise<{
   const countBy = (type: string) =>
     activities.filter((a) => a.type === type).length;
 
-  // جمع مبالغ فروش به تفکیک ارز
   const saleActivities = activities.filter((a) => a.type === "SALE");
   const salesByCurrency = sumByCurrency(
     saleActivities.map((a) => ({
@@ -122,8 +202,6 @@ export async function buildReportContent(date: Date): Promise<{
       currency: a.currency,
     }))
   );
-
-  // جمع مبالغ فروش‌های نهایی‌شده Booking
   const soldByCurrency = sumByCurrency(
     bookingsSold.map((b) => ({ amount: b.amount, currency: b.currency }))
   );
@@ -151,23 +229,20 @@ export async function buildReportContent(date: Date): Promise<{
   const lines: string[] = [];
   const todayLabel = toPersianDate(dayStart);
 
-  // ======== تیتر رسمی ========
-  lines.push("🛫 گزارش کار خانم شهین جراحی");
-  lines.push(`📅 به تاریخ ${todayLabel}`);
+  // ====== تیتر رسمی ======
+  lines.push(`🛫 ${bold("گزارش کار خانم شهین جراحی")}`);
+  lines.push(`📅 ${bold("به تاریخ")} ${todayLabel}`);
   lines.push("");
   lines.push("بسمه تعالی");
   lines.push("");
 
-  // ======== ۱) خلاصه عملکرد ========
-  lines.push("════════════════════════════");
-  lines.push("📊 ۱) خلاصه عملکرد روز");
-  lines.push("════════════════════════════");
+  // ====== ۱) خلاصه عملکرد ======
+  lines.push(...sectionHeader("📊", "۱) خلاصه عملکرد روز"));
   lines.push(
     `در تاریخ ${todayLabel} در مجموع ${formatNumber(
       stats.totalActivities
     )} فعالیت در سیستم به ثبت رسیده است.`
   );
-
   if (stats.totalActivities === 0) {
     lines.push("❗ در این روز هیچ فعالیتی ثبت نشده است.");
   } else {
@@ -197,10 +272,8 @@ export async function buildReportContent(date: Date): Promise<{
   }
   lines.push("");
 
-  // ======== ۲) تماس و پاسخگویی ========
-  lines.push("════════════════════════════");
-  lines.push("📞 ۲) تماس و پاسخگویی به مشتریان");
-  lines.push("════════════════════════════");
+  // ====== ۲) تماس و پاسخگویی ======
+  lines.push(...sectionHeader("📞", "۲) تماس و پاسخگویی به مشتریان"));
   const callActivities = activities.filter(
     (a) => a.type === "CALL" || a.type === "REPLY"
   );
@@ -224,10 +297,8 @@ export async function buildReportContent(date: Date): Promise<{
   }
   lines.push("");
 
-  // ======== ۳) استعلام و اعلام قیمت ========
-  lines.push("════════════════════════════");
-  lines.push("🔍 ۳) استعلام پرواز و اعلام قیمت");
-  lines.push("════════════════════════════");
+  // ====== ۳) استعلام و اعلام قیمت ======
+  lines.push(...sectionHeader("🔍", "۳) استعلام پرواز و اعلام قیمت"));
   const inquiryActivities = activities.filter(
     (a) => a.type === "INQUIRY" || a.type === "PRICE_QUOTE"
   );
@@ -251,10 +322,8 @@ export async function buildReportContent(date: Date): Promise<{
   }
   lines.push("");
 
-  // ======== ۴) پیگیری‌ها ========
-  lines.push("════════════════════════════");
-  lines.push("🔔 ۴) پیگیری‌ها");
-  lines.push("════════════════════════════");
+  // ====== ۴) پیگیری‌ها ======
+  lines.push(...sectionHeader("🔔", "۴) پیگیری‌ها"));
   if (followUpsDone.length === 0 && followUpsOpenToday.length === 0) {
     lines.push("پیگیری خاصی در این روز ثبت یا انجام نشده است.");
   } else {
@@ -282,11 +351,13 @@ export async function buildReportContent(date: Date): Promise<{
   }
   lines.push("");
 
-  // ======== ۵) رزرو و فروش ========
-  lines.push("════════════════════════════");
-  lines.push("🎫 ۵) رزرو و فروش");
-  lines.push("════════════════════════════");
-  if (bookingsCreated.length === 0 && bookingsSold.length === 0 && saleActivities.length === 0) {
+  // ====== ۵) رزرو و فروش ======
+  lines.push(...sectionHeader("🎫", "۵) رزرو و فروش"));
+  if (
+    bookingsCreated.length === 0 &&
+    bookingsSold.length === 0 &&
+    saleActivities.length === 0
+  ) {
     lines.push("رزرو یا فروشی در این روز ثبت نشده است.");
   } else {
     if (bookingsCreated.length > 0) {
@@ -365,13 +436,12 @@ export async function buildReportContent(date: Date): Promise<{
       lines.push("");
     }
 
-    // جمع کل به تفکیک ارز
     const totalTomans = salesByCurrency.TOMAN + soldByCurrency.TOMAN;
     const totalOman = salesByCurrency.OMR + soldByCurrency.OMR;
     const totalUsd = salesByCurrency.USD + soldByCurrency.USD;
 
     if (totalTomans > 0 || totalOman > 0 || totalUsd > 0) {
-      lines.push("📊 جمع مبالغ فروش امروز به تفکیک ارز:");
+      lines.push(`📊 ${bold("جمع مبالغ فروش امروز به تفکیک ارز")}:`);
       if (totalTomans > 0)
         lines.push(`   🇮🇷 تومان: ${formatAmount(totalTomans, "TOMAN")}`);
       if (totalOman > 0)
@@ -382,10 +452,8 @@ export async function buildReportContent(date: Date): Promise<{
   }
   lines.push("");
 
-  // ======== ۶) وضعیت سفرها ========
-  lines.push("════════════════════════════");
-  lines.push("✈️ ۶) وضعیت سفرها");
-  lines.push("════════════════════════════");
+  // ====== ۶) وضعیت سفرها ======
+  lines.push(...sectionHeader("✈️", "۶) وضعیت سفرها"));
   if (upcomingTravels.length === 0) {
     lines.push("سفر مرتبطی برای این روز ثبت نشده است.");
   } else {
@@ -406,10 +474,8 @@ export async function buildReportContent(date: Date): Promise<{
   }
   lines.push("");
 
-  // ======== ۷) موارد مهم ========
-  lines.push("════════════════════════════");
-  lines.push("📝 ۷) موارد مهم و یادداشت‌های کلیدی");
-  lines.push("════════════════════════════");
+  // ====== ۷) موارد مهم ======
+  lines.push(...sectionHeader("📝", "۷) موارد مهم و یادداشت‌های کلیدی"));
   const importantNotes = activities.filter(
     (a) => a.note && a.note.trim().length > 0
   );
@@ -425,10 +491,8 @@ export async function buildReportContent(date: Date): Promise<{
   }
   lines.push("");
 
-  // ======== ۸) پیگیری‌های باقی‌مانده ========
-  lines.push("════════════════════════════");
-  lines.push("⚠️ ۸) پیگیری‌های باقی‌مانده و عقب‌افتاده");
-  lines.push("════════════════════════════");
+  // ====== ۸) پیگیری‌های باقی‌مانده ======
+  lines.push(...sectionHeader("⚠️", "۸) پیگیری‌های باقی‌مانده و عقب‌افتاده"));
   if (followUpsOverdue.length === 0 && stats.openFollowUps === 0) {
     lines.push("✅ هیچ پیگیری باقی‌مانده‌ای وجود ندارد.");
   } else {
@@ -453,10 +517,8 @@ export async function buildReportContent(date: Date): Promise<{
   }
   lines.push("");
 
-  // ======== ۹) برنامه پیگیری روز بعد ========
-  lines.push("════════════════════════════");
-  lines.push("📅 ۹) برنامه پیشنهادی برای روز بعد");
-  lines.push("════════════════════════════");
+  // ====== ۹) برنامه پیگیری روز بعد ======
+  lines.push(...sectionHeader("📅", "۹) برنامه پیشنهادی برای روز بعد"));
   const tomorrowFollowUps = await prisma.followUp.findMany({
     where: {
       status: "OPEN",
@@ -485,9 +547,8 @@ export async function buildReportContent(date: Date): Promise<{
   }
   lines.push("");
 
-  lines.push("════════════════════════════");
-  lines.push("— پایان گزارش —");
-  lines.push("════════════════════════════");
+  lines.push(SEP);
+  lines.push(`✍️ ${bold("پایان گزارش")}`);
 
   const content = lines.join("\n");
   return { content, stats };
