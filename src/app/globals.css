@@ -14,7 +14,7 @@
   body {
     @apply bg-app-soft text-ink antialiased;
     min-height: 100vh;
-    background-color: #F8FAFC;
+    background-color: #F1F5F9;
   }
 
   button {
@@ -23,30 +23,23 @@
 }
 
 @layer components {
-  /* ========== کارت‌های برجسته (برای همه جا) ========== */
-  .soft-card,
-  .rounded-2xl.bg-white,
-  .rounded-3xl.bg-white {
-    box-shadow: 8px 8px 16px rgba(148, 163, 184, 0.22),
-                -8px -8px 16px rgba(255, 255, 255, 0.9) !important;
-    border: none !important;
+  /* ========== کارت و المان‌های برجسته (Raised Soft) ========== */
+  .soft-raised {
+    background: #F1F5F9;
+    box-shadow:
+      6px 6px 12px rgba(163, 177, 198, 0.4),
+      -6px -6px 12px rgba(255, 255, 255, 0.9);
+    border: none;
   }
 
-  .soft-card:hover,
-  .rounded-2xl.bg-white:hover,
-  .rounded-3xl.bg-white:hover {
-    box-shadow: 10px 10px 20px rgba(148, 163, 184, 0.28),
-                -10px -10px 20px rgba(255, 255, 255, 0.95) !important;
-  }
-
-  /* ========== StatPill و کارت‌های کوچک ========== */
-  .shadow-sm {
-    box-shadow: 5px 5px 12px rgba(148, 163, 184, 0.2),
-                -5px -5px 12px rgba(255, 255, 255, 0.85) !important;
+  .soft-raised:active {
+    box-shadow:
+      inset 4px 4px 8px rgba(163, 177, 198, 0.4),
+      inset -4px -4px 8px rgba(255, 255, 255, 0.9);
   }
 
   /* ========== اینپوت فرورفته ========== */
-  .input-soft,
+  .soft-inset,
   input[type="text"],
   input[type="search"],
   input[type="tel"],
@@ -55,57 +48,88 @@
   input[type="password"],
   textarea,
   select {
-    box-shadow: inset 5px 5px 10px rgba(148, 163, 184, 0.22),
-                inset -5px -5px 10px rgba(255, 255, 255, 0.9) !important;
+    background: #F1F5F9 !important;
+    box-shadow:
+      inset 4px 4px 8px rgba(163, 177, 198, 0.35),
+      inset -4px -4px 8px rgba(255, 255, 255, 0.9) !important;
     border: none !important;
-    background-color: #f1f5f9 !important;
   }
 
   input:focus,
   textarea:focus,
   select:focus {
-    box-shadow: inset 6px 6px 12px rgba(37, 99, 235, 0.12),
-                inset -6px -6px 12px rgba(255, 255, 255, 0.95) !important;
-    background-color: white !important;
+    box-shadow:
+      inset 5px 5px 10px rgba(37, 99, 235, 0.15),
+      inset -5px -5px 10px rgba(255, 255, 255, 0.9) !important;
   }
 
-  /* ========== دکمه‌های اصلی (آبی) ========== */
-  .btn-soft-primary,
+  /* ========== اعمال خودکار روی کارت‌های سفید ========== */
+  .rounded-2xl.bg-white,
+  .rounded-3xl.bg-white {
+    background: #F8FAFC !important;
+    box-shadow:
+      6px 6px 14px rgba(163, 177, 198, 0.35),
+      -6px -6px 14px rgba(255, 255, 255, 0.95) !important;
+    border: none !important;
+  }
+
+  /* ========== دکمه‌های رنگی برجسته ========== */
   a.bg-brand-600,
   button.bg-brand-600,
-  a.bg-ios-blue,
-  button.bg-ios-blue {
-    box-shadow: 6px 6px 14px rgba(37, 99, 235, 0.3),
-                -3px -3px 8px rgba(255, 255, 255, 0.4) !important;
-  }
-
-  /* ========== دکمه‌های تیره ========== */
+  a.bg-emerald-600,
+  button.bg-emerald-600,
+  a.bg-indigo-600,
+  button.bg-indigo-600,
   a.bg-slate-900,
   button.bg-slate-900 {
-    box-shadow: 6px 6px 14px rgba(15, 23, 42, 0.3),
-                -3px -3px 8px rgba(255, 255, 255, 0.3) !important;
+    box-shadow:
+      5px 5px 12px rgba(0, 0, 0, 0.2),
+      -3px -3px 8px rgba(255, 255, 255, 0.3) !important;
   }
 
-  /* ========== دکمه‌های سبز ========== */
-  a.bg-emerald-600,
-  button.bg-emerald-600 {
-    box-shadow: 6px 6px 14px rgba(5, 150, 105, 0.3),
-                -3px -3px 8px rgba(255, 255, 255, 0.3) !important;
+  a.bg-brand-600:active,
+  button.bg-brand-600:active,
+  a.bg-emerald-600:active,
+  button.bg-emerald-600:active,
+  a.bg-indigo-600:active,
+  button.bg-indigo-600:active,
+  a.bg-slate-900:active,
+  button.bg-slate-900:active {
+    box-shadow:
+      inset 3px 3px 6px rgba(0, 0, 0, 0.25) !important;
   }
 
-  /* ========== ناوبری پایین ========== */
-  nav.fixed.bottom-0 {
-    box-shadow: 0 -8px 24px rgba(148, 163, 184, 0.2) !important;
-    background: white !important;
-    border-top: none !important;
+  /* ========== دکمه‌های روشن (مشکل متن سفید) ========== */
+  a.bg-white,
+  button.bg-white,
+  .bg-slate-100 {
+    color: #1E293B !important;
+    box-shadow:
+      5px 5px 12px rgba(163, 177, 198, 0.3),
+      -5px -5px 12px rgba(255, 255, 255, 0.9) !important;
+  }
+
+  /* ========== StatPill و کارت‌های کوچک ========== */
+  .shadow-sm {
+    box-shadow:
+      4px 4px 10px rgba(163, 177, 198, 0.3),
+      -4px -4px 10px rgba(255, 255, 255, 0.9) !important;
+  }
+
+  /* ========== هدر و باتم‌نویگیشن ========== */
+  header.sticky {
+    background: #F8FAFC !important;
+    box-shadow:
+      0 4px 12px rgba(163, 177, 198, 0.2) !important;
+    border-bottom: none !important;
     backdrop-filter: none !important;
   }
 
-  /* ========== هدر ========== */
-  header.sticky {
-    box-shadow: 0 4px 16px rgba(148, 163, 184, 0.15) !important;
-    background: white !important;
-    border-bottom: none !important;
+  nav.fixed.bottom-0 {
+    background: #F8FAFC !important;
+    box-shadow:
+      0 -6px 16px rgba(163, 177, 198, 0.25) !important;
+    border-top: none !important;
     backdrop-filter: none !important;
   }
 }
