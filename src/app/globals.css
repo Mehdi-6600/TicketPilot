@@ -2,43 +2,103 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-sans: "Vazirmatn", "Segoe UI", Tahoma, sans-serif;
-}
-
-html,
-body {
-  height: 100%;
-  background-color: #f8fafc;
-  color: #0f172a;
-}
-
-body {
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-}
-
-* {
-  -webkit-tap-highlight-color: transparent;
-}
-
-button {
-  cursor: pointer;
-}
-
-/* انیمیشن ضربان نقطه‌ها */
-@keyframes pulse-fast {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
   }
-  50% {
-    opacity: 0.4;
-    transform: scale(1.4);
+
+  html {
+    font-family: Vazirmatn, system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-app-gradient text-ink antialiased;
+    min-height: 100vh;
+    background-attachment: fixed;
+  }
+
+  button {
+    cursor: pointer;
   }
 }
 
-.animate-pulse-fast {
-  animation: pulse-fast 1.2s ease-in-out infinite;
+@layer components {
+  /* کارت شیشه‌ای با انیمیشن */
+  .glass-card {
+    @apply rounded-3xl border border-white/60 bg-white/70 p-4 shadow-card backdrop-blur-md transition-all duration-200;
+  }
+
+  .glass-card:hover {
+    @apply shadow-card-hover;
+  }
+
+  .glass-card:active {
+    @apply scale-[0.985] shadow-soft;
+  }
+
+  /* دکمه اصلی iOS Blue */
+  .btn-ios-blue {
+    @apply rounded-2xl bg-ios-blue px-4 py-3 font-medium text-white shadow-soft transition-all duration-150;
+  }
+
+  .btn-ios-blue:hover {
+    @apply brightness-110;
+  }
+
+  .btn-ios-blue:active {
+    @apply scale-[0.97] brightness-95;
+  }
+
+  /* دکمه‌های iOS رنگارنگ */
+  .btn-ios-green {
+    @apply rounded-2xl bg-ios-green px-4 py-3 font-medium text-white shadow-soft transition-all duration-150;
+  }
+
+  .btn-ios-green:active {
+    @apply scale-[0.97] brightness-95;
+  }
+
+  .btn-ios-orange {
+    @apply rounded-2xl bg-ios-orange px-4 py-3 font-medium text-white shadow-soft transition-all duration-150;
+  }
+
+  .btn-ios-orange:active {
+    @apply scale-[0.97] brightness-95;
+  }
+
+  .btn-ios-red {
+    @apply rounded-2xl bg-ios-red px-4 py-3 font-medium text-white shadow-soft transition-all duration-150;
+  }
+
+  .btn-ios-red:active {
+    @apply scale-[0.97] brightness-95;
+  }
+
+  .btn-ios-gray {
+    @apply rounded-2xl bg-ios-grayLight px-4 py-3 font-medium text-ink shadow-soft transition-all duration-150;
+  }
+
+  .btn-ios-gray:active {
+    @apply scale-[0.97] brightness-95;
+  }
+
+  /* اینپوت با حس فرورفته */
+  .input-soft {
+    @apply w-full rounded-2xl border border-white/60 bg-slate-100/80 px-4 py-3 text-ink shadow-inner-soft outline-none transition-all duration-200 placeholder:text-ink-muted focus:border-violet-300 focus:bg-white;
+  }
+
+  /* جداکننده نرم */
+  .divider-soft {
+    @apply my-4 h-px w-full bg-gradient-to-r from-transparent via-white/80 to-transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
