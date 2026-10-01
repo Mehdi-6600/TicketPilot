@@ -6,6 +6,8 @@ import { toPersianDate, toPersianDateTime } from "@/lib/date";
 import { formatAmount } from "@/lib/format";
 import { getActivityMeta } from "@/lib/activity";
 import { BOOKING_STATUS_LABELS } from "@/lib/booking";
+import ContactSheet from "@/components/ContactSheet";
+import ConfirmDelete from "@/components/ConfirmDelete";
 
 export const dynamic = "force-dynamic";
 
@@ -30,20 +32,31 @@ export default async function CustomerDetailPage({ params }: Props) {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold text-slate-900">{customer.name}</h1>
-        <Link href="/customers" className="text-sm text-brand-600">
-          بازگشت
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href={`/customers/${customer.id}/edit`}
+            className="rounded-xl bg-slate-100 px-3 py-1.5 text-xs text-slate-700"
+          >
+            ✏️ ویرایش
+          </Link>
+          <ConfirmDelete
+            url={`/api/customers/${customer.id}`}
+            message={`مشتری ${customer.name} حذف شود؟ تمام سفرها، رزروها، پیگیری‌ها و فعالیت‌های او هم پاک می‌شوند.`}
+            redirectTo="/customers"
+          />
+        </div>
       </div>
 
       <div className="rounded-2xl bg-white p-4 shadow-sm">
         <div className="flex items-center justify-between text-sm">
           <span className="text-slate-500">شماره تماس</span>
-          <a
-            href={`tel:${customer.phone}`}
+          <ContactSheet
+            phone={customer.phone}
+            customerName={customer.name}
             className="font-medium text-brand-700"
           >
             {customer.phone}
-          </a>
+          </ContactSheet>
         </div>
         {customer.note && (
           <div className="mt-3 border-t border-slate-100 pt-3 text-sm text-slate-600">
@@ -53,13 +66,14 @@ export default async function CustomerDetailPage({ params }: Props) {
       </div>
 
       <div className="grid grid-cols-3 gap-2">
-        <Link
-          href={`/activity/new?customerId=${customer.id}&type=CALL`}
+        <ContactSheet
+          phone={customer.phone}
+          customerName={customer.name}
           className="flex flex-col items-center justify-center gap-1 rounded-xl bg-white p-3 text-sm shadow-sm transition active:scale-[0.97]"
         >
           <span className="text-lg">📞</span>
           <span className="text-slate-700">تماس</span>
-        </Link>
+        </ContactSheet>
 
         <Link
           href={`/followups/new?customerId=${customer.id}`}
