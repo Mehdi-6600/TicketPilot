@@ -6,10 +6,10 @@ import Link from "next/link";
 import { toPersianDate } from "@/lib/date";
 import {
   TRAVEL_STATUS_LABELS,
-  TRAVEL_STATUS_COLORS,
   TRAVEL_STATUSES,
 } from "@/lib/travel";
 import ConfirmDelete from "@/components/ConfirmDelete";
+import { Pencil } from "lucide-react";
 import type { TravelStatus } from "@prisma/client";
 
 type Props = {
@@ -22,6 +22,14 @@ type Props = {
   note: string | null;
   customer: { id: string; name: string; phone: string };
   showCustomer?: boolean;
+};
+
+const STATUS_TINT: Record<TravelStatus, string> = {
+  BOOKED: "bg-pastel-blue",
+  TICKETED: "bg-pastel-lavender",
+  IN_TRIP: "bg-pastel-peach",
+  RETURNED: "bg-pastel-mint",
+  COMPLETED: "bg-surface",
 };
 
 export default function TravelItem({
@@ -63,24 +71,26 @@ export default function TravelItem({
     currentStatus === "RETURNED" || currentStatus === "COMPLETED";
 
   return (
-    <div className="relative rounded-2xl bg-white p-4 shadow-sm">
+    <div
+      className={`relative rounded-3xl ${STATUS_TINT[currentStatus]} p-4 shadow-raised transition-all duration-200 active:shadow-pressed`}
+    >
       {needsAction && (
-        <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-amber-500" />
+        <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-ios-orange" />
       )}
       {isInTrip && (
-        <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-red-500" />
+        <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-ios-red" />
       )}
       {isDone && (
-        <span className="absolute right-3 top-3 h-2.5 w-2.5 rounded-full bg-emerald-500" />
+        <span className="absolute right-3 top-3 h-2.5 w-2.5 rounded-full bg-ios-green" />
       )}
 
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex items-start justify-between gap-3 pr-5">
         <div className="flex-1">
-          <div className="pr-5 font-medium text-slate-900">
+          <div className="font-medium text-ink">
             {from} → {to}
           </div>
 
-          <div className="mt-1 text-xs text-slate-500">
+          <div className="mt-1 text-xs text-ink-muted">
             رفت: {toPersianDate(new Date(departDate))}
             {returnDate && ` — برگشت: ${toPersianDate(new Date(returnDate))}`}
           </div>
@@ -88,20 +98,18 @@ export default function TravelItem({
           {showCustomer && (
             <Link
               href={`/customers/${customer.id}`}
-              className="mt-1 block text-sm text-slate-600"
+              className="mt-1 block text-sm text-ink-soft"
             >
               {customer.name} — {customer.phone}
             </Link>
           )}
 
-          {note && <div className="mt-2 text-sm text-slate-600">{note}</div>}
+          {note && (
+            <div className="mt-2 text-sm text-ink-soft">{note}</div>
+          )}
 
           <div className="mt-2">
-            <span
-              className={`inline-block rounded-lg px-2 py-1 text-xs ${
-                TRAVEL_STATUS_COLORS[currentStatus]
-              }`}
-            >
+            <span className="rounded-lg bg-white/70 px-2 py-1 text-xs font-medium text-ink-soft">
               {TRAVEL_STATUS_LABELS[currentStatus]}
             </span>
           </div>
@@ -111,9 +119,10 @@ export default function TravelItem({
       <div className="mt-3 flex items-center justify-end gap-2">
         <Link
           href={`/travelers/${id}/edit`}
-          className="rounded-xl bg-slate-100 px-3 py-1.5 text-xs text-slate-700"
+          className="flex items-center gap-1 rounded-xl bg-surface px-3 py-1.5 text-xs text-ink-soft shadow-raised-sm transition-all duration-150 active:scale-95 active:shadow-pressed"
         >
-          ✏️ ویرایش
+          <Pencil size={12} />
+          <span>ویرایش</span>
         </Link>
         <ConfirmDelete url={`/api/travels/${id}`} />
       </div>
@@ -125,10 +134,10 @@ export default function TravelItem({
             type="button"
             onClick={() => changeStatus(s)}
             disabled={loading || s === currentStatus}
-            className={`rounded-lg px-2.5 py-1 text-xs transition ${
+            className={`rounded-lg px-2.5 py-1 text-xs transition-all duration-150 ${
               s === currentStatus
-                ? "bg-slate-900 text-white"
-                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                ? "bg-ink text-white shadow-raised-sm"
+                : "bg-surface/80 text-ink-soft shadow-raised-sm hover:bg-surface active:scale-95 active:shadow-pressed"
             } disabled:opacity-60`}
           >
             {TRAVEL_STATUS_LABELS[s]}
