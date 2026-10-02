@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Trash2 } from "lucide-react";
 
 type Props = {
   url: string;
@@ -35,9 +36,7 @@ export default function ConfirmDelete({
         return;
       }
       setOpen(false);
-      if (redirectTo) {
-        router.push(redirectTo);
-      }
+      if (redirectTo) router.push(redirectTo);
       router.refresh();
     } catch {
       setError("خطای شبکه");
@@ -52,28 +51,33 @@ export default function ConfirmDelete({
         onClick={() => setOpen(true)}
         className={
           className ??
-          "rounded-xl bg-red-50 px-3 py-1.5 text-xs text-red-700"
+          "flex items-center gap-1 rounded-xl bg-pastel-pink px-3 py-1.5 text-xs text-ios-red transition-all duration-150 active:scale-95"
         }
       >
-        {children ?? "🗑️ حذف"}
+        {children ?? (
+          <>
+            <Trash2 size={14} />
+            <span>حذف</span>
+          </>
+        )}
       </button>
 
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4 backdrop-blur-sm"
           onClick={() => setOpen(false)}
         >
           <div
-            className="w-full max-w-sm rounded-2xl bg-white p-5 shadow-xl"
+            className="w-full max-w-sm rounded-3xl bg-surface p-5 shadow-raised"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mb-3 text-base font-bold text-slate-900">
+            <div className="mb-3 text-base font-bold text-ink">
               تأیید حذف
             </div>
-            <p className="mb-4 text-sm text-slate-600">{message}</p>
+            <p className="mb-4 text-sm text-ink-soft">{message}</p>
 
             {error && (
-              <div className="mb-3 rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">
+              <div className="mb-3 rounded-2xl bg-pastel-pink px-3 py-2 text-sm text-ios-red">
                 {error}
               </div>
             )}
@@ -83,7 +87,7 @@ export default function ConfirmDelete({
                 type="button"
                 onClick={() => setOpen(false)}
                 disabled={loading}
-                className="rounded-xl bg-slate-100 py-2.5 text-sm text-slate-700 disabled:opacity-60"
+                className="btn-ios-gray"
               >
                 لغو
               </button>
@@ -91,7 +95,7 @@ export default function ConfirmDelete({
                 type="button"
                 onClick={onDelete}
                 disabled={loading}
-                className="rounded-xl bg-red-600 py-2.5 text-sm font-medium text-white disabled:opacity-60"
+                className="btn-ios-red"
               >
                 {loading ? "..." : "حذف کن"}
               </button>
