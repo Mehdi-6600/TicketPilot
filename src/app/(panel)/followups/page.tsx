@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import EmptyState from "@/components/EmptyState";
 import FollowUpItem from "@/components/FollowUpItem";
 import { startOfTodayTehran } from "@/lib/date";
+import { Plus } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -53,12 +54,13 @@ export default async function FollowUpsPage({ searchParams }: Props) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">پیگیری‌ها</h1>
+        <h1 className="text-xl font-bold text-ink">پیگیری‌ها</h1>
         <Link
           href="/followups/new"
-          className="rounded-xl bg-brand-600 px-3 py-1.5 text-sm font-medium text-white"
+          className="btn-ios-blue flex items-center gap-1 px-3 py-2 text-sm"
         >
-          ＋ پیگیری جدید
+          <Plus size={16} />
+          <span>پیگیری جدید</span>
         </Link>
       </div>
 
@@ -67,10 +69,10 @@ export default async function FollowUpsPage({ searchParams }: Props) {
           <Link
             key={f.key}
             href={`/followups?filter=${f.key}`}
-            className={`whitespace-nowrap rounded-xl px-3 py-1.5 text-sm transition ${
+            className={`whitespace-nowrap rounded-xl px-3 py-1.5 text-sm transition-all duration-150 ${
               filter === f.key
-                ? "bg-brand-600 text-white"
-                : "bg-white text-slate-700 shadow-sm"
+                ? "bg-ink text-white shadow-raised-sm"
+                : "bg-surface text-ink-soft shadow-raised-sm active:scale-95 active:shadow-pressed"
             }`}
           >
             {f.label}
@@ -78,7 +80,7 @@ export default async function FollowUpsPage({ searchParams }: Props) {
         ))}
       </div>
 
-      <div className="text-xs text-slate-500">
+      <div className="rounded-2xl bg-surface px-4 py-2 text-xs text-ink-muted shadow-inset-sm">
         باز: {openCount} — انجام‌شده: {doneCount}
       </div>
 
