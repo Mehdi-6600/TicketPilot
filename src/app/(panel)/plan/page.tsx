@@ -15,20 +15,17 @@ export default async function PlanPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">
-          📋 برنامه کاری
-        </h1>
-        <Link href="/today" className="text-sm text-brand-600">
+        <h1 className="text-xl font-bold text-ink">📋 برنامه کاری</h1>
+        <Link href="/today" className="text-sm text-ios-blue">
           امروز
         </Link>
       </div>
 
-      <div className="rounded-2xl bg-white p-4 text-sm text-slate-600 shadow-sm">
-        این صفحه بر اساس داده‌های واقعی، برنامه کاری روز رو بهت نشون می‌ده.
+      <div className="rounded-3xl bg-surface p-4 text-sm text-ink-soft shadow-inset">
+        این صفحه بر اساس داده‌های واقعی، برنامه کاری روز رو نشون می‌ده.
         هر بخش بر اساس اولویت مرتب شده.
       </div>
 
-      {/* عقب‌افتاده */}
       <PlanSection
         title="پیگیری‌های عقب‌افتاده"
         icon="🚨"
@@ -41,22 +38,21 @@ export default async function PlanPage() {
           <Link
             key={f.id}
             href={`/customers/${f.customer.id}`}
-            className="block rounded-xl bg-white p-3 shadow-sm transition active:scale-[0.99]"
+            className="block rounded-2xl bg-surface p-3 shadow-raised-sm transition-all duration-150 active:scale-[0.99] active:shadow-pressed"
           >
             <div className="flex items-center justify-between">
-              <div className="font-medium text-amber-900">{f.title}</div>
-              <div className="text-xs text-amber-700">
+              <div className="font-medium text-ink">{f.title}</div>
+              <div className="text-xs text-ios-orange">
                 {toPersianDateTime(f.dueAt)}
               </div>
             </div>
-            <div className="mt-1 text-sm text-slate-600">
+            <div className="mt-1 text-sm text-ink-soft">
               {f.customer.name} — {f.customer.phone}
             </div>
           </Link>
         ))}
       </PlanSection>
 
-      {/* امروز */}
       <PlanSection
         title="پیگیری‌های امروز"
         icon="🔔"
@@ -68,22 +64,21 @@ export default async function PlanPage() {
           <Link
             key={f.id}
             href={`/customers/${f.customer.id}`}
-            className="block rounded-xl bg-white p-3 shadow-sm transition active:scale-[0.99]"
+            className="block rounded-2xl bg-surface p-3 shadow-raised-sm transition-all duration-150 active:scale-[0.99] active:shadow-pressed"
           >
             <div className="flex items-center justify-between">
-              <div className="font-medium text-slate-900">{f.title}</div>
-              <div className="text-xs text-slate-500">
+              <div className="font-medium text-ink">{f.title}</div>
+              <div className="text-xs text-ink-muted">
                 {toPersianDateTime(f.dueAt)}
               </div>
             </div>
-            <div className="mt-1 text-sm text-slate-600">
+            <div className="mt-1 text-sm text-ink-soft">
               {f.customer.name} — {f.customer.phone}
             </div>
           </Link>
         ))}
       </PlanSection>
 
-      {/* رزروهای باز */}
       <PlanSection
         title="رزروهای در جریان"
         icon="🎫"
@@ -95,23 +90,23 @@ export default async function PlanPage() {
           <Link
             key={b.id}
             href={`/customers/${b.customer.id}`}
-            className="block rounded-xl bg-white p-3 shadow-sm transition active:scale-[0.99]"
+            className="block rounded-2xl bg-surface p-3 shadow-raised-sm transition-all duration-150 active:scale-[0.99] active:shadow-pressed"
           >
             <div className="flex items-center justify-between">
-              <div className="text-sm">
+              <div className="text-sm text-ink-soft">
                 👤 {b.customer.name}
               </div>
-              <div className="text-xs text-slate-500">
+              <div className="text-xs text-ink-muted">
                 {BOOKING_STATUS_LABELS[b.status as BookingStatus]}
               </div>
             </div>
             {b.travel && (
-              <div className="mt-1 text-sm text-slate-600">
+              <div className="mt-1 text-sm text-ink-soft">
                 ✈️ {b.travel.from} → {b.travel.to}
               </div>
             )}
             {b.amount !== null && (
-              <div className="mt-1 text-sm font-medium text-emerald-700">
+              <div className="mt-1 text-sm font-bold text-ios-green">
                 {formatAmount(b.amount, b.currency)}
               </div>
             )}
@@ -119,7 +114,6 @@ export default async function PlanPage() {
         ))}
       </PlanSection>
 
-      {/* سفرهای نزدیک */}
       <PlanSection
         title="سفرهای نزدیک"
         icon="✈️"
@@ -131,17 +125,17 @@ export default async function PlanPage() {
           <Link
             key={t.id}
             href={`/customers/${t.customer.id}`}
-            className="block rounded-xl bg-white p-3 shadow-sm transition active:scale-[0.99]"
+            className="block rounded-2xl bg-surface p-3 shadow-raised-sm transition-all duration-150 active:scale-[0.99] active:shadow-pressed"
           >
             <div className="flex items-center justify-between">
-              <div className="font-medium text-slate-900">
+              <div className="font-medium text-ink">
                 {t.from} → {t.to}
               </div>
-              <div className="text-xs text-slate-500">
+              <div className="text-xs text-ink-muted">
                 {toPersianDate(t.departDate)}
               </div>
             </div>
-            <div className="mt-1 text-sm text-slate-600">
+            <div className="mt-1 text-sm text-ink-soft">
               👤 {t.customer.name} — 📌{" "}
               {TRAVEL_STATUS_LABELS[t.status as TravelStatus]}
             </div>
