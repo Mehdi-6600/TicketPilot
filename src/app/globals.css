@@ -77,7 +77,7 @@
 
   .neo-input:focus {
     @apply shadow-inset;
-    background-color: #e9edf3;
+    background-color: #e3e8ef;
   }
 
   .neo-input-sm {
@@ -93,7 +93,7 @@
     resize: vertical;
   }
 
-  /* ============ دکمه‌های iOS با سایه خاکستری نئومورفیک ============ */
+  /* ============ دکمه‌های iOS ============ */
 
   .btn-ios-blue {
     @apply rounded-2xl bg-ios-blue px-4 py-3 font-medium text-white shadow-raised transition-all duration-150;
@@ -135,7 +135,6 @@
     @apply scale-[0.97] shadow-pressed;
   }
 
-  /* دکمه نئومورفیک خنثی */
   .btn-neo {
     @apply rounded-2xl bg-surface px-4 py-3 font-medium text-ink shadow-raised transition-all duration-150;
   }
