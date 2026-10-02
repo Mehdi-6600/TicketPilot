@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import EmptyState from "@/components/EmptyState";
 import BookingItem from "@/components/BookingItem";
+import { Plus } from "lucide-react";
 import type { Prisma } from "@prisma/client";
 
 export const dynamic = "force-dynamic";
@@ -54,12 +55,13 @@ export default async function BookingsPage({ searchParams }: Props) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">رزروها</h1>
+        <h1 className="text-xl font-bold text-ink">رزروها</h1>
         <Link
           href="/bookings/new"
-          className="rounded-xl bg-brand-600 px-3 py-1.5 text-sm font-medium text-white"
+          className="btn-ios-blue flex items-center gap-1 px-3 py-2 text-sm"
         >
-          ＋ رزرو جدید
+          <Plus size={16} />
+          <span>رزرو جدید</span>
         </Link>
       </div>
 
@@ -68,10 +70,10 @@ export default async function BookingsPage({ searchParams }: Props) {
           <Link
             key={f.key}
             href={`/bookings?filter=${f.key}`}
-            className={`rounded-xl px-3 py-1.5 text-sm transition ${
+            className={`rounded-xl px-3 py-1.5 text-sm transition-all duration-150 ${
               filter === f.key
-                ? "bg-brand-600 text-white"
-                : "bg-white text-slate-700 shadow-sm"
+                ? "bg-ink text-white shadow-raised-sm"
+                : "bg-surface text-ink-soft shadow-raised-sm active:scale-95 active:shadow-pressed"
             }`}
           >
             {f.label}
