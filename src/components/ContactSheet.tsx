@@ -28,10 +28,30 @@ export default function ContactSheet({
   const wa = normalizeForWhatsApp(phone);
 
   const actions = [
-    { label: "تماس", icon: "📞", href: `tel:${cleanPhone}` },
-    { label: "پیامک", icon: "💬", href: `sms:${cleanPhone}` },
-    { label: "واتساپ", icon: "🟢", href: `https://wa.me/${wa}` },
-    { label: "تلگرام", icon: "🔵", href: `https://t.me/+${wa}` },
+    {
+      label: "تماس",
+      icon: "📞",
+      href: `tel:${cleanPhone}`,
+      bg: "bg-pastel-blue",
+    },
+    {
+      label: "پیامک",
+      icon: "💬",
+      href: `sms:${cleanPhone}`,
+      bg: "bg-pastel-mint",
+    },
+    {
+      label: "واتساپ",
+      icon: "🟢",
+      href: `https://wa.me/${wa}`,
+      bg: "bg-pastel-mint",
+    },
+    {
+      label: "تلگرام",
+      icon: "🔵",
+      href: `https://t.me/+${wa}`,
+      bg: "bg-pastel-blue",
+    },
   ];
 
   return (
@@ -46,19 +66,17 @@ export default function ContactSheet({
 
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 sm:items-center"
+          className="fixed inset-0 z-50 flex items-end justify-center bg-black/30 backdrop-blur-sm sm:items-center"
           onClick={() => setOpen(false)}
         >
           <div
-            className="w-full max-w-sm rounded-t-3xl bg-white p-5 pb-8 shadow-xl sm:rounded-3xl"
+            className="w-full max-w-sm rounded-t-3xl bg-surface p-5 pb-8 shadow-raised sm:rounded-3xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mb-1 text-xs text-slate-500">
+            <div className="mb-1 text-xs text-ink-muted">
               {customerName ?? "ارتباط با مشتری"}
             </div>
-            <div className="mb-4 text-lg font-bold text-slate-900">
-              {phone}
-            </div>
+            <div className="mb-4 text-lg font-bold text-ink">{phone}</div>
 
             <div className="grid grid-cols-4 gap-3">
               {actions.map((a) => (
@@ -72,10 +90,10 @@ export default function ContactSheet({
                       : undefined
                   }
                   onClick={() => setOpen(false)}
-                  className="flex flex-col items-center gap-1 rounded-2xl bg-slate-50 p-3 text-center transition active:scale-95"
+                  className={`flex flex-col items-center gap-1 rounded-2xl ${a.bg} p-3 text-center shadow-raised-sm transition-all duration-150 active:scale-95 active:shadow-pressed`}
                 >
                   <span className="text-2xl">{a.icon}</span>
-                  <span className="text-xs text-slate-700">{a.label}</span>
+                  <span className="text-xs text-ink-soft">{a.label}</span>
                 </a>
               ))}
             </div>
@@ -83,7 +101,7 @@ export default function ContactSheet({
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="mt-5 w-full rounded-xl bg-slate-100 py-2.5 text-sm text-slate-700"
+              className="btn-ios-gray mt-5 w-full"
             >
               بستن
             </button>
