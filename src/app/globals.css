@@ -23,7 +23,7 @@
 }
 
 @layer components {
-  /* کارت‌ها و المان‌های سفید → بیرون‌زدگی از سطح */
+  /* کارت‌ها → برجسته */
   .rounded-2xl.bg-white,
   .rounded-3xl.bg-white,
   div.bg-white {
@@ -34,7 +34,7 @@
     border: none !important;
   }
 
-  /* دکمه‌های رنگی → سایه قوی برای حس برجستگی */
+  /* دکمه‌های رنگی → برجسته */
   a.bg-brand-600,
   a.bg-emerald-600,
   a.bg-indigo-600,
@@ -46,6 +46,24 @@
     box-shadow:
       7px 7px 14px rgba(0, 0, 0, 0.22),
       -5px -5px 12px rgba(255, 255, 255, 0.55) !important;
+    transition: all 0.15s ease !important;
+  }
+
+  /* وقتی دکمه فشرده می‌شه → فرو می‌ره + سبز پاستیلی */
+  a.bg-brand-600:active,
+  a.bg-emerald-600:active,
+  a.bg-indigo-600:active,
+  a.bg-slate-900:active,
+  button.bg-brand-600:active,
+  button.bg-emerald-600:active,
+  button.bg-indigo-600:active,
+  button.bg-slate-900:active {
+    background-color: #a7f3d0 !important; /* سبز پاستیلی */
+    color: #065f46 !important;
+    box-shadow:
+      inset 5px 5px 10px #a3b1c6,
+      inset -5px -5px 10px #ffffff !important;
+    transform: scale(0.97) !important;
   }
 
   /* StatPill و دکمه‌های روشن */
@@ -58,9 +76,22 @@
     box-shadow:
       6px 6px 12px #a3b1c6,
       -6px -6px 12px #ffffff !important;
+    transition: all 0.15s ease !important;
   }
 
-  /* اینپوت‌ها → فرورفته داخل سطح */
+  .shadow-sm:active,
+  a.bg-white:active,
+  button.bg-white:active,
+  .bg-slate-100:active {
+    background-color: #a7f3d0 !important;
+    color: #065f46 !important;
+    box-shadow:
+      inset 4px 4px 8px #a3b1c6,
+      inset -4px -4px 8px #ffffff !important;
+    transform: scale(0.97) !important;
+  }
+
+  /* اینپوت‌ها → فرورفته */
   input,
   textarea,
   select {
