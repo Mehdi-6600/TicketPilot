@@ -22,9 +22,9 @@ export default function LoginPage() {
         body: JSON.stringify({ username, password }),
       });
 
-      const data = await res.json().catch(() => ({}));
+      const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? `خطا (${res.status})`);
+        setError(data.error ?? "خطا در ورود");
         setLoading(false);
         return;
       }
@@ -41,48 +41,46 @@ export default function LoginPage() {
     <main className="flex min-h-screen items-center justify-center px-4">
       <form
         onSubmit={onSubmit}
-        className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-sm"
+        className="w-full max-w-sm rounded-3xl bg-surface p-6 shadow-raised"
       >
-        <h1 className="mb-1 text-center text-2xl font-bold text-brand-700">
+        <h1 className="mb-1 text-center text-2xl font-bold text-ink">
           TicketPilot
         </h1>
-        <p className="mb-6 text-center text-sm text-slate-500">ورود به پنل</p>
+        <p className="mb-6 text-center text-sm text-ink-muted">ورود به پنل</p>
 
         <label className="mb-3 block">
-          <span className="mb-1 block text-sm text-slate-600">نام کاربری</span>
+          <span className="mb-2 block text-sm text-ink-soft">
+            نام کاربری
+          </span>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             autoComplete="username"
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-900 outline-none focus:border-brand-500 focus:bg-white"
+            className="neo-input"
             required
           />
         </label>
 
         <label className="mb-4 block">
-          <span className="mb-1 block text-sm text-slate-600">رمز عبور</span>
+          <span className="mb-2 block text-sm text-ink-soft">رمز عبور</span>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             autoComplete="current-password"
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-900 outline-none focus:border-brand-500 focus:bg-white"
+            className="neo-input"
             required
           />
         </label>
 
         {error && (
-          <div className="mb-4 rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">
+          <div className="mb-4 rounded-2xl bg-pastel-pink px-3 py-2 text-sm text-ios-red">
             {error}
           </div>
         )}
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full rounded-xl bg-brand-600 py-2.5 font-medium text-white transition hover:bg-brand-700 disabled:opacity-60"
-        >
+        <button type="submit" disabled={loading} className="btn-ios-blue w-full">
           {loading ? "در حال ورود..." : "ورود"}
         </button>
       </form>
