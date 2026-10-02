@@ -1,7 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
+import Avatar from "@/components/Avatar";
+
+const AVATAR_KEY = "tp_avatar";
 
 export default function SettingsPage() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -9,6 +12,43 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(AVATAR_KEY);
+      if (saved) setAvatarPreview(saved);
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = String(reader.result);
+      setAvatarPreview(dataUrl);
+      try {
+        localStorage.setItem(AVATAR_KEY, dataUrl);
+      } catch {
+        // ignore
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function removeAvatar() {
+    setAvatarPreview(null);
+    try {
+      localStorage.removeItem(AVATAR_KEY);
+    } catch {
+      // ignore
+    }
+  }
 
   async function onChangePassword(e: React.FormEvent) {
     e.preventDefault();
@@ -40,14 +80,65 @@ export default function SettingsPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-bold text-slate-900">تنظیمات</h1>
+      <h1 className="text-xl font-bold text-ink">تنظیمات</h1>
 
-      <section className="rounded-2xl bg-white p-5 shadow-sm">
-        <h2 className="mb-3 font-semibold text-slate-800">تغییر رمز عبور</h2>
+      {/* تصویر پروفایل */}
+      <section className="space-y-3 rounded-3xl bg-surface p-5 shadow-raised">
+        <h2 className="font-semibold text-ink">تصویر پروفایل</h2>
+
+        <div className="flex items-center gap-4">
+          <div className="flex-shrink-0">
+            {avatarPreview ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={avatarPreview}
+                alt="profile"
+                className="h-20 w-20 rounded-full border-2 border-white object-cover shadow-raised"
+              />
+            ) : (
+              <Avatar name="?" size="lg" />
+            )}
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <button
+              type="button"
+              onClick={() => fileRef.current?.click()}
+              className="btn-ios-blue px-3 py-2 text-sm"
+            >
+              انتخاب تصویر
+            </button>
+            {avatarPreview && (
+              <button
+                type="button"
+                onClick={removeAvatar}
+                className="btn-ios-gray px-3 py-2 text-sm"
+              >
+                حذف تصویر
+              </button>
+            )}
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              onChange={handleAvatarChange}
+              className="hidden"
+            />
+          </div>
+        </div>
+
+        <p className="text-xs text-ink-muted">
+          تصویر در این مرورگر ذخیره می‌شود
+        </p>
+      </section>
+
+      {/* تغییر رمز */}
+      <section className="space-y-3 rounded-3xl bg-surface p-5 shadow-raised">
+        <h2 className="font-semibold text-ink">تغییر رمز عبور</h2>
 
         <form onSubmit={onChangePassword} className="space-y-3">
           <label className="block">
-            <span className="mb-1 block text-sm text-slate-600">
+            <span className="mb-2 block text-sm text-ink-soft">
               رمز فعلی
             </span>
             <input
@@ -55,12 +146,12 @@ export default function SettingsPage() {
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
               required
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+              className="neo-input"
             />
           </label>
 
           <label className="block">
-            <span className="mb-1 block text-sm text-slate-600">
+            <span className="mb-2 block text-sm text-ink-soft">
               رمز جدید
             </span>
             <input
@@ -69,17 +160,17 @@ export default function SettingsPage() {
               onChange={(e) => setNewPassword(e.target.value)}
               required
               minLength={4}
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+              className="neo-input"
             />
           </label>
 
           {error && (
-            <div className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">
+            <div className="rounded-2xl bg-pastel-pink px-3 py-2 text-sm text-ios-red">
               {error}
             </div>
           )}
           {message && (
-            <div className="rounded-xl bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+            <div className="rounded-2xl bg-pastel-mint px-3 py-2 text-sm text-ios-green">
               {message}
             </div>
           )}
@@ -87,22 +178,23 @@ export default function SettingsPage() {
           <button
             type="submit"
             disabled={saving}
-            className="w-full rounded-xl bg-brand-600 py-2.5 font-medium text-white disabled:opacity-60"
+            className="btn-ios-blue w-full"
           >
             {saving ? "..." : "تغییر رمز"}
           </button>
         </form>
       </section>
 
-      <section className="rounded-2xl bg-white p-5 shadow-sm">
-        <h2 className="mb-3 font-semibold text-slate-800">پشتیبان‌گیری</h2>
-        <p className="mb-3 text-sm text-slate-600">
-          فایل JSON شامل تمام مشتریان، سفرها، رزروها، پیگیری‌ها، فعالیت‌ها و
-          گزارش‌ها دانلود می‌شود.
+      {/* پشتیبان‌گیری */}
+      <section className="space-y-3 rounded-3xl bg-surface p-5 shadow-raised">
+        <h2 className="font-semibold text-ink">پشتیبان‌گیری</h2>
+        <p className="text-sm text-ink-soft">
+          فایل JSON شامل تمام مشتریان، سفرها، رزروها، پیگیری‌ها، فعالیت‌ها
+          و گزارش‌ها دانلود می‌شود.
         </p>
         <a
           href="/api/backup"
-          className="block rounded-xl bg-slate-900 py-2.5 text-center text-sm font-medium text-white"
+          className="btn-ios-gray block w-full text-center"
         >
           ⬇️ دانلود فایل پشتیبان
         </a>
@@ -110,7 +202,7 @@ export default function SettingsPage() {
 
       <Link
         href="/today"
-        className="block rounded-xl bg-slate-100 py-3 text-center text-sm text-slate-700"
+        className="btn-neo block w-full text-center"
       >
         بازگشت
       </Link>
