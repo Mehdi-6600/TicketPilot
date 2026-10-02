@@ -32,7 +32,6 @@ export default function GlobalSearch() {
       setCustomers([]);
       setBookings([]);
       setTravels([]);
-      return;
     }
   }, [open]);
 
@@ -76,16 +75,16 @@ export default function GlobalSearch() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="rounded-xl p-2 text-ink-muted transition-all duration-150 hover:bg-white/60 active:scale-95"
+        className="rounded-xl p-2 text-ink-muted transition-all duration-150 hover:text-ios-blue active:scale-95"
         aria-label="جستجو"
       >
         <Search size={20} strokeWidth={2} />
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 p-4 pt-20 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/30 p-4 pt-20 backdrop-blur-sm">
           <div
-            className="w-full max-w-lg rounded-3xl border border-white/60 bg-white/95 p-4 shadow-card backdrop-blur-xl"
+            className="w-full max-w-lg rounded-3xl bg-surface p-4 shadow-raised"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-3 flex items-center gap-2">
@@ -98,15 +97,15 @@ export default function GlobalSearch() {
                   type="text"
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
-                  placeholder="جستجو در مشتریان، رزروها، سفرها..."
+                  placeholder="جستجو..."
                   autoFocus
-                  className="input-soft pr-10"
+                  className="neo-input pr-10"
                 />
               </div>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="btn-ios-gray px-3 py-2.5"
+                className="btn-ios-gray px-3 py-3"
               >
                 <X size={18} />
               </button>
@@ -142,7 +141,7 @@ export default function GlobalSearch() {
                         <Link
                           href={`/customers/${c.id}`}
                           onClick={() => setOpen(false)}
-                          className="flex items-center justify-between rounded-2xl bg-pastel-lavenderLight px-3 py-2.5 text-sm transition-all duration-150 hover:bg-pastel-lavender active:scale-[0.98]"
+                          className="flex items-center justify-between rounded-2xl bg-pastel-lavender px-3 py-2.5 text-sm transition-all duration-150 active:scale-[0.98]"
                         >
                           <span className="text-ink">👤 {c.name}</span>
                           <span className="text-xs text-ink-muted">
@@ -166,7 +165,7 @@ export default function GlobalSearch() {
                         <Link
                           href={`/customers/${b.customer.id}`}
                           onClick={() => setOpen(false)}
-                          className="flex items-center justify-between rounded-2xl bg-pastel-pinkLight px-3 py-2.5 text-sm transition-all duration-150 hover:bg-pastel-pink active:scale-[0.98]"
+                          className="flex items-center justify-between rounded-2xl bg-pastel-pink px-3 py-2.5 text-sm transition-all duration-150 active:scale-[0.98]"
                         >
                           <span className="text-ink">🎫 {b.customer.name}</span>
                           {b.travel && (
@@ -192,9 +191,11 @@ export default function GlobalSearch() {
                         <Link
                           href={`/customers/${t.customer.id}`}
                           onClick={() => setOpen(false)}
-                          className="flex items-center justify-between rounded-2xl bg-pastel-blueLight px-3 py-2.5 text-sm transition-all duration-150 hover:bg-pastel-blue active:scale-[0.98]"
+                          className="flex items-center justify-between rounded-2xl bg-pastel-blue px-3 py-2.5 text-sm transition-all duration-150 active:scale-[0.98]"
                         >
-                          <span className="text-ink">✈️ {t.from} → {t.to}</span>
+                          <span className="text-ink">
+                            ✈️ {t.from} → {t.to}
+                          </span>
                           <span className="text-xs text-ink-muted">
                             {t.customer.name}
                           </span>
