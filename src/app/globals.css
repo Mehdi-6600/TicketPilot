@@ -23,8 +23,10 @@
 }
 
 @layer components {
+  /* ============ کارت‌های نئومورفیک ============ */
+
   .neo-card {
-    @apply rounded-3xl bg-surface p-4 shadow-raised transition-all duration-200;
+    @apply rounded-3xl border border-sky-100/80 bg-surface p-4 shadow-raised transition-all duration-200;
   }
 
   .neo-card:active {
@@ -32,7 +34,7 @@
   }
 
   .neo-card-sm {
-    @apply rounded-2xl bg-surface p-3 shadow-raised-sm transition-all duration-150;
+    @apply rounded-2xl border border-sky-100/70 bg-surface p-3 shadow-raised-sm transition-all duration-150;
   }
 
   .neo-card-sm:active {
@@ -40,23 +42,23 @@
   }
 
   .neo-card-lavender {
-    @apply rounded-3xl bg-pastel-lavender p-4 shadow-raised transition-all duration-200;
+    @apply rounded-3xl border border-violet-100/70 bg-pastel-lavender p-4 shadow-raised transition-all duration-200;
   }
 
   .neo-card-pink {
-    @apply rounded-3xl bg-pastel-pink p-4 shadow-raised transition-all duration-200;
+    @apply rounded-3xl border border-rose-100/70 bg-pastel-pink p-4 shadow-raised transition-all duration-200;
   }
 
   .neo-card-blue {
-    @apply rounded-3xl bg-pastel-blue p-4 shadow-raised transition-all duration-200;
+    @apply rounded-3xl border border-sky-100/70 bg-pastel-blue p-4 shadow-raised transition-all duration-200;
   }
 
   .neo-card-peach {
-    @apply rounded-3xl bg-pastel-peach p-4 shadow-raised transition-all duration-200;
+    @apply rounded-3xl border border-orange-100/70 bg-pastel-peach p-4 shadow-raised transition-all duration-200;
   }
 
   .neo-card-mint {
-    @apply rounded-3xl bg-pastel-mint p-4 shadow-raised transition-all duration-200;
+    @apply rounded-3xl border border-emerald-100/70 bg-pastel-mint p-4 shadow-raised transition-all duration-200;
   }
 
   .neo-card-lavender:active,
@@ -67,8 +69,10 @@
     @apply scale-[0.985] shadow-pressed;
   }
 
+  /* ============ اینپوت‌های فرورفته ============ */
+
   .neo-input {
-    @apply w-full rounded-2xl border-0 bg-surface px-4 py-3 text-ink shadow-inset outline-none transition-shadow duration-150 placeholder:text-ink-faint;
+    @apply w-full rounded-2xl border border-sky-100/60 bg-surface px-4 py-3 text-ink shadow-inset outline-none transition-shadow duration-150 placeholder:text-ink-faint;
   }
 
   .neo-input:focus {
@@ -77,20 +81,22 @@
   }
 
   .neo-input-sm {
-    @apply w-full rounded-xl border-0 bg-surface px-3 py-2 text-sm text-ink shadow-inset-sm outline-none placeholder:text-ink-faint;
+    @apply w-full rounded-xl border border-sky-100/60 bg-surface px-3 py-2 text-sm text-ink shadow-inset-sm outline-none placeholder:text-ink-faint;
   }
 
   .neo-select {
-    @apply w-full rounded-2xl border-0 bg-surface px-4 py-3 text-ink shadow-inset outline-none;
+    @apply w-full rounded-2xl border border-sky-100/60 bg-surface px-4 py-3 text-ink shadow-inset outline-none;
   }
 
   .neo-textarea {
-    @apply w-full rounded-2xl border-0 bg-surface px-4 py-3 text-ink shadow-inset outline-none placeholder:text-ink-faint;
+    @apply w-full rounded-2xl border border-sky-100/60 bg-surface px-4 py-3 text-ink shadow-inset outline-none placeholder:text-ink-faint;
     resize: vertical;
   }
 
+  /* ============ دکمه‌های iOS ============ */
+
   .btn-ios-blue {
-    @apply rounded-2xl bg-ios-blue px-4 py-3 font-medium text-white shadow-raised transition-all duration-150;
+    @apply rounded-2xl border border-sky-200/50 bg-ios-blue px-4 py-3 font-medium text-white shadow-raised transition-all duration-150;
   }
 
   .btn-ios-blue:active {
@@ -98,7 +104,7 @@
   }
 
   .btn-ios-green {
-    @apply rounded-2xl bg-ios-green px-4 py-3 font-medium text-white shadow-raised transition-all duration-150;
+    @apply rounded-2xl border border-emerald-200/50 bg-ios-green px-4 py-3 font-medium text-white shadow-raised transition-all duration-150;
   }
 
   .btn-ios-green:active {
@@ -106,7 +112,7 @@
   }
 
   .btn-ios-orange {
-    @apply rounded-2xl bg-ios-orange px-4 py-3 font-medium text-white shadow-raised transition-all duration-150;
+    @apply rounded-2xl border border-orange-200/50 bg-ios-orange px-4 py-3 font-medium text-white shadow-raised transition-all duration-150;
   }
 
   .btn-ios-orange:active {
@@ -114,7 +120,7 @@
   }
 
   .btn-ios-red {
-    @apply rounded-2xl bg-ios-red px-4 py-3 font-medium text-white shadow-raised transition-all duration-150;
+    @apply rounded-2xl border border-red-200/50 bg-ios-red px-4 py-3 font-medium text-white shadow-raised transition-all duration-150;
   }
 
   .btn-ios-red:active {
@@ -122,7 +128,7 @@
   }
 
   .btn-ios-gray {
-    @apply rounded-2xl bg-ios-grayLight px-4 py-3 font-medium text-ink shadow-raised transition-all duration-150;
+    @apply rounded-2xl border border-sky-100/70 bg-ios-grayLight px-4 py-3 font-medium text-ink shadow-raised transition-all duration-150;
   }
 
   .btn-ios-gray:active {
@@ -130,7 +136,7 @@
   }
 
   .btn-neo {
-    @apply rounded-2xl bg-surface px-4 py-3 font-medium text-ink shadow-raised transition-all duration-150;
+    @apply rounded-2xl border border-sky-100/70 bg-surface px-4 py-3 font-medium text-ink shadow-raised transition-all duration-150;
   }
 
   .btn-neo:active {
