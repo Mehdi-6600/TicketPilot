@@ -16,9 +16,14 @@ export default function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-20 pb-[env(safe-area-inset-bottom)]">
+    <nav className="fixed bottom-0 left-0 right-0 z-30 pb-[env(safe-area-inset-bottom)]">
       <div className="mx-auto max-w-3xl px-3 pb-3">
-        <ul className="flex items-stretch rounded-3xl bg-surface/95 px-2 py-2 shadow-raised backdrop-blur-md">
+        <ul
+          className="flex items-stretch rounded-3xl border border-sky-100/70 bg-white/55 px-2 py-2 shadow-raised backdrop-blur-2xl backdrop-saturate-150"
+          style={{
+            WebkitBackdropFilter: "blur(20px) saturate(150%)",
+          }}
+        >
           {ITEMS.map((item) => {
             const active =
               pathname === item.href ||
@@ -30,13 +35,15 @@ export default function BottomNav() {
                 <Link
                   href={item.href}
                   className={`flex flex-col items-center justify-center gap-0.5 rounded-2xl py-1.5 text-[10px] transition-all duration-150 ${
-                    active
-                      ? "text-ios-blue"
-                      : "text-ink-muted"
+                    active ? "text-ios-blue" : "text-ink-soft"
                   }`}
                 >
                   <Icon size={20} strokeWidth={active ? 2.6 : 1.8} />
-                  <span className={active ? "font-bold" : ""}>
+                  <span
+                    className={
+                      active ? "font-bold" : "font-medium"
+                    }
+                  >
                     {item.label}
                   </span>
                 </Link>
