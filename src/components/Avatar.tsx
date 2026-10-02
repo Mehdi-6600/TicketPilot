@@ -1,31 +1,34 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   name: string;
   size?: "sm" | "md" | "lg" | "xl";
-  editable?: boolean;
 };
 
-const STORAGE_KEY = "tp_avatar";
+const AVATAR_KEY = "tp_avatar";
 
-export default function Avatar({
-  name,
-  size = "md",
-  editable = false,
-}: Props) {
+export default function Avatar({ name, size = "md" }: Props) {
   const [image, setImage] = useState<string | null>(null);
-  const fileRef = useRef<HTMLInputElement>(null);
 
-  // بارگذاری تصویر ذخیره‌شده
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) setImage(saved);
-    } catch {
-      // ignore
+    function load() {
+      try {
+        const saved = localStorage.getItem(AVATAR_KEY);
+        if (saved) setImage(saved);
+        else setImage(null);
+      } catch {
+        // ignore
+      }
     }
+    load();
+
+    function onStorage(e: StorageEvent) {
+      if (e.key === AVATAR_KEY) load();
+    }
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
   }, []);
 
   const sizeClasses =
@@ -39,57 +42,15 @@ export default function Avatar({
 
   const firstLetter = name.trim().charAt(0) || "؟";
 
-  function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      const dataUrl = String(reader.result);
-      setImage(dataUrl);
-      try {
-        localStorage.setItem(STORAGE_KEY, dataUrl);
-      } catch {
-        // ignore
-      }
-    };
-    reader.readAsDataURL(file);
-  }
-
   return (
-    <div className="relative inline-block">
-      <div
-        className={`${sizeClasses} flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-violet-300 to-pink-300 font-bold text-white shadow-raised`}
-      >
-        {image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={image}
-            alt={name}
-            className="h-full w-full object-cover"
-          />
-        ) : (
-          <span>{firstLetter}</span>
-        )}
-      </div>
-
-      {editable && (
-        <>
-          <button
-            type="button"
-            onClick={() => fileRef.current?.click()}
-            className="absolute -bottom-1 -left-1 flex h-7 w-7 items-center justify-center rounded-full bg-ios-blue text-xs text-white shadow-ios-blue"
-            aria-label="تغییر تصویر"
-          >
-            ✎
-          </button>
-          <input
-            ref={fileRef}
-            type="file"
-            accept="image/*"
-            onChange={handleFile}
-            className="hidden"
-          />
-        </>
+    <div
+      className={`${sizeClasses} flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-violet-300 to-pink-300 font-bold text-white shadow-raised`}
+    >
+      {image ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={image} alt={name} className="h-full w-full object-cover" />
+      ) : (
+        <span>{firstLetter}</span>
       )}
     </div>
   );
