@@ -12,9 +12,9 @@
   }
 
   body {
-    background-color: #e0e5ec !important;
-    color: #2d3748;
+    @apply bg-surface-base text-ink antialiased;
     min-height: 100vh;
+    background-attachment: fixed;
   }
 
   button {
@@ -23,91 +23,137 @@
 }
 
 @layer components {
-  /* کارت‌ها → برجسته */
-  .rounded-2xl.bg-white,
-  .rounded-3xl.bg-white,
-  div.bg-white {
-    background-color: #e0e5ec !important;
-    box-shadow:
-      8px 8px 16px #a3b1c6,
-      -8px -8px 16px #ffffff !important;
-    border: none !important;
+  /* ============ کارت‌های نئومورفیک برجسته ============ */
+
+  .neo-card {
+    @apply rounded-3xl bg-surface p-4 shadow-raised transition-all duration-200;
   }
 
-  /* دکمه‌های رنگی → برجسته */
-  a.bg-brand-600,
-  a.bg-emerald-600,
-  a.bg-indigo-600,
-  a.bg-slate-900,
-  button.bg-brand-600,
-  button.bg-emerald-600,
-  button.bg-indigo-600,
-  button.bg-slate-900 {
-    box-shadow:
-      7px 7px 14px rgba(0, 0, 0, 0.22),
-      -5px -5px 12px rgba(255, 255, 255, 0.55) !important;
-    transition: all 0.15s ease !important;
+  .neo-card:active {
+    @apply shadow-pressed scale-[0.985];
   }
 
-  /* وقتی دکمه فشرده می‌شه → فرو می‌ره + سبز پاستیلی */
-  a.bg-brand-600:active,
-  a.bg-emerald-600:active,
-  a.bg-indigo-600:active,
-  a.bg-slate-900:active,
-  button.bg-brand-600:active,
-  button.bg-emerald-600:active,
-  button.bg-indigo-600:active,
-  button.bg-slate-900:active {
-    background-color: #a7f3d0 !important; /* سبز پاستیلی */
-    color: #065f46 !important;
-    box-shadow:
-      inset 5px 5px 10px #a3b1c6,
-      inset -5px -5px 10px #ffffff !important;
-    transform: scale(0.97) !important;
+  .neo-card-sm {
+    @apply rounded-2xl bg-surface p-3 shadow-raised-sm transition-all duration-150;
   }
 
-  /* StatPill و دکمه‌های روشن */
-  .shadow-sm,
-  a.bg-white,
-  button.bg-white,
-  .bg-slate-100 {
-    background-color: #e0e5ec !important;
-    color: #2d3748 !important;
-    box-shadow:
-      6px 6px 12px #a3b1c6,
-      -6px -6px 12px #ffffff !important;
-    transition: all 0.15s ease !important;
+  .neo-card-sm:active {
+    @apply shadow-pressed scale-[0.98];
   }
 
-  .shadow-sm:active,
-  a.bg-white:active,
-  button.bg-white:active,
-  .bg-slate-100:active {
-    background-color: #a7f3d0 !important;
-    color: #065f46 !important;
-    box-shadow:
-      inset 4px 4px 8px #a3b1c6,
-      inset -4px -4px 8px #ffffff !important;
-    transform: scale(0.97) !important;
+  /* کارت‌های پاستیلی */
+  .neo-card-lavender {
+    @apply rounded-3xl bg-pastel-lavender p-4 shadow-raised transition-all duration-200;
   }
 
-  /* اینپوت‌ها → فرورفته */
-  input,
-  textarea,
-  select {
-    background-color: #e0e5ec !important;
-    box-shadow:
-      inset 6px 6px 10px #a3b1c6,
-      inset -6px -6px 10px #ffffff !important;
-    border: none !important;
+  .neo-card-pink {
+    @apply rounded-3xl bg-pastel-pink p-4 shadow-raised transition-all duration-200;
   }
 
-  /* هدر و باتم‌نوی */
-  header.sticky,
-  nav.fixed.bottom-0 {
-    background-color: #e0e5ec !important;
-    box-shadow: none !important;
-    border: none !important;
-    backdrop-filter: none !important;
+  .neo-card-blue {
+    @apply rounded-3xl bg-pastel-blue p-4 shadow-raised transition-all duration-200;
+  }
+
+  .neo-card-peach {
+    @apply rounded-3xl bg-pastel-peach p-4 shadow-raised transition-all duration-200;
+  }
+
+  .neo-card-mint {
+    @apply rounded-3xl bg-pastel-mint p-4 shadow-raised transition-all duration-200;
+  }
+
+  .neo-card-lavender:active,
+  .neo-card-pink:active,
+  .neo-card-blue:active,
+  .neo-card-peach:active,
+  .neo-card-mint:active {
+    @apply shadow-pressed scale-[0.985];
+  }
+
+  /* ============ اینپوت‌های فرورفته ============ */
+
+  .neo-input {
+    @apply w-full rounded-2xl border-0 bg-surface px-4 py-3 text-ink shadow-inset outline-none transition-shadow duration-150 placeholder:text-ink-faint;
+  }
+
+  .neo-input:focus {
+    @apply shadow-inset;
+    background-color: #e9edf3;
+  }
+
+  .neo-input-sm {
+    @apply w-full rounded-xl border-0 bg-surface px-3 py-2 text-sm text-ink shadow-inset-sm outline-none placeholder:text-ink-faint;
+  }
+
+  /* ============ Select ============ */
+
+  .neo-select {
+    @apply w-full rounded-2xl border-0 bg-surface px-4 py-3 text-ink shadow-inset outline-none;
+  }
+
+  .neo-textarea {
+    @apply w-full rounded-2xl border-0 bg-surface px-4 py-3 text-ink shadow-inset outline-none placeholder:text-ink-faint;
+    resize: vertical;
+  }
+
+  /* ============ دکمه‌های iOS ============ */
+
+  .btn-ios-blue {
+    @apply rounded-2xl bg-ios-blue px-4 py-3 font-medium text-white shadow-ios-blue transition-all duration-150;
+  }
+
+  .btn-ios-blue:active {
+    @apply scale-[0.97] brightness-95;
+  }
+
+  .btn-ios-green {
+    @apply rounded-2xl bg-ios-green px-4 py-3 font-medium text-white shadow-ios-green transition-all duration-150;
+  }
+
+  .btn-ios-green:active {
+    @apply scale-[0.97] brightness-95;
+  }
+
+  .btn-ios-orange {
+    @apply rounded-2xl bg-ios-orange px-4 py-3 font-medium text-white shadow-ios-orange transition-all duration-150;
+  }
+
+  .btn-ios-orange:active {
+    @apply scale-[0.97] brightness-95;
+  }
+
+  .btn-ios-red {
+    @apply rounded-2xl bg-ios-red px-4 py-3 font-medium text-white shadow-ios-red transition-all duration-150;
+  }
+
+  .btn-ios-red:active {
+    @apply scale-[0.97] brightness-95;
+  }
+
+  .btn-ios-gray {
+    @apply rounded-2xl bg-ios-grayLight px-4 py-3 font-medium text-ink shadow-raised-sm transition-all duration-150;
+  }
+
+  .btn-ios-gray:active {
+    @apply scale-[0.97] shadow-pressed;
+  }
+
+  /* دکمه نئومورفیک (خنثی) */
+  .btn-neo {
+    @apply rounded-2xl bg-surface px-4 py-3 font-medium text-ink shadow-raised transition-all duration-150;
+  }
+
+  .btn-neo:active {
+    @apply scale-[0.97] shadow-pressed;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
