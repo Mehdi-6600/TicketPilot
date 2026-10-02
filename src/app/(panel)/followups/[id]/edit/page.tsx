@@ -67,7 +67,7 @@ export default function EditFollowUpPage() {
 
   if (loading) {
     return (
-      <div className="rounded-2xl bg-white p-6 text-center text-slate-500 shadow-sm">
+      <div className="rounded-3xl bg-surface p-6 text-center text-ink-muted shadow-raised">
         در حال بارگذاری...
       </div>
     );
@@ -76,46 +76,45 @@ export default function EditFollowUpPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">ویرایش پیگیری</h1>
-        <Link href="/followups" className="text-sm text-brand-600">
+        <h1 className="text-xl font-bold text-ink">ویرایش پیگیری</h1>
+        <Link href="/followups" className="text-sm text-ios-blue">
           بازگشت
         </Link>
       </div>
 
-      <form onSubmit={onSubmit} className="space-y-4">
+      <form
+        onSubmit={onSubmit}
+        className="space-y-4 rounded-3xl bg-surface p-5 shadow-raised"
+      >
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">عنوان *</span>
+          <span className="mb-2 block text-sm text-ink-soft">عنوان *</span>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-input"
           />
         </label>
 
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">تاریخ *</span>
+          <span className="mb-2 block text-sm text-ink-soft">تاریخ *</span>
           <input
             type="datetime-local"
             value={dueAt}
             onChange={(e) => setDueAt(e.target.value)}
             required
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-input"
           />
         </label>
 
         {error && (
-          <div className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">
+          <div className="rounded-2xl bg-pastel-pink px-3 py-2 text-sm text-ios-red">
             {error}
           </div>
         )}
 
-        <button
-          type="submit"
-          disabled={saving}
-          className="w-full rounded-xl bg-brand-600 py-3 font-medium text-white disabled:opacity-60"
-        >
+        <button type="submit" disabled={saving} className="btn-ios-blue w-full">
           {saving ? "در حال ذخیره..." : "ذخیره تغییرات"}
         </button>
       </form>
