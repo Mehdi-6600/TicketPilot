@@ -21,10 +21,9 @@ function renderPreview(content: string): string {
   const out: string[] = [];
 
   for (const raw of lines) {
-    // خط جداکننده
     if (/^▬{3,}$/.test(raw.trim())) {
       out.push(
-        `<div style="border-top:1px solid #cbd5e1;margin:10px 0;width:60%;"></div>`
+        `<div style="border-top:1px solid #c7cdd6;margin:10px 0;width:55%;"></div>`
       );
       continue;
     }
@@ -34,18 +33,16 @@ function renderPreview(content: string): string {
       continue;
     }
 
-    // بولد: **متن**
     const boldMatch = raw.match(/^\*\*(.+)\*\*\s*$/);
     if (boldMatch) {
       out.push(
-        `<div style="font-weight:800;color:#0f172a;margin:6px 0;font-size:15px;">${escapeHtml(
+        `<div style="font-weight:800;color:#1F2937;margin:6px 0;font-size:15px;">${escapeHtml(
           boldMatch[1]
         )}</div>`
       );
       continue;
     }
 
-    // خطوط عادی
     const leading = raw.match(/^\s*/)?.[0] ?? "";
     const indent = leading.replace(/\t/g, "    ").length;
     const padding = Math.min(indent, 12) * 6;
@@ -96,7 +93,6 @@ export default function ReportEditor({
   }
 
   async function onCopy() {
-    // حذف ** از متن برای کپی تمیز
     const clean = content.replace(/\*\*/g, "");
     try {
       await navigator.clipboard.writeText(clean);
@@ -135,10 +131,8 @@ export default function ReportEditor({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">
-          گزارش {dateLabel}
-        </h1>
-        <Link href="/reports" className="text-sm text-brand-600">
+        <h1 className="text-xl font-bold text-ink">گزارش {dateLabel}</h1>
+        <Link href="/reports" className="text-sm text-ios-blue">
           بازگشت
         </Link>
       </div>
@@ -147,10 +141,10 @@ export default function ReportEditor({
         <button
           type="button"
           onClick={() => setMode("preview")}
-          className={`rounded-xl px-3 py-1.5 text-sm transition ${
+          className={`rounded-xl px-3 py-1.5 text-sm transition-all duration-150 ${
             mode === "preview"
-              ? "bg-brand-600 text-white"
-              : "bg-white text-slate-700 shadow-sm"
+              ? "bg-ink text-white shadow-raised-sm"
+              : "bg-surface text-ink-soft shadow-raised-sm active:scale-95 active:shadow-pressed"
           }`}
         >
           👁️ پیش‌نمایش
@@ -158,10 +152,10 @@ export default function ReportEditor({
         <button
           type="button"
           onClick={() => setMode("edit")}
-          className={`rounded-xl px-3 py-1.5 text-sm transition ${
+          className={`rounded-xl px-3 py-1.5 text-sm transition-all duration-150 ${
             mode === "edit"
-              ? "bg-brand-600 text-white"
-              : "bg-white text-slate-700 shadow-sm"
+              ? "bg-ink text-white shadow-raised-sm"
+              : "bg-surface text-ink-soft shadow-raised-sm active:scale-95 active:shadow-pressed"
           }`}
         >
           ✏️ ویرایش متن
@@ -170,7 +164,7 @@ export default function ReportEditor({
 
       {mode === "preview" ? (
         <div
-          className="rounded-2xl border border-slate-200 bg-white p-4 text-sm leading-7 text-slate-800"
+          className="rounded-3xl bg-surface p-5 text-sm leading-7 text-ink-soft shadow-raised"
           style={{ direction: "rtl", fontFamily: "inherit" }}
           dangerouslySetInnerHTML={{ __html: renderPreview(content) }}
         />
@@ -179,19 +173,19 @@ export default function ReportEditor({
           value={content}
           onChange={(e) => setContent(e.target.value)}
           rows={22}
-          className="w-full rounded-2xl border border-slate-200 bg-white p-4 text-sm leading-7 outline-none focus:border-brand-500"
+          className="neo-textarea text-sm leading-7"
           style={{ fontFamily: "inherit", direction: "rtl" }}
         />
       )}
 
       {error && (
-        <div className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">
+        <div className="rounded-2xl bg-pastel-pink px-3 py-2 text-sm text-ios-red">
           {error}
         </div>
       )}
 
       {savedAt && (
-        <div className="rounded-xl bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+        <div className="rounded-2xl bg-pastel-mint px-3 py-2 text-sm text-ios-green">
           ذخیره شد — {savedAt}
         </div>
       )}
@@ -201,15 +195,11 @@ export default function ReportEditor({
           type="button"
           onClick={onSave}
           disabled={loading}
-          className="rounded-xl bg-slate-900 py-3 text-sm font-medium text-white disabled:opacity-60"
+          className="btn-ios-gray"
         >
           {loading ? "..." : "💾 ذخیره"}
         </button>
-        <button
-          type="button"
-          onClick={onCopy}
-          className="rounded-xl bg-brand-600 py-3 text-sm font-medium text-white"
-        >
+        <button type="button" onClick={onCopy} className="btn-ios-blue">
           {copied ? "✅ کپی شد" : "📋 کپی گزارش"}
         </button>
       </div>
@@ -218,7 +208,7 @@ export default function ReportEditor({
         type="button"
         onClick={onRegenerate}
         disabled={loading}
-        className="w-full rounded-xl bg-slate-100 py-2 text-xs text-slate-600 disabled:opacity-60"
+        className="btn-neo w-full text-xs"
       >
         🔄 ساخت مجدد از داده‌های امروز
       </button>
