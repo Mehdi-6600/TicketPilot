@@ -20,13 +20,13 @@ export default async function ReportsArchivePage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">آرشیو گزارش‌ها</h1>
-        <Link href="/reports" className="text-sm text-brand-600">
+        <h1 className="text-xl font-bold text-ink">آرشیو گزارش‌ها</h1>
+        <Link href="/reports" className="text-sm text-ios-blue">
           بازگشت
         </Link>
       </div>
 
-      <p className="text-xs text-slate-500">
+      <p className="px-1 text-xs text-ink-muted">
         گزارش‌ها تا ۶ ماه نگهداری می‌شوند
       </p>
 
@@ -38,17 +38,17 @@ export default async function ReportsArchivePage() {
             <li key={r.id}>
               <Link
                 href={`/reports/${r.id}`}
-                className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-sm"
+                className="flex items-center justify-between rounded-3xl bg-surface p-4 shadow-raised transition-all duration-200 active:scale-[0.99] active:shadow-pressed"
               >
                 <div>
-                  <div className="font-medium text-slate-900">
+                  <div className="font-medium text-ink">
                     {toPersianDate(r.date)}
                   </div>
-                  <div className="mt-1 text-xs text-slate-500">
+                  <div className="mt-1 text-xs text-ink-muted">
                     آخرین ویرایش: {toPersianDateTime(r.updatedAt)}
                   </div>
                 </div>
-                <span className="text-slate-400">›</span>
+                <span className="text-ink-faint">›</span>
               </Link>
             </li>
           ))}
