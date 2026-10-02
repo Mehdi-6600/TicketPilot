@@ -87,7 +87,7 @@ export default function EditTravelPage() {
 
   if (loading) {
     return (
-      <div className="rounded-2xl bg-white p-6 text-center text-slate-500 shadow-sm">
+      <div className="rounded-3xl bg-surface p-6 text-center text-ink-muted shadow-raised">
         در حال بارگذاری...
       </div>
     );
@@ -96,37 +96,40 @@ export default function EditTravelPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">ویرایش سفر</h1>
-        <Link href="/travelers" className="text-sm text-brand-600">
+        <h1 className="text-xl font-bold text-ink">ویرایش سفر</h1>
+        <Link href="/travelers" className="text-sm text-ios-blue">
           بازگشت
         </Link>
       </div>
 
-      <form onSubmit={onSubmit} className="space-y-4">
+      <form
+        onSubmit={onSubmit}
+        className="space-y-4 rounded-3xl bg-surface p-5 shadow-raised"
+      >
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">مبدأ *</span>
+          <span className="mb-2 block text-sm text-ink-soft">مبدأ *</span>
           <input
             type="text"
             value={from}
             onChange={(e) => setFrom(e.target.value)}
             required
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-input"
           />
         </label>
 
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">مقصد *</span>
+          <span className="mb-2 block text-sm text-ink-soft">مقصد *</span>
           <input
             type="text"
             value={to}
             onChange={(e) => setTo(e.target.value)}
             required
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-input"
           />
         </label>
 
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">
+          <span className="mb-2 block text-sm text-ink-soft">
             تاریخ رفت *
           </span>
           <input
@@ -134,28 +137,28 @@ export default function EditTravelPage() {
             value={departDate}
             onChange={(e) => setDepartDate(e.target.value)}
             required
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-input"
           />
         </label>
 
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">
+          <span className="mb-2 block text-sm text-ink-soft">
             تاریخ برگشت
           </span>
           <input
             type="datetime-local"
             value={returnDate}
             onChange={(e) => setReturnDate(e.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-input"
           />
         </label>
 
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">وضعیت</span>
+          <span className="mb-2 block text-sm text-ink-soft">وضعیت</span>
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value as TravelStatus)}
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-select"
           >
             {TRAVEL_STATUSES.map((s) => (
               <option key={s} value={s}>
@@ -166,26 +169,22 @@ export default function EditTravelPage() {
         </label>
 
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">یادداشت</span>
+          <span className="mb-2 block text-sm text-ink-soft">یادداشت</span>
           <textarea
             value={note}
             onChange={(e) => setNote(e.target.value)}
             rows={3}
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-textarea"
           />
         </label>
 
         {error && (
-          <div className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">
+          <div className="rounded-2xl bg-pastel-pink px-3 py-2 text-sm text-ios-red">
             {error}
           </div>
         )}
 
-        <button
-          type="submit"
-          disabled={saving}
-          className="w-full rounded-xl bg-brand-600 py-3 font-medium text-white disabled:opacity-60"
-        >
+        <button type="submit" disabled={saving} className="btn-ios-blue w-full">
           {saving ? "در حال ذخیره..." : "ذخیره تغییرات"}
         </button>
       </form>
