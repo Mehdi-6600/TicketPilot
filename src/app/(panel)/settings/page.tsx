@@ -132,6 +132,29 @@ export default function SettingsPage() {
         </p>
       </section>
 
+      {/* خروجی مخاطبین */}
+      <section className="space-y-3 rounded-3xl bg-surface p-5 shadow-raised">
+        <h2 className="font-semibold text-ink">خروجی مخاطبین</h2>
+        <p className="text-sm text-ink-soft">
+          یک فایل vCard از تمام مشتریان دانلود می‌شود. با باز کردن آن روی
+          گوشی، همه مخاطبین یکجا به دفترچه تلفن اضافه می‌شوند.
+        </p>
+
+        <div className="rounded-2xl bg-pastel-blue/60 px-3 py-2 text-xs text-ink-soft">
+          💡 روی آیفون: فایل را در Files ذخیره کن و روی آن بزن.
+          <br />
+          روی اندروید: فایل دانلود می‌شود و به‌طور خودکار در Contacts
+          باز می‌شود.
+        </div>
+
+        <a
+          href="/api/customers/export-vcf"
+          className="btn-ios-blue block w-full text-center"
+        >
+          📇 دانلود مخاطبین (vCard)
+        </a>
+      </section>
+
       {/* تغییر رمز */}
       <section className="space-y-3 rounded-3xl bg-surface p-5 shadow-raised">
         <h2 className="font-semibold text-ink">تغییر رمز عبور</h2>
@@ -200,10 +223,7 @@ export default function SettingsPage() {
         </a>
       </section>
 
-      <Link
-        href="/today"
-        className="btn-neo block w-full text-center"
-      >
+      <Link href="/today" className="btn-neo block w-full text-center">
         بازگشت
       </Link>
     </div>
