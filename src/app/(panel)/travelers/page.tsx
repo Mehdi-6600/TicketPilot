@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import EmptyState from "@/components/EmptyState";
 import TravelItem from "@/components/TravelItem";
 import { startOfTodayTehran, endOfTomorrowTehran } from "@/lib/date";
+import { Plus } from "lucide-react";
 import type { Prisma } from "@prisma/client";
 
 export const dynamic = "force-dynamic";
@@ -48,12 +49,13 @@ export default async function TravelersPage({ searchParams }: Props) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">مسافران</h1>
+        <h1 className="text-xl font-bold text-ink">مسافران</h1>
         <Link
           href="/travelers/new"
-          className="rounded-xl bg-brand-600 px-3 py-1.5 text-sm font-medium text-white"
+          className="btn-ios-blue flex items-center gap-1 px-3 py-2 text-sm"
         >
-          ＋ سفر جدید
+          <Plus size={16} />
+          <span>سفر جدید</span>
         </Link>
       </div>
 
@@ -62,10 +64,10 @@ export default async function TravelersPage({ searchParams }: Props) {
           <Link
             key={f.key}
             href={`/travelers?filter=${f.key}`}
-            className={`rounded-xl px-3 py-1.5 text-sm transition ${
+            className={`rounded-xl px-3 py-1.5 text-sm transition-all duration-150 ${
               filter === f.key
-                ? "bg-brand-600 text-white"
-                : "bg-white text-slate-700 shadow-sm"
+                ? "bg-ink text-white shadow-raised-sm"
+                : "bg-surface text-ink-soft shadow-raised-sm active:scale-95 active:shadow-pressed"
             }`}
           >
             {f.label}
