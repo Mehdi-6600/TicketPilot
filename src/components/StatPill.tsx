@@ -17,28 +17,28 @@ export default function StatPill({
 }: Props) {
   const pulseColor =
     pulse === "red"
-      ? "bg-red-500"
+      ? "bg-ios-red"
       : pulse === "orange"
-        ? "bg-amber-500"
+        ? "bg-ios-orange"
         : pulse === "green"
-          ? "bg-emerald-500"
+          ? "bg-ios-green"
           : "";
 
   const pulseClass =
     pulse === "red" || pulse === "orange" ? "animate-pulse-fast" : "";
 
   const content = (
-    <div className="relative flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-2xl bg-white px-2 py-2.5 shadow-sm transition active:scale-[0.97]">
+    <div className="relative flex min-w-0 flex-1 flex-col items-center gap-1 rounded-2xl bg-surface px-2 py-3 shadow-raised-sm transition-all duration-150 active:scale-[0.95] active:shadow-pressed">
       {pulse !== "none" && (
         <span
-          className={`absolute right-1.5 top-1.5 h-2 w-2 rounded-full ${pulseColor} ${pulseClass}`}
+          className={`absolute right-2 top-2 h-2 w-2 rounded-full ${pulseColor} ${pulseClass}`}
         />
       )}
       <span className="text-base leading-none">{icon}</span>
-      <span className="text-[10px] leading-tight text-slate-500">
+      <span className="text-[10px] leading-tight text-ink-muted">
         {label}
       </span>
-      <span className="text-sm font-bold leading-none text-slate-900">
+      <span className="text-sm font-bold leading-none text-ink">
         {value}
       </span>
     </div>
