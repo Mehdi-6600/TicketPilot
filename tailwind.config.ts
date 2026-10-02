@@ -8,7 +8,6 @@ const config: Config = {
         sans: ["Vazirmatn", "system-ui", "sans-serif"],
       },
       colors: {
-        // iOS System Colors
         ios: {
           blue: "#007AFF",
           green: "#34C759",
@@ -17,21 +16,19 @@ const config: Config = {
           gray: "#8E8E93",
           grayLight: "#C7C7CC",
         },
-        // Neumorphic base
+        // پایه گرم‌تر با تهرنگ آبی خیلی ملایم
         surface: {
-          DEFAULT: "#EDF0F5",
-          light: "#F5F7FA",
-          dark: "#E1E6ED",
+          DEFAULT: "#EBEFF5",   // قبلاً #EDF0F5
+          light: "#F3F6FA",     // قبلاً #F5F7FA
+          dark: "#DDE3EB",      // قبلاً #E1E6ED
         },
-        // Pastel tints
         pastel: {
-          lavender: "#E9E4F5",
-          pink: "#F5E4EC",
-          blue: "#E0E9F5",
-          peach: "#F5E9DC",
-          mint: "#E0F0E5",
+          lavender: "#E7E2F3",
+          pink: "#F3E2EA",
+          blue: "#DEE8F3",
+          peach: "#F3E6D8",
+          mint: "#DEEEE3",
         },
-        // Text
         ink: {
           DEFAULT: "#1F2937",
           soft: "#374151",
@@ -45,29 +42,26 @@ const config: Config = {
         "3xl": "1.75rem",
       },
       boxShadow: {
-        // کارت برجسته
+        // سایه‌های تیره‌تر
         raised:
-          "6px 6px 14px rgba(163, 177, 198, 0.45), -6px -6px 14px rgba(255, 255, 255, 0.9)",
+          "7px 7px 16px rgba(140, 155, 178, 0.55), -7px -7px 16px rgba(255, 255, 255, 0.95)",
         "raised-sm":
-          "4px 4px 10px rgba(163, 177, 198, 0.4), -4px -4px 10px rgba(255, 255, 255, 0.85)",
-        // اینپوت فرورفته
+          "4px 4px 10px rgba(140, 155, 178, 0.5), -4px -4px 10px rgba(255, 255, 255, 0.9)",
         inset:
-          "inset 4px 4px 8px rgba(163, 177, 198, 0.4), inset -4px -4px 8px rgba(255, 255, 255, 0.9)",
+          "inset 5px 5px 10px rgba(140, 155, 178, 0.5), inset -5px -5px 10px rgba(255, 255, 255, 0.95)",
         "inset-sm":
-          "inset 3px 3px 6px rgba(163, 177, 198, 0.35), inset -3px -3px 6px rgba(255, 255, 255, 0.85)",
-        // کلیک (فشار)
+          "inset 3px 3px 7px rgba(140, 155, 178, 0.45), inset -3px -3px 7px rgba(255, 255, 255, 0.9)",
         pressed:
-          "inset 3px 3px 6px rgba(163, 177, 198, 0.5), inset -3px -3px 6px rgba(255, 255, 255, 0.85)",
-        // iOS button glow
-        "ios-blue": "0 4px 14px rgba(0, 122, 255, 0.35)",
-        "ios-green": "0 4px 14px rgba(52, 199, 89, 0.35)",
-        "ios-orange": "0 4px 14px rgba(255, 149, 0, 0.35)",
-        "ios-red": "0 4px 14px rgba(255, 59, 48, 0.35)",
+          "inset 4px 4px 8px rgba(140, 155, 178, 0.6), inset -4px -4px 8px rgba(255, 255, 255, 0.9)",
+        "ios-blue": "0 4px 14px rgba(0, 122, 255, 0.4)",
+        "ios-green": "0 4px 14px rgba(52, 199, 89, 0.4)",
+        "ios-orange": "0 4px 14px rgba(255, 149, 0, 0.4)",
+        "ios-red": "0 4px 14px rgba(255, 59, 48, 0.4)",
       },
       backgroundImage: {
-        // پس‌زمینه یکدست روشن (نئومورفیک)
+        // پس‌زمینه گرم‌تر — سفید با تهرنگ آبی
         "surface-base":
-          "linear-gradient(135deg, #EEF1F6 0%, #E8ECF2 100%)",
+          "linear-gradient(135deg, #EEF2F7 0%, #E5EBF3 100%)",
       },
       keyframes: {
         "pulse-fast": {
