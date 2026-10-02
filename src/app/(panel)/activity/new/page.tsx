@@ -86,15 +86,15 @@ export default function NewActivityPage() {
     return (
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold text-slate-900">ثبت فعالیت</h1>
-          <Link href="/today" className="text-sm text-brand-600">
+          <h1 className="text-xl font-bold text-ink">ثبت فعالیت</h1>
+          <Link href="/today" className="text-sm text-ios-blue">
             بازگشت
           </Link>
         </div>
 
-        <p className="text-sm text-slate-500">نوع فعالیت رو انتخاب کن</p>
+        <p className="text-sm text-ink-muted">نوع فعالیت رو انتخاب کن</p>
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-3">
           {ACTIVITY_TYPES.map((a) => (
             <button
               key={a.type}
@@ -103,10 +103,10 @@ export default function NewActivityPage() {
                 setType(a.type);
                 setStep("customer");
               }}
-              className="flex flex-col items-center justify-center gap-1 rounded-2xl bg-white p-4 shadow-sm transition active:scale-[0.97]"
+              className="flex flex-col items-center justify-center gap-2 rounded-2xl bg-surface p-4 shadow-raised transition-all duration-150 active:scale-[0.97] active:shadow-pressed"
             >
               <span className="text-2xl">{a.icon}</span>
-              <span className="text-sm font-medium text-slate-800">
+              <span className="text-sm font-medium text-ink-soft">
                 {a.label}
               </span>
             </button>
@@ -133,22 +133,22 @@ export default function NewActivityPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">تأیید فعالیت</h1>
+        <h1 className="text-xl font-bold text-ink">تأیید فعالیت</h1>
         <button
           type="button"
           onClick={() => setStep("customer")}
-          className="text-sm text-brand-600"
+          className="text-sm text-ios-blue"
         >
           بازگشت
         </button>
       </div>
 
-      <div className="rounded-2xl bg-white p-4 shadow-sm">
+      <div className="rounded-3xl bg-pastel-lavender p-4 shadow-raised">
         <div className="flex items-center gap-3">
           <span className="text-2xl">{meta?.icon}</span>
           <div>
-            <div className="font-medium text-slate-900">{meta?.label}</div>
-            <div className="text-sm text-slate-500">
+            <div className="font-medium text-ink">{meta?.label}</div>
+            <div className="text-sm text-ink-soft">
               {customer?.name} — {customer?.phone}
             </div>
           </div>
@@ -156,15 +156,13 @@ export default function NewActivityPage() {
       </div>
 
       {meta?.needsAmount && (
-        <div className="rounded-2xl bg-white p-4 shadow-sm space-y-3">
-          <span className="block text-sm text-slate-600">مبلغ</span>
-
-          {/* Select کشویی واحد پول */}
+        <div className="space-y-3 rounded-3xl bg-surface p-5 shadow-raised">
+          <span className="block text-sm text-ink-soft">مبلغ</span>
           <div className="flex gap-2">
             <select
               value={currency}
               onChange={(e) => setCurrency(e.target.value as Currency)}
-              className="rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+              className="neo-select w-32 flex-shrink-0"
             >
               {CURRENCIES.map((c) => (
                 <option key={c.value} value={c.value}>
@@ -172,43 +170,37 @@ export default function NewActivityPage() {
                 </option>
               ))}
             </select>
-
             <input
               type="text"
               inputMode="numeric"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              placeholder={
-                currency === "TOMAN"
-                  ? "مثلاً 15000000"
-                  : currency === "OMR"
-                    ? "مثلاً 250"
-                    : "مثلاً 500"
-              }
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+              placeholder="مثلاً 15000000"
+              className="neo-input"
             />
           </div>
-
-          <p className="text-xs text-slate-500">
-            واحد پول رو از منوی کشویی انتخاب کن و مبلغ رو وارد کن
+          <p className="text-xs text-ink-muted">
+            واحد پول رو انتخاب کن و مبلغ رو وارد کن
           </p>
         </div>
       )}
 
-      <label className="block">
-        <span className="mb-1 block text-sm text-slate-600">
-          یادداشت (اختیاری)
-        </span>
-        <textarea
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
-          rows={3}
-          className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
-        />
-      </label>
+      <div className="space-y-3 rounded-3xl bg-surface p-5 shadow-raised">
+        <label className="block">
+          <span className="mb-2 block text-sm text-ink-soft">
+            یادداشت (اختیاری)
+          </span>
+          <textarea
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            rows={3}
+            className="neo-textarea"
+          />
+        </label>
+      </div>
 
       {error && (
-        <div className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">
+        <div className="rounded-2xl bg-pastel-pink px-3 py-2 text-sm text-ios-red">
           {error}
         </div>
       )}
@@ -217,7 +209,7 @@ export default function NewActivityPage() {
         type="button"
         onClick={submit}
         disabled={loading}
-        className="w-full rounded-xl bg-brand-600 py-3 font-medium text-white disabled:opacity-60"
+        className="btn-ios-green w-full"
       >
         {loading ? "در حال ثبت..." : "ثبت شد"}
       </button>
@@ -262,11 +254,11 @@ function CustomerPicker({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">انتخاب مشتری</h1>
+        <h1 className="text-xl font-bold text-ink">انتخاب مشتری</h1>
         <button
           type="button"
           onClick={onBack}
-          className="text-sm text-brand-600"
+          className="text-sm text-ios-blue"
         >
           بازگشت
         </button>
@@ -277,23 +269,23 @@ function CustomerPicker({
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="نام یا شماره تماس..."
-        className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+        className="neo-input"
         autoFocus
       />
 
       {q.trim().length < 2 && (
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-ink-muted">
           حداقل ۲ حرف بنویس تا جستجو بشه
         </p>
       )}
 
-      {loading && <p className="text-sm text-slate-500">در حال جستجو...</p>}
+      {loading && <p className="text-sm text-ink-muted">در حال جستجو...</p>}
 
       {!loading && q.trim().length >= 2 && results.length === 0 && (
-        <div className="rounded-2xl border-2 border-dashed border-slate-200 p-6 text-center text-slate-500">
+        <div className="rounded-3xl bg-surface p-6 text-center text-ink-muted shadow-inset">
           مشتری پیدا نشد
           <div className="mt-3">
-            <Link href="/customers/new" className="text-sm text-brand-600">
+            <Link href="/customers/new" className="text-sm text-ios-blue">
               ＋ افزودن مشتری جدید
             </Link>
           </div>
@@ -306,10 +298,10 @@ function CustomerPicker({
             <button
               type="button"
               onClick={() => onPick(c)}
-              className="w-full rounded-2xl bg-white p-4 text-right shadow-sm transition active:scale-[0.98]"
+              className="w-full rounded-2xl bg-surface p-4 text-right shadow-raised transition-all duration-150 active:scale-[0.98] active:shadow-pressed"
             >
-              <div className="font-medium text-slate-900">{c.name}</div>
-              <div className="mt-1 text-sm text-slate-500">{c.phone}</div>
+              <div className="font-medium text-ink">{c.name}</div>
+              <div className="mt-1 text-sm text-ink-muted">{c.phone}</div>
             </button>
           </li>
         ))}
