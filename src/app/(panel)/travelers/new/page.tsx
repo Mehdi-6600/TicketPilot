@@ -95,52 +95,55 @@ export default function NewTravelPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">سفر جدید</h1>
-        <Link href="/travelers" className="text-sm text-brand-600">
+        <h1 className="text-xl font-bold text-ink">سفر جدید</h1>
+        <Link href="/travelers" className="text-sm text-ios-blue">
           بازگشت
         </Link>
       </div>
 
-      <div className="rounded-2xl bg-white p-4 shadow-sm">
-        <div className="text-sm text-slate-500">مشتری</div>
-        <div className="font-medium text-slate-900">{customer.name}</div>
-        <div className="text-sm text-slate-600">{customer.phone}</div>
+      <div className="rounded-3xl bg-pastel-lavender p-4 shadow-raised">
+        <div className="text-xs text-ink-muted">مشتری</div>
+        <div className="font-medium text-ink">{customer.name}</div>
+        <div className="text-sm text-ink-soft">{customer.phone}</div>
         <button
           type="button"
           onClick={() => setCustomer(null)}
-          className="mt-2 text-xs text-brand-600"
+          className="mt-2 text-xs text-ios-blue"
         >
           تغییر مشتری
         </button>
       </div>
 
-      <form onSubmit={onSubmit} className="space-y-4">
+      <form
+        onSubmit={onSubmit}
+        className="space-y-4 rounded-3xl bg-surface p-5 shadow-raised"
+      >
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">مبدأ *</span>
+          <span className="mb-2 block text-sm text-ink-soft">مبدأ *</span>
           <input
             type="text"
             value={from}
             onChange={(e) => setFrom(e.target.value)}
             required
             placeholder="مثلاً شیراز"
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-input"
           />
         </label>
 
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">مقصد *</span>
+          <span className="mb-2 block text-sm text-ink-soft">مقصد *</span>
           <input
             type="text"
             value={to}
             onChange={(e) => setTo(e.target.value)}
             required
             placeholder="مثلاً استانبول"
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-input"
           />
         </label>
 
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">
+          <span className="mb-2 block text-sm text-ink-soft">
             تاریخ رفت *
           </span>
           <input
@@ -148,28 +151,28 @@ export default function NewTravelPage() {
             value={departDate}
             onChange={(e) => setDepartDate(e.target.value)}
             required
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-input"
           />
         </label>
 
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">
+          <span className="mb-2 block text-sm text-ink-soft">
             تاریخ برگشت (اختیاری)
           </span>
           <input
             type="datetime-local"
             value={returnDate}
             onChange={(e) => setReturnDate(e.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-input"
           />
         </label>
 
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">وضعیت</span>
+          <span className="mb-2 block text-sm text-ink-soft">وضعیت</span>
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value as TravelStatus)}
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-select"
           >
             {TRAVEL_STATUSES.map((s) => (
               <option key={s} value={s}>
@@ -180,28 +183,24 @@ export default function NewTravelPage() {
         </label>
 
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">
+          <span className="mb-2 block text-sm text-ink-soft">
             یادداشت (اختیاری)
           </span>
           <textarea
             value={note}
             onChange={(e) => setNote(e.target.value)}
             rows={3}
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-textarea"
           />
         </label>
 
         {error && (
-          <div className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">
+          <div className="rounded-2xl bg-pastel-pink px-3 py-2 text-sm text-ios-red">
             {error}
           </div>
         )}
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full rounded-xl bg-brand-600 py-3 font-medium text-white disabled:opacity-60"
-        >
+        <button type="submit" disabled={loading} className="btn-ios-blue w-full">
           {loading ? "در حال ذخیره..." : "ذخیره سفر"}
         </button>
       </form>
@@ -244,36 +243,36 @@ function CustomerPicker({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">سفر جدید</h1>
-        <Link href="/travelers" className="text-sm text-brand-600">
+        <h1 className="text-xl font-bold text-ink">سفر جدید</h1>
+        <Link href="/travelers" className="text-sm text-ios-blue">
           بازگشت
         </Link>
       </div>
 
-      <p className="text-sm text-slate-500">اول مشتری رو انتخاب کن</p>
+      <p className="text-sm text-ink-muted">اول مشتری رو انتخاب کن</p>
 
       <input
         type="text"
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="نام یا شماره تماس..."
-        className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+        className="neo-input"
         autoFocus
       />
 
       {q.trim().length < 2 && (
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-ink-muted">
           حداقل ۲ حرف بنویس تا جستجو بشه
         </p>
       )}
 
-      {loading && <p className="text-sm text-slate-500">در حال جستجو...</p>}
+      {loading && <p className="text-sm text-ink-muted">در حال جستجو...</p>}
 
       {!loading && q.trim().length >= 2 && results.length === 0 && (
-        <div className="rounded-2xl border-2 border-dashed border-slate-200 p-6 text-center text-slate-500">
+        <div className="rounded-3xl bg-surface p-6 text-center text-ink-muted shadow-inset">
           مشتری پیدا نشد
           <div className="mt-3">
-            <Link href="/customers/new" className="text-sm text-brand-600">
+            <Link href="/customers/new" className="text-sm text-ios-blue">
               ＋ افزودن مشتری جدید
             </Link>
           </div>
@@ -286,10 +285,10 @@ function CustomerPicker({
             <button
               type="button"
               onClick={() => onPick(c)}
-              className="w-full rounded-2xl bg-white p-4 text-right shadow-sm transition active:scale-[0.98]"
+              className="w-full rounded-2xl bg-surface p-4 text-right shadow-raised transition-all duration-150 active:scale-[0.98] active:shadow-pressed"
             >
-              <div className="font-medium text-slate-900">{c.name}</div>
-              <div className="mt-1 text-sm text-slate-500">{c.phone}</div>
+              <div className="font-medium text-ink">{c.name}</div>
+              <div className="mt-1 text-sm text-ink-muted">{c.phone}</div>
             </button>
           </li>
         ))}
