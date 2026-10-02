@@ -23,8 +23,6 @@
 }
 
 @layer components {
-  /* ============ کارت‌های نئومورفیک ============ */
-
   .neo-card {
     @apply rounded-3xl bg-surface p-4 shadow-raised transition-all duration-200;
   }
@@ -69,15 +67,13 @@
     @apply scale-[0.985] shadow-pressed;
   }
 
-  /* ============ اینپوت‌های فرورفته ============ */
-
   .neo-input {
     @apply w-full rounded-2xl border-0 bg-surface px-4 py-3 text-ink shadow-inset outline-none transition-shadow duration-150 placeholder:text-ink-faint;
   }
 
   .neo-input:focus {
     @apply shadow-inset;
-    background-color: #e3e8ef;
+    background-color: #e0e6ee;
   }
 
   .neo-input-sm {
@@ -92,8 +88,6 @@
     @apply w-full rounded-2xl border-0 bg-surface px-4 py-3 text-ink shadow-inset outline-none placeholder:text-ink-faint;
     resize: vertical;
   }
-
-  /* ============ دکمه‌های iOS ============ */
 
   .btn-ios-blue {
     @apply rounded-2xl bg-ios-blue px-4 py-3 font-medium text-white shadow-raised transition-all duration-150;
