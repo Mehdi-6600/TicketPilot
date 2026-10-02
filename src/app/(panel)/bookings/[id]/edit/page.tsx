@@ -109,7 +109,7 @@ export default function EditBookingPage() {
 
   if (loading) {
     return (
-      <div className="rounded-2xl bg-white p-6 text-center text-slate-500 shadow-sm">
+      <div className="rounded-3xl bg-surface p-6 text-center text-ink-muted shadow-raised">
         در حال بارگذاری...
       </div>
     );
@@ -118,22 +118,25 @@ export default function EditBookingPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">ویرایش رزرو</h1>
-        <Link href="/bookings" className="text-sm text-brand-600">
+        <h1 className="text-xl font-bold text-ink">ویرایش رزرو</h1>
+        <Link href="/bookings" className="text-sm text-ios-blue">
           بازگشت
         </Link>
       </div>
 
-      <form onSubmit={onSubmit} className="space-y-4">
+      <form
+        onSubmit={onSubmit}
+        className="space-y-4 rounded-3xl bg-surface p-5 shadow-raised"
+      >
         {travels.length > 0 && (
           <label className="block">
-            <span className="mb-1 block text-sm text-slate-600">
+            <span className="mb-2 block text-sm text-ink-soft">
               سفر مرتبط
             </span>
             <select
               value={travelId}
               onChange={(e) => setTravelId(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+              className="neo-select"
             >
               <option value="">بدون سفر</option>
               {travels.map((t) => (
@@ -146,11 +149,11 @@ export default function EditBookingPage() {
         )}
 
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">وضعیت</span>
+          <span className="mb-2 block text-sm text-ink-soft">وضعیت</span>
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value as BookingStatus)}
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-select"
           >
             {BOOKING_STATUSES.map((s) => (
               <option key={s} value={s}>
@@ -160,13 +163,13 @@ export default function EditBookingPage() {
           </select>
         </label>
 
-        <div className="rounded-2xl bg-white p-4 shadow-sm space-y-3">
-          <span className="block text-sm text-slate-600">مبلغ</span>
+        <div>
+          <span className="mb-2 block text-sm text-ink-soft">مبلغ</span>
           <div className="flex gap-2">
             <select
               value={currency}
               onChange={(e) => setCurrency(e.target.value as Currency)}
-              className="rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+              className="neo-select w-32 flex-shrink-0"
             >
               {CURRENCIES.map((c) => (
                 <option key={c.value} value={c.value}>
@@ -179,32 +182,28 @@ export default function EditBookingPage() {
               inputMode="numeric"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+              className="neo-input"
             />
           </div>
         </div>
 
         <label className="block">
-          <span className="mb-1 block text-sm text-slate-600">یادداشت</span>
+          <span className="mb-2 block text-sm text-ink-soft">یادداشت</span>
           <textarea
             value={note}
             onChange={(e) => setNote(e.target.value)}
             rows={3}
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-brand-500"
+            className="neo-textarea"
           />
         </label>
 
         {error && (
-          <div className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">
+          <div className="rounded-2xl bg-pastel-pink px-3 py-2 text-sm text-ios-red">
             {error}
           </div>
         )}
 
-        <button
-          type="submit"
-          disabled={saving}
-          className="w-full rounded-xl bg-brand-600 py-3 font-medium text-white disabled:opacity-60"
-        >
+        <button type="submit" disabled={saving} className="btn-ios-blue w-full">
           {saving ? "در حال ذخیره..." : "ذخیره تغییرات"}
         </button>
       </form>
