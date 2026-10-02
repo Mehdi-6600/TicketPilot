@@ -17,26 +17,19 @@ export default function GlobalError({
 
   return (
     <main className="flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm rounded-2xl bg-white p-6 text-center shadow-sm">
+      <div className="w-full max-w-sm rounded-3xl bg-surface p-6 text-center shadow-raised">
         <div className="mb-3 text-5xl">😔</div>
-        <h1 className="mb-2 text-lg font-bold text-slate-900">
+        <h1 className="mb-2 text-lg font-bold text-ink">
           یه مشکلی پیش اومد
         </h1>
-        <p className="mb-5 text-sm text-slate-500">
+        <p className="mb-5 text-sm text-ink-muted">
           لطفاً دوباره تلاش کن. اگه مشکل ادامه داشت به پشتیبانی بگو.
         </p>
         <div className="grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            onClick={reset}
-            className="rounded-xl bg-brand-600 px-4 py-2 text-sm font-medium text-white"
-          >
+          <button type="button" onClick={reset} className="btn-ios-blue">
             تلاش مجدد
           </button>
-          <Link
-            href="/today"
-            className="rounded-xl bg-slate-900 px-4 py-2 text-center text-sm font-medium text-white"
-          >
+          <Link href="/today" className="btn-ios-gray text-center">
             بازگشت
           </Link>
         </div>
