@@ -6,7 +6,6 @@ import EmptyState from "@/components/EmptyState";
 export const dynamic = "force-dynamic";
 
 export default async function SalesPage() {
-  // ۳۰ روز اخیر
   const since = new Date();
   since.setDate(since.getDate() - 30);
 
@@ -36,53 +35,47 @@ export default async function SalesPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">
-          📊 فروش ۳۰ روز اخیر
-        </h1>
-        <Link href="/today" className="text-sm text-brand-600">
+        <h1 className="text-xl font-bold text-ink">📊 فروش ۳۰ روز اخیر</h1>
+        <Link href="/today" className="text-sm text-ios-blue">
           امروز
         </Link>
       </div>
 
       <div className="grid grid-cols-1 gap-3">
-        <div className="rounded-2xl bg-white p-4 shadow-sm">
-          <div className="mb-1 text-xs text-slate-500">
-            🇮🇷 فروش تومانی
-          </div>
-          <div className="text-xl font-bold text-slate-900">
+        <div className="rounded-3xl bg-pastel-mint p-4 shadow-raised">
+          <div className="mb-1 text-xs text-ink-muted">🇮🇷 فروش تومانی</div>
+          <div className="text-xl font-bold text-ink">
             {formatAmount(totals.TOMAN, "TOMAN")}
           </div>
-          <div className="mt-1 text-xs text-slate-500">
+          <div className="mt-1 text-xs text-ink-soft">
             تعداد: {formatNumber(counts.TOMAN)}
           </div>
         </div>
 
-        <div className="rounded-2xl bg-white p-4 shadow-sm">
-          <div className="mb-1 text-xs text-slate-500">
+        <div className="rounded-3xl bg-pastel-peach p-4 shadow-raised">
+          <div className="mb-1 text-xs text-ink-muted">
             🇴🇲 فروش ریال عمان
           </div>
-          <div className="text-xl font-bold text-slate-900">
+          <div className="text-xl font-bold text-ink">
             {formatAmount(totals.OMR, "OMR")}
           </div>
-          <div className="mt-1 text-xs text-slate-500">
+          <div className="mt-1 text-xs text-ink-soft">
             تعداد: {formatNumber(counts.OMR)}
           </div>
         </div>
 
-        <div className="rounded-2xl bg-white p-4 shadow-sm">
-          <div className="mb-1 text-xs text-slate-500">
-            🇺🇸 فروش دلاری
-          </div>
-          <div className="text-xl font-bold text-slate-900">
+        <div className="rounded-3xl bg-pastel-blue p-4 shadow-raised">
+          <div className="mb-1 text-xs text-ink-muted">🇺🇸 فروش دلاری</div>
+          <div className="text-xl font-bold text-ink">
             {formatAmount(totals.USD, "USD")}
           </div>
-          <div className="mt-1 text-xs text-slate-500">
+          <div className="mt-1 text-xs text-ink-soft">
             تعداد: {formatNumber(counts.USD)}
           </div>
         </div>
       </div>
 
-      <div className="rounded-2xl bg-slate-900 p-4 text-white shadow-sm">
+      <div className="rounded-3xl bg-ink p-4 text-white shadow-raised">
         <div className="text-xs text-slate-300">مجموع فروش‌ها</div>
         <div className="text-2xl font-bold">{formatNumber(totalCount)}</div>
         <div className="mt-1 text-xs text-slate-300">
@@ -91,7 +84,7 @@ export default async function SalesPage() {
       </div>
 
       <section>
-        <h2 className="mb-2 font-semibold text-slate-800">
+        <h2 className="mb-2 px-1 font-semibold text-ink">
           آخرین فروش‌های ثبت‌شده
         </h2>
 
@@ -105,20 +98,20 @@ export default async function SalesPage() {
             {activities.slice(0, 30).map((a) => (
               <li
                 key={a.id}
-                className="rounded-2xl bg-white p-3 shadow-sm"
+                className="rounded-2xl bg-surface p-3 shadow-raised-sm"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-medium text-slate-800">
+                  <span className="font-medium text-ink">
                     💵 {a.customer?.name ?? "—"}
                   </span>
                   {a.amount !== null && (
-                    <span className="text-sm font-medium text-emerald-700">
+                    <span className="text-sm font-bold text-ios-green">
                       {formatAmount(a.amount, a.currency)}
                     </span>
                   )}
                 </div>
                 {a.note && (
-                  <div className="mt-1 text-xs text-slate-500">
+                  <div className="mt-1 text-xs text-ink-soft">
                     📝 {a.note}
                   </div>
                 )}
