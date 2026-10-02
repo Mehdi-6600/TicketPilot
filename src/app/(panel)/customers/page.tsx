@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import EmptyState from "@/components/EmptyState";
+import { Search, Plus } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -29,29 +30,28 @@ export default async function CustomersPage({ searchParams }: Props) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">مشتریان</h1>
+        <h1 className="text-xl font-bold text-ink">مشتریان</h1>
         <Link
           href="/customers/new"
-          className="rounded-xl bg-brand-600 px-3 py-1.5 text-sm font-medium text-white"
+          className="btn-ios-blue flex items-center gap-1 px-3 py-2 text-sm"
         >
-          ＋ مشتری جدید
+          <Plus size={16} />
+          <span>مشتری جدید</span>
         </Link>
       </div>
 
-      <form action="/customers" method="get" className="flex gap-2">
+      <form action="/customers" method="get" className="relative">
+        <Search
+          size={18}
+          className="absolute right-4 top-1/2 -translate-y-1/2 text-ink-muted"
+        />
         <input
           type="text"
           name="q"
           defaultValue={q}
           placeholder="جستجو با نام یا شماره تماس"
-          className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 outline-none focus:border-brand-500"
+          className="neo-input pr-11"
         />
-        <button
-          type="submit"
-          className="rounded-xl bg-slate-900 px-4 py-2 text-sm text-white"
-        >
-          جستجو
-        </button>
       </form>
 
       {customers.length === 0 ? (
@@ -70,13 +70,20 @@ export default async function CustomersPage({ searchParams }: Props) {
             <li key={c.id}>
               <Link
                 href={`/customers/${c.id}`}
-                className="block rounded-2xl bg-white p-4 shadow-sm transition active:scale-[0.99]"
+                className="flex items-center justify-between rounded-3xl bg-surface p-4 shadow-raised transition-all duration-200 active:scale-[0.99] active:shadow-pressed"
               >
-                <div className="flex items-center justify-between">
-                  <div className="font-medium text-slate-900">{c.name}</div>
-                  <div className="text-xs text-slate-400">›</div>
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-pastel-lavender text-base font-bold text-ink-soft">
+                    {c.name.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="font-medium text-ink">{c.name}</div>
+                    <div className="mt-0.5 text-sm text-ink-muted">
+                      {c.phone}
+                    </div>
+                  </div>
                 </div>
-                <div className="mt-1 text-sm text-slate-500">{c.phone}</div>
+                <span className="text-ink-faint">›</span>
               </Link>
             </li>
           ))}
