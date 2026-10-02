@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import StatPill from "@/components/StatPill";
 import EmptyState from "@/components/EmptyState";
 import ContactSheet from "@/components/ContactSheet";
+import Avatar from "@/components/Avatar";
 import {
   startOfTodayTehran,
   endOfTodayTehran,
@@ -86,41 +87,33 @@ export default async function TodayPage() {
 
   return (
     <div className="space-y-5">
-      {/* کارت خوش‌آمدگویی با تصویر + گرادینت ملایم */}
-      <div className="relative overflow-hidden rounded-3xl bg-white shadow-sm">
-        <div className="flex flex-row-reverse items-stretch">
-          {/* تصویر سمت چپ */}
-          <div className="relative w-36 flex-shrink-0 sm:w-40">
-            <img
-              src="/0CE5F415-A4AE-4D0A-8308-8EE602952067.png"
-              alt="پروفایل"
-              className="h-full w-full object-cover"
-            />
-            {/* گرادینت فقط روی لبه راست تصویر (نزدیک نوشته‌ها) */}
-            <div className="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-r from-transparent to-white" />
+      {/* کارت «امروز» — با عکس پروفایل */}
+      <div className="neo-card overflow-hidden p-0">
+        <div className="flex items-stretch">
+          <div className="flex-shrink-0 p-3">
+            <Avatar name={session?.username ?? "؟"} size="xl" />
           </div>
-
-          {/* متن سمت راست */}
-          <div className="flex flex-1 flex-col justify-center py-5 px-4 text-right">
-            <h1 className="text-xl font-bold text-slate-900">امروز</h1>
-            <p className="mt-1 text-sm text-slate-500">
+          <div className="flex flex-1 flex-col items-end justify-center px-4 py-3">
+            <h1 className="text-2xl font-bold text-ink">امروز</h1>
+            <p className="mt-1 text-sm text-ink-muted">
               {session?.username} — {toPersianDate(new Date())}
             </p>
           </div>
         </div>
       </div>
 
+      {/* دکمه‌های عملیاتی iOS */}
       <div className="grid grid-cols-2 gap-3">
         <Link
           href="/activity/new"
-          className="flex items-center justify-center gap-2 rounded-2xl bg-brand-600 px-4 py-3 font-medium text-white shadow-sm transition active:scale-[0.98]"
+          className="btn-ios-blue flex items-center justify-center gap-2"
         >
           <span className="text-lg">＋</span>
           <span>ثبت فعالیت</span>
         </Link>
         <Link
           href="/customers/new"
-          className="flex items-center justify-center gap-2 rounded-2xl bg-slate-900 px-4 py-3 font-medium text-white shadow-sm transition active:scale-[0.98]"
+          className="btn-ios-gray flex items-center justify-center gap-2"
         >
           <span className="text-lg">＋</span>
           <span>مشتری جدید</span>
@@ -129,7 +122,7 @@ export default async function TodayPage() {
 
       <Link
         href="/reports/new"
-        className="flex items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-4 py-3 font-medium text-white shadow-sm transition active:scale-[0.98]"
+        className="btn-ios-green flex items-center justify-center gap-2"
       >
         <span className="text-lg">📝</span>
         <span>گزارش روز را بنویس</span>
@@ -137,12 +130,13 @@ export default async function TodayPage() {
 
       <Link
         href="/plan"
-        className="flex items-center justify-center gap-2 rounded-2xl bg-indigo-600 px-4 py-3 font-medium text-white shadow-sm transition active:scale-[0.98]"
+        className="btn-ios-orange flex items-center justify-center gap-2"
       >
         <span className="text-lg">📋</span>
         <span>برنامه کاری روز</span>
       </Link>
 
+      {/* کپسول‌های آمار — ایموجی */}
       <div className="flex gap-1.5">
         <StatPill
           label="تماس"
@@ -190,17 +184,19 @@ export default async function TodayPage() {
       {overdueCount > 0 && (
         <Link
           href="/followups?filter=overdue"
-          className="flex items-center justify-between rounded-2xl bg-amber-50 px-4 py-3 text-amber-800 shadow-sm"
+          className="flex items-center justify-between rounded-2xl bg-pastel-peach px-4 py-3 text-ios-orange shadow-raised-sm transition-all duration-150 active:scale-[0.98] active:shadow-pressed"
         >
-          <span>🔔 {formatNumber(overdueCount)} پیگیری عقب‌افتاده</span>
+          <span className="font-medium">
+            🔔 {formatNumber(overdueCount)} پیگیری عقب‌افتاده
+          </span>
           <span>›</span>
         </Link>
       )}
 
       <section>
         <div className="mb-2 flex items-center justify-between px-1">
-          <h2 className="font-semibold text-slate-800">پیگیری‌های امروز</h2>
-          <Link href="/followups" className="text-sm text-brand-600">
+          <h2 className="font-semibold text-ink">پیگیری‌های امروز</h2>
+          <Link href="/followups" className="text-sm text-ios-blue">
             همه
           </Link>
         </div>
@@ -216,27 +212,27 @@ export default async function TodayPage() {
             {followUpsToday.map((f) => (
               <li
                 key={f.id}
-                className="relative rounded-2xl bg-white p-4 shadow-sm"
+                className="relative rounded-3xl bg-surface p-4 shadow-raised transition-all duration-200 active:shadow-pressed"
               >
                 <span
                   className={`absolute right-3 top-3 h-2.5 w-2.5 rounded-full ${
                     f.dueAt < todayStart
-                      ? "bg-red-500 animate-pulse-fast"
-                      : "bg-amber-500 animate-pulse-fast"
+                      ? "animate-pulse-fast bg-ios-red"
+                      : "animate-pulse-fast bg-ios-orange"
                   }`}
                 />
                 <div className="flex items-center justify-between pr-5">
-                  <div className="font-medium text-slate-800">{f.title}</div>
-                  <div className="text-xs text-slate-500">
+                  <div className="font-medium text-ink">{f.title}</div>
+                  <div className="text-xs text-ink-muted">
                     {toPersianDateTime(f.dueAt)}
                   </div>
                 </div>
-                <div className="mt-1 flex items-center gap-2 text-sm text-slate-500">
+                <div className="mt-1 flex items-center gap-2 text-sm text-ink-muted">
                   <span>{f.customer.name}</span>
                   <ContactSheet
                     phone={f.customer.phone}
                     customerName={f.customer.name}
-                    className="text-brand-700"
+                    className="text-ios-blue"
                   >
                     {f.customer.phone}
                   </ContactSheet>
@@ -249,8 +245,8 @@ export default async function TodayPage() {
 
       <section>
         <div className="mb-2 flex items-center justify-between px-1">
-          <h2 className="font-semibold text-slate-800">سفرهای نزدیک</h2>
-          <Link href="/travelers" className="text-sm text-brand-600">
+          <h2 className="font-semibold text-ink">سفرهای نزدیک</h2>
+          <Link href="/travelers" className="text-sm text-ios-blue">
             همه
           </Link>
         </div>
@@ -266,23 +262,23 @@ export default async function TodayPage() {
             {upcomingTravels.map((t) => (
               <li
                 key={t.id}
-                className="relative rounded-2xl bg-white p-4 shadow-sm"
+                className="relative rounded-3xl bg-surface p-4 shadow-raised transition-all duration-200 active:shadow-pressed"
               >
-                <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-amber-500" />
+                <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-ios-orange" />
                 <div className="flex items-center justify-between pr-5">
-                  <div className="font-medium text-slate-800">
+                  <div className="font-medium text-ink">
                     {t.from} → {t.to}
                   </div>
-                  <div className="text-xs text-slate-500">
+                  <div className="text-xs text-ink-muted">
                     {toPersianDateTime(t.departDate)}
                   </div>
                 </div>
-                <div className="mt-1 flex items-center gap-2 text-sm text-slate-500">
+                <div className="mt-1 flex items-center gap-2 text-sm text-ink-muted">
                   <span>{t.customer.name}</span>
                   <ContactSheet
                     phone={t.customer.phone}
                     customerName={t.customer.name}
-                    className="text-brand-700"
+                    className="text-ios-blue"
                   >
                     {t.customer.phone}
                   </ContactSheet>
@@ -296,7 +292,7 @@ export default async function TodayPage() {
       {overdueCount > 0 && (
         <section>
           <div className="mb-2 flex items-center justify-between px-1">
-            <h2 className="font-semibold text-amber-700">
+            <h2 className="font-semibold text-ios-orange">
               پیگیری‌های عقب‌افتاده
             </h2>
           </div>
@@ -305,21 +301,21 @@ export default async function TodayPage() {
             {followUpsOverdue.map((f) => (
               <li
                 key={f.id}
-                className="relative rounded-2xl bg-amber-50 p-4 shadow-sm"
+                className="relative rounded-3xl bg-pastel-peach p-4 shadow-raised transition-all duration-200 active:shadow-pressed"
               >
-                <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-red-500" />
+                <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-ios-red" />
                 <div className="flex items-center justify-between pr-5">
-                  <div className="font-medium text-amber-900">{f.title}</div>
-                  <div className="text-xs text-amber-700">
+                  <div className="font-medium text-ink">{f.title}</div>
+                  <div className="text-xs text-ink-soft">
                     {toPersianDateTime(f.dueAt)}
                   </div>
                 </div>
-                <div className="mt-1 flex items-center gap-2 text-sm text-amber-800">
+                <div className="mt-1 flex items-center gap-2 text-sm text-ink-soft">
                   <span>{f.customer.name}</span>
                   <ContactSheet
                     phone={f.customer.phone}
                     customerName={f.customer.name}
-                    className="underline decoration-dotted"
+                    className="text-ios-blue underline decoration-dotted"
                   >
                     {f.customer.phone}
                   </ContactSheet>
