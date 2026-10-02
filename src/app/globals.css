@@ -12,10 +12,9 @@
   }
 
   body {
-    background-color: #F1F5F9;
-    color: #1E293B;
+    background-color: #e0e5ec !important;
+    color: #2d3748;
     min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
   }
 
   button {
@@ -24,73 +23,60 @@
 }
 
 @layer components {
-  /* کارت‌های سفید → برجسته واقعی */
+  /* کارت‌ها و المان‌های سفید → بیرون‌زدگی از سطح */
   .rounded-2xl.bg-white,
-  .rounded-3xl.bg-white {
-    background-color: #F1F5F9 !important;
+  .rounded-3xl.bg-white,
+  div.bg-white {
+    background-color: #e0e5ec !important;
     box-shadow:
-      6px 6px 14px #a3b1c6,
-      -6px -6px 14px #ffffff !important;
+      8px 8px 16px #a3b1c6,
+      -8px -8px 16px #ffffff !important;
     border: none !important;
   }
 
-  /* دکمه‌های رنگی → برجسته */
-  a[class*="bg-brand"],
-  a[class*="bg-emerald"],
-  a[class*="bg-indigo"],
-  a[class*="bg-slate-900"],
-  button[class*="bg-brand"],
-  button[class*="bg-emerald"],
-  button[class*="bg-indigo"],
-  button[class*="bg-slate-900"] {
+  /* دکمه‌های رنگی → سایه قوی برای حس برجستگی */
+  a.bg-brand-600,
+  a.bg-emerald-600,
+  a.bg-indigo-600,
+  a.bg-slate-900,
+  button.bg-brand-600,
+  button.bg-emerald-600,
+  button.bg-indigo-600,
+  button.bg-slate-900 {
     box-shadow:
-      5px 5px 12px rgba(0, 0, 0, 0.18),
-      -3px -3px 8px rgba(255, 255, 255, 0.4) !important;
+      7px 7px 14px rgba(0, 0, 0, 0.22),
+      -5px -5px 12px rgba(255, 255, 255, 0.55) !important;
   }
 
-  /* دکمه‌های روشن → متن تیره + برجسته */
+  /* StatPill و دکمه‌های روشن */
+  .shadow-sm,
   a.bg-white,
   button.bg-white,
-  .bg-slate-100,
-  a[class*="bg-slate-100"] {
-    color: #1E293B !important;
-    background-color: #F1F5F9 !important;
+  .bg-slate-100 {
+    background-color: #e0e5ec !important;
+    color: #2d3748 !important;
     box-shadow:
-      5px 5px 12px #a3b1c6,
-      -5px -5px 12px #ffffff !important;
+      6px 6px 12px #a3b1c6,
+      -6px -6px 12px #ffffff !important;
   }
 
-  /* StatPill و المان‌های کوچک */
-  .shadow-sm {
-    box-shadow:
-      4px 4px 10px #a3b1c6,
-      -4px -4px 10px #ffffff !important;
-  }
-
-  /* اینپوت‌ها → فرورفته */
+  /* اینپوت‌ها → فرورفته داخل سطح */
   input,
   textarea,
   select {
-    background-color: #F1F5F9 !important;
+    background-color: #e0e5ec !important;
     box-shadow:
-      inset 4px 4px 8px #a3b1c6,
-      inset -4px -4px 8px #ffffff !important;
+      inset 6px 6px 10px #a3b1c6,
+      inset -6px -6px 10px #ffffff !important;
     border: none !important;
   }
 
-  /* هدر */
-  header.sticky {
-    background-color: #F1F5F9 !important;
-    box-shadow: 0 4px 12px rgba(163, 177, 198, 0.25) !important;
-    border-bottom: none !important;
-    backdrop-filter: none !important;
-  }
-
-  /* باتم نویگیشن */
+  /* هدر و باتم‌نوی */
+  header.sticky,
   nav.fixed.bottom-0 {
-    background-color: #F1F5F9 !important;
-    box-shadow: 0 -6px 16px rgba(163, 177, 198, 0.3) !important;
-    border-top: none !important;
+    background-color: #e0e5ec !important;
+    box-shadow: none !important;
+    border: none !important;
     backdrop-filter: none !important;
   }
 }
