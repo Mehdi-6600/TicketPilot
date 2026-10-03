@@ -27,7 +27,8 @@ export default function BottomNav() {
           {ITEMS.map((item) => {
             const active =
               pathname === item.href ||
-              pathname.startsWith(item.href + "/");
+              pathname.startsWith(item.href + "/") ||
+              (item.href === "/more" && pathname === "/flight-search");
             const Icon = item.Icon;
 
             return (
