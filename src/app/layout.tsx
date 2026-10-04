@@ -19,7 +19,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#EEF1F6",
+  themeColor: "#DCE6F2",
 };
 
 export default function RootLayout({
@@ -40,9 +40,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen bg-surface-base text-ink">
-        {children}
-      </body>
+      <body className="min-h-screen text-ink">{children}</body>
     </html>
   );
 }
