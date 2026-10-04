@@ -12,9 +12,32 @@
   }
 
   body {
-    @apply bg-surface-base text-ink antialiased;
     min-height: 100vh;
+    background: #DCE6F2;
+    background-image:
+      radial-gradient(120% 80% at 20% 0%, #EAF2FB 0%, #DDEAF6 30%, #D0DCEA 65%, #C4D2E2 100%);
     background-attachment: fixed;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    color: #0F1B3D;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+    background-image:
+      radial-gradient(circle at 25% 15%, rgba(255, 255, 255, 0.6) 0%, transparent 40%),
+      radial-gradient(circle at 80% 85%, rgba(75, 130, 195, 0.10) 0%, transparent 45%),
+      radial-gradient(circle at 60% 40%, rgba(255, 255, 255, 0.35) 0%, transparent 35%);
+  }
+
+  body > * {
+    position: relative;
+    z-index: 1;
   }
 
   button {
@@ -23,125 +46,193 @@
 }
 
 @layer components {
-  /* ============ کارت‌های نئومورفیک ============ */
-
-  .neo-card {
-    @apply rounded-3xl border border-sky-100/80 bg-surface p-4 shadow-raised transition-all duration-200;
+  /* ================= PLUSH CARD ================= */
+  .plush-card {
+    @apply rounded-4xl border border-white/60 p-4 shadow-plush transition-all duration-200;
+    background-image: linear-gradient(160deg, #F0F5FB 0%, #DDE7F2 60%, #D2DEEB 100%);
   }
 
-  .neo-card:active {
-    @apply scale-[0.985] shadow-pressed;
+  .plush-card:active {
+    @apply shadow-plush-pressed;
+    transform: scale(0.985);
   }
 
-  .neo-card-sm {
-    @apply rounded-2xl border border-sky-100/70 bg-surface p-3 shadow-raised-sm transition-all duration-150;
+  .plush-card-sm {
+    @apply rounded-3xl border border-white/60 p-3 shadow-plush-sm transition-all duration-150;
+    background-image: linear-gradient(160deg, #F0F5FB 0%, #DDE7F2 60%, #D2DEEB 100%);
   }
 
-  .neo-card-sm:active {
-    @apply scale-[0.98] shadow-pressed;
+  .plush-card-sm:active {
+    @apply shadow-plush-pressed;
+    transform: scale(0.98);
   }
 
-  .neo-card-lavender {
-    @apply rounded-3xl border border-violet-100/70 bg-pastel-lavender p-4 shadow-raised transition-all duration-200;
+  .plush-card-lg {
+    @apply rounded-4xl border border-white/70 p-5 shadow-plush-lg transition-all duration-200;
+    background-image: linear-gradient(160deg, #F0F5FB 0%, #DDE7F2 60%, #D2DEEB 100%);
   }
 
-  .neo-card-pink {
-    @apply rounded-3xl border border-rose-100/70 bg-pastel-pink p-4 shadow-raised transition-all duration-200;
+  .plush-card-sky {
+    @apply rounded-4xl border border-white/70 p-4 shadow-plush transition-all duration-200;
+    background-image: linear-gradient(160deg, #E1EDF9 0%, #CFE0F0 60%, #BFD5E8 100%);
+  }
+  .plush-card-powder {
+    @apply rounded-4xl border border-white/70 p-4 shadow-plush transition-all duration-200;
+    background-image: linear-gradient(160deg, #D7E5F5 0%, #C9DDF0 60%, #B8D0E8 100%);
+  }
+  .plush-card-cream {
+    @apply rounded-4xl border border-white/70 p-4 shadow-plush transition-all duration-200;
+    background-image: linear-gradient(160deg, #FFFDF8 0%, #F7F5EF 60%, #EDEAE0 100%);
+  }
+  .plush-card-navy {
+    @apply rounded-4xl border border-white/10 p-4 shadow-plush-navy transition-all duration-200;
+    background-image: linear-gradient(160deg, #243765 0%, #182650 50%, #0F1B3D 100%);
+    color: #F7F5EF;
   }
 
-  .neo-card-blue {
-    @apply rounded-3xl border border-sky-100/70 bg-pastel-blue p-4 shadow-raised transition-all duration-200;
+  .plush-card-sky:active,
+  .plush-card-powder:active,
+  .plush-card-cream:active,
+  .plush-card-navy:active {
+    @apply shadow-plush-pressed;
+    transform: scale(0.985);
   }
 
-  .neo-card-peach {
-    @apply rounded-3xl border border-orange-100/70 bg-pastel-peach p-4 shadow-raised transition-all duration-200;
+  /* ================= PLUSH INPUT ================= */
+  .plush-input {
+    @apply w-full rounded-3xl border border-white/70 px-4 py-3.5 text-ink shadow-plush-inset outline-none transition-all duration-150 placeholder:text-ink-faint;
+    background-color: #EEF3F9;
   }
 
-  .neo-card-mint {
-    @apply rounded-3xl border border-emerald-100/70 bg-pastel-mint p-4 shadow-raised transition-all duration-200;
+  .plush-input:focus {
+    @apply shadow-plush-inset;
+    background-color: #E9EFF6;
+    border-color: rgba(139, 200, 232, 0.8);
   }
 
-  .neo-card-lavender:active,
-  .neo-card-pink:active,
-  .neo-card-blue:active,
-  .neo-card-peach:active,
-  .neo-card-mint:active {
-    @apply scale-[0.985] shadow-pressed;
+  .plush-input-sm {
+    @apply w-full rounded-2xl border border-white/70 px-3 py-2.5 text-sm text-ink shadow-plush-inset-sm outline-none placeholder:text-ink-faint transition-all duration-150;
+    background-color: #EEF3F9;
   }
 
-  /* ============ اینپوت‌های فرورفته ============ */
-
-  .neo-input {
-    @apply w-full rounded-2xl border border-sky-100/60 bg-surface px-4 py-3 text-ink shadow-inset outline-none transition-shadow duration-150 placeholder:text-ink-faint;
+  .plush-select {
+    @apply w-full rounded-3xl border border-white/70 px-4 py-3.5 text-ink shadow-plush-inset outline-none transition-all duration-150;
+    background-color: #EEF3F9;
   }
 
-  .neo-input:focus {
-    @apply shadow-inset;
-    background-color: #e0e6ee;
-  }
-
-  .neo-input-sm {
-    @apply w-full rounded-xl border border-sky-100/60 bg-surface px-3 py-2 text-sm text-ink shadow-inset-sm outline-none placeholder:text-ink-faint;
-  }
-
-  .neo-select {
-    @apply w-full rounded-2xl border border-sky-100/60 bg-surface px-4 py-3 text-ink shadow-inset outline-none;
-  }
-
-  .neo-textarea {
-    @apply w-full rounded-2xl border border-sky-100/60 bg-surface px-4 py-3 text-ink shadow-inset outline-none placeholder:text-ink-faint;
+  .plush-textarea {
+    @apply w-full rounded-3xl border border-white/70 px-4 py-3.5 text-ink shadow-plush-inset outline-none transition-all duration-150 placeholder:text-ink-faint;
+    background-color: #EEF3F9;
     resize: vertical;
   }
 
-  /* ============ دکمه‌های iOS ============ */
-
-  .btn-ios-blue {
-    @apply rounded-2xl border border-sky-200/50 bg-ios-blue px-4 py-3 font-medium text-white shadow-raised transition-all duration-150;
+  /* ================= PLUSH BUTTONS ================= */
+  .btn-plush {
+    @apply rounded-3xl border border-white/60 px-5 py-3.5 font-semibold text-ink shadow-plush transition-all duration-150 select-none;
+    background-image: linear-gradient(160deg, #F0F5FB 0%, #DDE7F2 60%, #D2DEEB 100%);
   }
 
-  .btn-ios-blue:active {
-    @apply scale-[0.97] shadow-pressed brightness-95;
+  .btn-plush:active {
+    @apply shadow-plush-pressed;
+    transform: scale(0.97);
   }
 
-  .btn-ios-green {
-    @apply rounded-2xl border border-emerald-200/50 bg-ios-green px-4 py-3 font-medium text-white shadow-raised transition-all duration-150;
+  .btn-plush-blue {
+    @apply rounded-3xl border border-white/30 px-5 py-3.5 font-semibold text-white shadow-glow-blue transition-all duration-150 select-none;
+    background-image: linear-gradient(160deg, #6FAED6 0%, #4B82C3 60%, #3A6BA8 100%);
   }
 
-  .btn-ios-green:active {
-    @apply scale-[0.97] shadow-pressed brightness-95;
+  .btn-plush-blue:active {
+    @apply shadow-plush-pressed;
+    transform: scale(0.97);
   }
 
-  .btn-ios-orange {
-    @apply rounded-2xl border border-orange-200/50 bg-ios-orange px-4 py-3 font-medium text-white shadow-raised transition-all duration-150;
+  .btn-plush-navy {
+    @apply rounded-3xl border border-white/15 px-5 py-3.5 font-semibold shadow-plush-navy transition-all duration-150 select-none;
+    background-image: linear-gradient(160deg, #243765 0%, #182650 50%, #0F1B3D 100%);
+    color: #F7F5EF;
   }
 
-  .btn-ios-orange:active {
-    @apply scale-[0.97] shadow-pressed brightness-95;
+  .btn-plush-navy:active {
+    @apply shadow-plush-pressed;
+    transform: scale(0.97);
   }
 
-  .btn-ios-red {
-    @apply rounded-2xl border border-red-200/50 bg-ios-red px-4 py-3 font-medium text-white shadow-raised transition-all duration-150;
+  .btn-plush-success {
+    @apply rounded-3xl border border-white/30 px-5 py-3.5 font-semibold text-white shadow-glow-success transition-all duration-150 select-none;
+    background-image: linear-gradient(160deg, #A8D3B8 0%, #7BB892 60%, #5EA07B 100%);
   }
 
-  .btn-ios-red:active {
-    @apply scale-[0.97] shadow-pressed brightness-95;
+  .btn-plush-success:active {
+    @apply shadow-plush-pressed;
+    transform: scale(0.97);
   }
 
-  .btn-ios-gray {
-    @apply rounded-2xl border border-sky-100/70 bg-ios-grayLight px-4 py-3 font-medium text-ink shadow-raised transition-all duration-150;
+  .btn-plush-warning {
+    @apply rounded-3xl border border-white/30 px-5 py-3.5 font-semibold text-white shadow-glow-warning transition-all duration-150 select-none;
+    background-image: linear-gradient(160deg, #EFC99E 0%, #E0A567 60%, #C98D4F 100%);
   }
 
-  .btn-ios-gray:active {
-    @apply scale-[0.97] shadow-pressed;
+  .btn-plush-warning:active {
+    @apply shadow-plush-pressed;
+    transform: scale(0.97);
   }
 
-  .btn-neo {
-    @apply rounded-2xl border border-sky-100/70 bg-surface px-4 py-3 font-medium text-ink shadow-raised transition-all duration-150;
+  .btn-plush-danger {
+    @apply rounded-3xl border border-white/30 px-5 py-3.5 font-semibold text-white shadow-glow-danger transition-all duration-150 select-none;
+    background-image: linear-gradient(160deg, #E9A5A5 0%, #D77A7A 60%, #BE5F5F 100%);
   }
 
-  .btn-neo:active {
-    @apply scale-[0.97] shadow-pressed;
+  .btn-plush-danger:active {
+    @apply shadow-plush-pressed;
+    transform: scale(0.97);
   }
+
+  .btn-plush-soft {
+    @apply rounded-3xl border border-white/60 px-4 py-2.5 font-medium text-ink shadow-plush-sm transition-all duration-150 select-none;
+    background-image: linear-gradient(160deg, #E1EDF9 0%, #CFE0F0 60%, #BFD5E8 100%);
+  }
+
+  .btn-plush-soft:active {
+    @apply shadow-plush-pressed;
+    transform: scale(0.97);
+  }
+
+  .btn-plush-icon {
+    @apply flex items-center justify-center rounded-2xl border border-white/60 p-2.5 text-ink shadow-plush-sm transition-all duration-150 select-none;
+    background-image: linear-gradient(160deg, #F0F5FB 0%, #DDE7F2 60%, #D2DEEB 100%);
+  }
+
+  .btn-plush-icon:active {
+    @apply shadow-plush-pressed;
+    transform: scale(0.94);
+  }
+
+  /* ================= PLUSH SECTION ================= */
+  .plush-section-title {
+    @apply mb-2 flex items-center justify-between px-1;
+  }
+
+  .plush-section-title h2 {
+    @apply text-base font-bold text-ink;
+  }
+
+  .plush-link {
+    @apply text-sm font-medium text-blue;
+  }
+
+  /* ================= PLUSH STAGGER ================= */
+  .plush-stagger > * {
+    @apply animate-puff-in;
+  }
+  .plush-stagger > *:nth-child(1) { animation-delay: 0ms; }
+  .plush-stagger > *:nth-child(2) { animation-delay: 40ms; }
+  .plush-stagger > *:nth-child(3) { animation-delay: 80ms; }
+  .plush-stagger > *:nth-child(4) { animation-delay: 120ms; }
+  .plush-stagger > *:nth-child(5) { animation-delay: 160ms; }
+  .plush-stagger > *:nth-child(6) { animation-delay: 200ms; }
+  .plush-stagger > *:nth-child(7) { animation-delay: 240ms; }
+  .plush-stagger > *:nth-child(8) { animation-delay: 280ms; }
 }
 
 @media (prefers-reduced-motion: reduce) {
