@@ -44,13 +44,24 @@ export default function Avatar({ name, size = "md" }: Props) {
 
   return (
     <div
-      className={`${sizeClasses} flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-violet-300 to-pink-300 font-bold text-white shadow-raised`}
+      className={`${sizeClasses} relative flex items-center justify-center overflow-hidden rounded-full border border-white/80 bg-plush-blue font-bold text-white shadow-plush transition-all duration-200`}
     >
+      <span
+        className="pointer-events-none absolute inset-0 rounded-full"
+        style={{
+          boxShadow:
+            "inset 0 2px 6px rgba(255,255,255,0.55), inset 0 -3px 8px rgba(15,27,61,0.18)",
+        }}
+      />
       {image ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={image} alt={name} className="h-full w-full object-cover" />
+        <img
+          src={image}
+          alt={name}
+          className="relative h-full w-full object-cover"
+        />
       ) : (
-        <span>{firstLetter}</span>
+        <span className="relative">{firstLetter}</span>
       )}
     </div>
   );
