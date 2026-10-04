@@ -86,14 +86,14 @@ export default async function TodayPage() {
   const overdueCount = followUpsOverdue.length;
 
   return (
-    <div className="space-y-5">
-      {/* کارت «امروز» — با عکس پروفایل */}
-      <div className="neo-card overflow-hidden p-0">
+    <div className="space-y-4 plush-stagger">
+      {/* کارت «امروز» */}
+      <div className="plush-card-lg overflow-hidden p-0">
         <div className="flex items-stretch">
-          <div className="flex-shrink-0 p-3">
+          <div className="flex-shrink-0 p-4">
             <Avatar name={session?.username ?? "؟"} size="xl" />
           </div>
-          <div className="flex flex-1 flex-col items-end justify-center px-4 py-3">
+          <div className="flex flex-1 flex-col items-end justify-center px-4 py-4">
             <h1 className="text-2xl font-bold text-ink">امروز</h1>
             <p className="mt-1 text-sm text-ink-muted">
               {session?.username} — {toPersianDate(new Date())}
@@ -102,18 +102,18 @@ export default async function TodayPage() {
         </div>
       </div>
 
-      {/* دکمه‌های عملیاتی iOS */}
+      {/* دو دکمه اصلی */}
       <div className="grid grid-cols-2 gap-3">
         <Link
           href="/activity/new"
-          className="btn-ios-blue flex items-center justify-center gap-2"
+          className="btn-plush-blue flex items-center justify-center gap-2"
         >
           <span className="text-lg">＋</span>
           <span>ثبت فعالیت</span>
         </Link>
         <Link
           href="/customers/new"
-          className="btn-ios-gray flex items-center justify-center gap-2"
+          className="btn-plush-navy flex items-center justify-center gap-2"
         >
           <span className="text-lg">＋</span>
           <span>مشتری جدید</span>
@@ -122,7 +122,7 @@ export default async function TodayPage() {
 
       <Link
         href="/reports/new"
-        className="btn-ios-green flex items-center justify-center gap-2"
+        className="btn-plush-success flex items-center justify-center gap-2"
       >
         <span className="text-lg">📝</span>
         <span>گزارش روز را بنویس</span>
@@ -130,13 +130,13 @@ export default async function TodayPage() {
 
       <Link
         href="/plan"
-        className="btn-ios-orange flex items-center justify-center gap-2"
+        className="btn-plush-warning flex items-center justify-center gap-2"
       >
         <span className="text-lg">📋</span>
         <span>برنامه کاری روز</span>
       </Link>
 
-      {/* کپسول‌های آمار — ایموجی */}
+      {/* کپسول‌های آمار */}
       <div className="flex gap-1.5">
         <StatPill
           label="تماس"
@@ -184,9 +184,9 @@ export default async function TodayPage() {
       {overdueCount > 0 && (
         <Link
           href="/followups?filter=overdue"
-          className="flex items-center justify-between rounded-2xl bg-pastel-peach px-4 py-3 text-ios-orange shadow-raised-sm transition-all duration-150 active:scale-[0.98] active:shadow-pressed"
+          className="flex items-center justify-between rounded-3xl border border-white/70 bg-plush-warning px-4 py-3 text-white shadow-glow-warning transition-all duration-150 active:scale-[0.98] active:shadow-plush-pressed"
         >
-          <span className="font-medium">
+          <span className="font-semibold">
             🔔 {formatNumber(overdueCount)} پیگیری عقب‌افتاده
           </span>
           <span>›</span>
@@ -194,9 +194,9 @@ export default async function TodayPage() {
       )}
 
       <section>
-        <div className="mb-2 flex items-center justify-between px-1">
-          <h2 className="font-semibold text-ink">پیگیری‌های امروز</h2>
-          <Link href="/followups" className="text-sm text-ios-blue">
+        <div className="plush-section-title">
+          <h2>پیگیری‌های امروز</h2>
+          <Link href="/followups" className="plush-link">
             همه
           </Link>
         </div>
@@ -212,17 +212,17 @@ export default async function TodayPage() {
             {followUpsToday.map((f) => (
               <li
                 key={f.id}
-                className="relative rounded-3xl bg-surface p-4 shadow-raised transition-all duration-200 active:shadow-pressed"
+                className="relative rounded-4xl border border-white/70 bg-plush-surface p-4 shadow-plush transition-all duration-200 active:shadow-plush-pressed"
               >
                 <span
                   className={`absolute right-3 top-3 h-2.5 w-2.5 rounded-full ${
                     f.dueAt < todayStart
-                      ? "animate-pulse-fast bg-ios-red"
-                      : "animate-pulse-fast bg-ios-orange"
+                      ? "animate-pulse-fast bg-status-danger"
+                      : "animate-pulse-fast bg-status-warning"
                   }`}
                 />
                 <div className="flex items-center justify-between pr-5">
-                  <div className="font-medium text-ink">{f.title}</div>
+                  <div className="font-semibold text-ink">{f.title}</div>
                   <div className="text-xs text-ink-muted">
                     {toPersianDateTime(f.dueAt)}
                   </div>
@@ -232,7 +232,7 @@ export default async function TodayPage() {
                   <ContactSheet
                     phone={f.customer.phone}
                     customerName={f.customer.name}
-                    className="text-ios-blue"
+                    className="font-medium text-blue"
                   >
                     {f.customer.phone}
                   </ContactSheet>
@@ -244,9 +244,9 @@ export default async function TodayPage() {
       </section>
 
       <section>
-        <div className="mb-2 flex items-center justify-between px-1">
-          <h2 className="font-semibold text-ink">سفرهای نزدیک</h2>
-          <Link href="/travelers" className="text-sm text-ios-blue">
+        <div className="plush-section-title">
+          <h2>سفرهای نزدیک</h2>
+          <Link href="/travelers" className="plush-link">
             همه
           </Link>
         </div>
@@ -262,11 +262,11 @@ export default async function TodayPage() {
             {upcomingTravels.map((t) => (
               <li
                 key={t.id}
-                className="relative rounded-3xl bg-surface p-4 shadow-raised transition-all duration-200 active:shadow-pressed"
+                className="relative rounded-4xl border border-white/70 bg-plush-surface p-4 shadow-plush transition-all duration-200 active:shadow-plush-pressed"
               >
-                <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-ios-orange" />
+                <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-status-warning" />
                 <div className="flex items-center justify-between pr-5">
-                  <div className="font-medium text-ink">
+                  <div className="font-semibold text-ink">
                     {t.from} → {t.to}
                   </div>
                   <div className="text-xs text-ink-muted">
@@ -278,7 +278,7 @@ export default async function TodayPage() {
                   <ContactSheet
                     phone={t.customer.phone}
                     customerName={t.customer.name}
-                    className="text-ios-blue"
+                    className="font-medium text-blue"
                   >
                     {t.customer.phone}
                   </ContactSheet>
@@ -291,21 +291,19 @@ export default async function TodayPage() {
 
       {overdueCount > 0 && (
         <section>
-          <div className="mb-2 flex items-center justify-between px-1">
-            <h2 className="font-semibold text-ios-orange">
-              پیگیری‌های عقب‌افتاده
-            </h2>
+          <div className="plush-section-title">
+            <h2 className="text-status-warning">پیگیری‌های عقب‌افتاده</h2>
           </div>
 
           <ul className="space-y-2">
             {followUpsOverdue.map((f) => (
               <li
                 key={f.id}
-                className="relative rounded-3xl bg-pastel-peach p-4 shadow-raised transition-all duration-200 active:shadow-pressed"
+                className="relative rounded-4xl border border-white/70 bg-status-warningSoft p-4 shadow-plush transition-all duration-200 active:shadow-plush-pressed"
               >
-                <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-ios-red" />
+                <span className="absolute right-3 top-3 h-2.5 w-2.5 animate-pulse-fast rounded-full bg-status-danger" />
                 <div className="flex items-center justify-between pr-5">
-                  <div className="font-medium text-ink">{f.title}</div>
+                  <div className="font-semibold text-ink">{f.title}</div>
                   <div className="text-xs text-ink-soft">
                     {toPersianDateTime(f.dueAt)}
                   </div>
@@ -315,7 +313,7 @@ export default async function TodayPage() {
                   <ContactSheet
                     phone={f.customer.phone}
                     customerName={f.customer.name}
-                    className="text-ios-blue underline decoration-dotted"
+                    className="font-medium text-blue underline decoration-dotted"
                   >
                     {f.customer.phone}
                   </ContactSheet>
