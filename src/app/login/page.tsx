@@ -41,15 +41,16 @@ export default function LoginPage() {
     <main className="flex min-h-screen items-center justify-center px-4">
       <form
         onSubmit={onSubmit}
-        className="w-full max-w-sm rounded-3xl bg-surface p-6 shadow-raised"
+        className="w-full max-w-sm rounded-4xl border border-white/70 bg-plush-surface p-7 shadow-plush-lg"
       >
+        <div className="mb-1 text-center text-3xl">🧵</div>
         <h1 className="mb-1 text-center text-2xl font-bold text-ink">
           TicketPilot
         </h1>
         <p className="mb-6 text-center text-sm text-ink-muted">ورود به پنل</p>
 
         <label className="mb-3 block">
-          <span className="mb-2 block text-sm text-ink-soft">
+          <span className="mb-2 block text-sm font-medium text-ink-soft">
             نام کاربری
           </span>
           <input
@@ -57,30 +58,36 @@ export default function LoginPage() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             autoComplete="username"
-            className="neo-input"
+            className="plush-input"
             required
           />
         </label>
 
         <label className="mb-4 block">
-          <span className="mb-2 block text-sm text-ink-soft">رمز عبور</span>
+          <span className="mb-2 block text-sm font-medium text-ink-soft">
+            رمز عبور
+          </span>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             autoComplete="current-password"
-            className="neo-input"
+            className="plush-input"
             required
           />
         </label>
 
         {error && (
-          <div className="mb-4 rounded-2xl bg-pastel-pink px-3 py-2 text-sm text-ios-red">
+          <div className="mb-4 rounded-3xl border border-white/60 bg-status-dangerSoft px-3 py-2 text-sm text-status-danger">
             {error}
           </div>
         )}
 
-        <button type="submit" disabled={loading} className="btn-ios-blue w-full">
+        <button
+          type="submit"
+          disabled={loading}
+          className="btn-plush-blue w-full"
+        >
           {loading ? "در حال ورود..." : "ورود"}
         </button>
       </form>
