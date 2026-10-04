@@ -51,7 +51,7 @@ export default function ConfirmDelete({
         onClick={() => setOpen(true)}
         className={
           className ??
-          "flex items-center gap-1 rounded-xl bg-pastel-pink px-3 py-1.5 text-xs text-ios-red transition-all duration-150 active:scale-95"
+          "flex items-center gap-1 rounded-2xl border border-white/60 bg-plush-danger px-3 py-1.5 text-xs font-medium text-white shadow-plush-sm transition-all duration-150 active:scale-95 active:shadow-plush-pressed"
         }
       >
         {children ?? (
@@ -64,11 +64,11 @@ export default function ConfirmDelete({
 
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-navy/40 p-4 backdrop-blur-md"
           onClick={() => setOpen(false)}
         >
           <div
-            className="w-full max-w-sm rounded-3xl bg-surface p-5 shadow-raised"
+            className="w-full max-w-sm rounded-4xl border border-white/70 bg-plush-surface p-5 shadow-plush-lg"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-3 text-base font-bold text-ink">
@@ -77,7 +77,7 @@ export default function ConfirmDelete({
             <p className="mb-4 text-sm text-ink-soft">{message}</p>
 
             {error && (
-              <div className="mb-3 rounded-2xl bg-pastel-pink px-3 py-2 text-sm text-ios-red">
+              <div className="mb-3 rounded-2xl border border-white/60 bg-status-dangerSoft px-3 py-2 text-sm text-status-danger">
                 {error}
               </div>
             )}
@@ -87,7 +87,7 @@ export default function ConfirmDelete({
                 type="button"
                 onClick={() => setOpen(false)}
                 disabled={loading}
-                className="btn-ios-gray"
+                className="btn-plush"
               >
                 لغو
               </button>
@@ -95,7 +95,7 @@ export default function ConfirmDelete({
                 type="button"
                 onClick={onDelete}
                 disabled={loading}
-                className="btn-ios-red"
+                className="btn-plush-danger"
               >
                 {loading ? "..." : "حذف کن"}
               </button>
