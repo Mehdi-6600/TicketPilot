@@ -13,13 +13,13 @@
 
   body {
     min-height: 100vh;
-    background: #DCE6F2;
+    background: #dce6f2;
     background-image: radial-gradient(
       120% 80% at 20% 0%,
-      #EAF2FB 0%,
-      #DDEAF6 30%,
-      #D0DCEA 65%,
-      #C4D2E2 100%
+      #eaf2fb 0%,
+      #ddeaf6 30%,
+      #d0dcea 65%,
+      #c4d2e2 100%
     );
     background-attachment: fixed;
     position: relative;
@@ -61,345 +61,427 @@
   }
 }
 
-@layer components {
-  /* ================= PLUSH CARD ================= */
-  .plush-card {
-    @apply rounded-4xl border border-white/60 p-4 shadow-plush transition-all duration-200;
-    background-image: linear-gradient(
-      160deg,
-      #f0f5fb 0%,
-      #dde7f2 60%,
-      #d2deeb 100%
-    );
-  }
+/* ============================================================
+   PLUSH DESIGN SYSTEM
+   خالص CSS — بدون @apply، بدون @layer components
+   ============================================================ */
 
-  .plush-card:active {
-    @apply shadow-plush-pressed;
-    transform: scale(0.985);
-  }
+/* ---------- Cards ---------- */
+.plush-card {
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 1rem;
+  background-image: linear-gradient(
+    160deg,
+    #f0f5fb 0%,
+    #dde7f2 60%,
+    #d2deeb 100%
+  );
+  box-shadow: 0 2px 4px rgba(15, 27, 61, 0.04),
+    0 8px 20px rgba(15, 27, 61, 0.08), 0 16px 40px rgba(75, 130, 195, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -2px 4px rgba(15, 27, 61, 0.04);
+  transition: all 0.2s ease;
+}
+.plush-card:active {
+  box-shadow: inset 0 3px 6px rgba(15, 27, 61, 0.1),
+    inset 0 1px 3px rgba(15, 27, 61, 0.08),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.7);
+  transform: scale(0.985);
+}
 
-  .plush-card-sm {
-    @apply rounded-3xl border border-white/60 p-3 shadow-plush-sm transition-all duration-150;
-    background-image: linear-gradient(
-      160deg,
-      #f0f5fb 0%,
-      #dde7f2 60%,
-      #d2deeb 100%
-    );
-  }
+.plush-card-sm {
+  border-radius: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 0.75rem;
+  background-image: linear-gradient(
+    160deg,
+    #f0f5fb 0%,
+    #dde7f2 60%,
+    #d2deeb 100%
+  );
+  box-shadow: 0 1px 2px rgba(15, 27, 61, 0.05),
+    0 4px 10px rgba(15, 27, 61, 0.07), 0 8px 20px rgba(75, 130, 195, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 2px rgba(15, 27, 61, 0.03);
+  transition: all 0.15s ease;
+}
+.plush-card-sm:active {
+  box-shadow: inset 0 3px 6px rgba(15, 27, 61, 0.1),
+    inset 0 1px 3px rgba(15, 27, 61, 0.08);
+  transform: scale(0.98);
+}
 
-  .plush-card-sm:active {
-    @apply shadow-plush-pressed;
-    transform: scale(0.98);
-  }
+.plush-card-lg {
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 1.25rem;
+  background-image: linear-gradient(
+    160deg,
+    #f0f5fb 0%,
+    #dde7f2 60%,
+    #d2deeb 100%
+  );
+  box-shadow: 0 4px 8px rgba(15, 27, 61, 0.06),
+    0 16px 32px rgba(15, 27, 61, 0.1), 0 32px 64px rgba(75, 130, 195, 0.14),
+    inset 0 2px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -3px 6px rgba(15, 27, 61, 0.05);
+  transition: all 0.2s ease;
+}
 
-  .plush-card-lg {
-    @apply rounded-4xl border border-white/70 p-5 shadow-plush-lg transition-all duration-200;
-    background-image: linear-gradient(
-      160deg,
-      #f0f5fb 0%,
-      #dde7f2 60%,
-      #d2deeb 100%
-    );
-  }
-
-  .plush-card-sky {
-    @apply rounded-4xl border border-white/70 p-4 shadow-plush transition-all duration-200;
-    background-image: linear-gradient(
-      160deg,
-      #e1edf9 0%,
-      #cfe0f0 60%,
-      #bfd5e8 100%
-    );
-  }
-  .plush-card-powder {
-    @apply rounded-4xl border border-white/70 p-4 shadow-plush transition-all duration-200;
-    background-image: linear-gradient(
-      160deg,
-      #d7e5f5 0%,
-      #c9ddf0 60%,
-      #b8d0e8 100%
-    );
-  }
-  .plush-card-cream {
-    @apply rounded-4xl border border-white/70 p-4 shadow-plush transition-all duration-200;
-    background-image: linear-gradient(
-      160deg,
-      #fffdf8 0%,
-      #f7f5ef 60%,
-      #edeae0 100%
-    );
-  }
-  .plush-card-navy {
-    @apply rounded-4xl border border-white/10 p-4 shadow-plush-navy transition-all duration-200;
-    background-image: linear-gradient(
-      160deg,
-      #243765 0%,
-      #182650 50%,
-      #0f1b3d 100%
-    );
-    color: #f7f5ef;
-  }
-
-  .plush-card-sky:active,
-  .plush-card-powder:active,
-  .plush-card-cream:active,
-  .plush-card-navy:active {
-    @apply shadow-plush-pressed;
-    transform: scale(0.985);
-  }
-
-  /* ================= PLUSH INPUT (真正 recessed fabric) ================= */
-  .plush-input,
-  .plush-input-sm,
-  .plush-select,
-  .plush-textarea {
-    width: 100%;
-    color: #0f1b3d;
-    outline: none;
-    border-radius: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.75);
-    background-color: #d8e2ee;
-    background-image: linear-gradient(
+/* ---------- INPUTS (recessed fabric) ---------- */
+.plush-input,
+.plush-input-sm,
+.plush-select,
+.plush-textarea {
+  width: 100%;
+  color: #0f1b3d;
+  outline: none;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  background-color: #d8e2ee;
+  background-image: linear-gradient(
+    180deg,
+    #cfdae8 0%,
+    #dde7f2 40%,
+    #e6eef7 100%
+  );
+  box-shadow: inset 0 3px 6px rgba(15, 27, 61, 0.14),
+    inset 0 6px 14px rgba(15, 27, 61, 0.08),
+    inset 0 -2px 3px rgba(255, 255, 255, 0.9),
+    0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: box-shadow 0.18s ease, background-color 0.18s ease,
+    border-color 0.18s ease;
+}
+.plush-input {
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+}
+.plush-input-sm {
+  padding: 0.6rem 0.85rem;
+  font-size: 0.85rem;
+  border-radius: 1.25rem;
+}
+.plush-textarea {
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+  resize: vertical;
+  min-height: 6rem;
+}
+.plush-select {
+  padding: 0.9rem 2.5rem 0.9rem 1rem;
+  font-size: 0.95rem;
+  appearance: none;
+  -webkit-appearance: none;
+  background-repeat: no-repeat;
+  background-position: left 0.9rem center;
+  background-size: 1rem;
+  background-image: linear-gradient(
       180deg,
       #cfdae8 0%,
       #dde7f2 40%,
       #e6eef7 100%
-    );
-    box-shadow:
-      inset 0 3px 6px rgba(15, 27, 61, 0.14),
-      inset 0 6px 14px rgba(15, 27, 61, 0.08),
-      inset 0 -2px 3px rgba(255, 255, 255, 0.9),
-      0 1px 0 rgba(255, 255, 255, 0.8);
-    transition: box-shadow 0.18s ease, background-color 0.18s ease,
-      border-color 0.18s ease;
-  }
+    ),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%230F1B3D'><path d='M5.5 7.5l4.5 5 4.5-5z'/></svg>");
+  background-position: 0 0, left 0.9rem center;
+  background-size: auto, 1rem;
+}
 
-  .plush-input {
-    padding: 0.9rem 1rem;
-    font-size: 0.95rem;
-  }
+.plush-input::placeholder,
+.plush-input-sm::placeholder,
+.plush-textarea::placeholder {
+  color: #94a3b8;
+}
 
-  .plush-input-sm {
-    padding: 0.6rem 0.85rem;
-    font-size: 0.85rem;
-    border-radius: 1.25rem;
-  }
+.plush-input:focus,
+.plush-input-sm:focus,
+.plush-select:focus,
+.plush-textarea:focus {
+  background-image: linear-gradient(
+    180deg,
+    #c6d3e3 0%,
+    #d6e1ee 40%,
+    #e2ebf5 100%
+  );
+  border-color: rgba(111, 174, 214, 0.85);
+  box-shadow: inset 0 4px 8px rgba(15, 27, 61, 0.18),
+    inset 0 8px 18px rgba(15, 27, 61, 0.09),
+    inset 0 -2px 3px rgba(255, 255, 255, 0.9),
+    0 0 0 4px rgba(139, 200, 232, 0.25);
+}
 
-  .plush-select {
-    padding: 0.9rem 1rem;
-    font-size: 0.95rem;
-    appearance: none;
-    -webkit-appearance: none;
-    background-repeat: no-repeat;
-    background-position: left 0.9rem center;
-    background-size: 0.8rem;
-    background-image: linear-gradient(
-        180deg,
-        #cfdae8 0%,
-        #dde7f2 40%,
-        #e6eef7 100%
-      ),
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%230F1B3D'><path d='M5.5 7.5l4.5 5 4.5-5z'/></svg>");
-    background-position: 0 0, left 0.9rem center;
-    background-size: auto, 1rem;
-    padding-left: 2.5rem;
-  }
+/* ---------- BUTTONS ---------- */
+.btn-plush {
+  border-radius: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 0.9rem 1.25rem;
+  font-weight: 600;
+  color: #0f1b3d;
+  background-image: linear-gradient(
+    160deg,
+    #f0f5fb 0%,
+    #dde7f2 60%,
+    #d2deeb 100%
+  );
+  box-shadow: 0 2px 4px rgba(15, 27, 61, 0.04),
+    0 8px 20px rgba(15, 27, 61, 0.08), 0 16px 40px rgba(75, 130, 195, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -2px 4px rgba(15, 27, 61, 0.04);
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.btn-plush:active {
+  box-shadow: inset 0 3px 6px rgba(15, 27, 61, 0.1),
+    inset 0 1px 3px rgba(15, 27, 61, 0.08),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.7);
+  transform: scale(0.97);
+}
 
-  .plush-textarea {
-    padding: 0.9rem 1rem;
-    font-size: 0.95rem;
-    resize: vertical;
-    min-height: 6rem;
-  }
+.btn-plush-blue {
+  border-radius: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.9rem 1.25rem;
+  font-weight: 600;
+  color: white;
+  background-image: linear-gradient(
+    160deg,
+    #6faed6 0%,
+    #4b82c3 60%,
+    #3a6ba8 100%
+  );
+  box-shadow: 0 6px 20px rgba(75, 130, 195, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 4px rgba(15, 27, 61, 0.15);
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.btn-plush-blue:active {
+  box-shadow: inset 0 3px 6px rgba(15, 27, 61, 0.2),
+    inset 0 1px 3px rgba(15, 27, 61, 0.15),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.3);
+  transform: scale(0.97);
+}
 
-  .plush-input::placeholder,
-  .plush-input-sm::placeholder,
-  .plush-textarea::placeholder {
-    color: #94a3b8;
-  }
+.btn-plush-navy {
+  border-radius: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.9rem 1.25rem;
+  font-weight: 600;
+  color: #f7f5ef;
+  background-image: linear-gradient(
+    160deg,
+    #243765 0%,
+    #182650 50%,
+    #0f1b3d 100%
+  );
+  box-shadow: 0 4px 12px rgba(15, 27, 61, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.25);
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.btn-plush-navy:active {
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.4),
+    inset 0 1px 3px rgba(0, 0, 0, 0.3);
+  transform: scale(0.97);
+}
 
-  .plush-input:focus,
-  .plush-input-sm:focus,
-  .plush-select:focus,
-  .plush-textarea:focus {
-    background-image: linear-gradient(
-      180deg,
-      #c6d3e3 0%,
-      #d6e1ee 40%,
-      #e2ebf5 100%
-    );
-    border-color: rgba(111, 174, 214, 0.85);
-    box-shadow:
-      inset 0 4px 8px rgba(15, 27, 61, 0.18),
-      inset 0 8px 18px rgba(15, 27, 61, 0.09),
-      inset 0 -2px 3px rgba(255, 255, 255, 0.9),
-      0 0 0 4px rgba(139, 200, 232, 0.25);
-  }
+.btn-plush-success {
+  border-radius: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.9rem 1.25rem;
+  font-weight: 600;
+  color: white;
+  background-image: linear-gradient(
+    160deg,
+    #a8d3b8 0%,
+    #7bb892 60%,
+    #5ea07b 100%
+  );
+  box-shadow: 0 6px 20px rgba(123, 184, 146, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 4px rgba(15, 27, 61, 0.15);
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.btn-plush-success:active {
+  box-shadow: inset 0 3px 6px rgba(15, 27, 61, 0.2),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.3);
+  transform: scale(0.97);
+}
 
-  /* ================= PLUSH BUTTONS ================= */
-  .btn-plush {
-    @apply rounded-3xl border border-white/60 px-5 py-3.5 font-semibold text-ink shadow-plush transition-all duration-150 select-none;
-    background-image: linear-gradient(
-      160deg,
-      #f0f5fb 0%,
-      #dde7f2 60%,
-      #d2deeb 100%
-    );
-  }
+.btn-plush-warning {
+  border-radius: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.9rem 1.25rem;
+  font-weight: 600;
+  color: white;
+  background-image: linear-gradient(
+    160deg,
+    #efc99e 0%,
+    #e0a567 60%,
+    #c98d4f 100%
+  );
+  box-shadow: 0 6px 20px rgba(224, 165, 103, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 4px rgba(15, 27, 61, 0.15);
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.btn-plush-warning:active {
+  box-shadow: inset 0 3px 6px rgba(15, 27, 61, 0.2),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.3);
+  transform: scale(0.97);
+}
 
-  .btn-plush:active {
-    @apply shadow-plush-pressed;
-    transform: scale(0.97);
-  }
+.btn-plush-danger {
+  border-radius: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.9rem 1.25rem;
+  font-weight: 600;
+  color: white;
+  background-image: linear-gradient(
+    160deg,
+    #e9a5a5 0%,
+    #d77a7a 60%,
+    #be5f5f 100%
+  );
+  box-shadow: 0 6px 20px rgba(215, 122, 122, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 4px rgba(15, 27, 61, 0.15);
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.btn-plush-danger:active {
+  box-shadow: inset 0 3px 6px rgba(15, 27, 61, 0.2),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.3);
+  transform: scale(0.97);
+}
 
-  .btn-plush-blue {
-    @apply rounded-3xl border border-white/30 px-5 py-3.5 font-semibold text-white shadow-glow-blue transition-all duration-150 select-none;
-    background-image: linear-gradient(
-      160deg,
-      #6faed6 0%,
-      #4b82c3 60%,
-      #3a6ba8 100%
-    );
-  }
+.btn-plush-soft {
+  border-radius: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 0.65rem 1rem;
+  font-weight: 500;
+  color: #0f1b3d;
+  background-image: linear-gradient(
+    160deg,
+    #e1edf9 0%,
+    #cfe0f0 60%,
+    #bfd5e8 100%
+  );
+  box-shadow: 0 1px 2px rgba(15, 27, 61, 0.05),
+    0 4px 10px rgba(15, 27, 61, 0.07), 0 8px 20px rgba(75, 130, 195, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.btn-plush-soft:active {
+  box-shadow: inset 0 3px 6px rgba(15, 27, 61, 0.1),
+    inset 0 1px 3px rgba(15, 27, 61, 0.08);
+  transform: scale(0.97);
+}
 
-  .btn-plush-blue:active {
-    @apply shadow-plush-pressed;
-    transform: scale(0.97);
-  }
+.btn-plush-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 0.65rem;
+  color: #0f1b3d;
+  background-image: linear-gradient(
+    160deg,
+    #f0f5fb 0%,
+    #dde7f2 60%,
+    #d2deeb 100%
+  );
+  box-shadow: 0 1px 2px rgba(15, 27, 61, 0.05),
+    0 4px 10px rgba(15, 27, 61, 0.07), 0 8px 20px rgba(75, 130, 195, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.btn-plush-icon:active {
+  box-shadow: inset 0 3px 6px rgba(15, 27, 61, 0.1);
+  transform: scale(0.94);
+}
 
-  .btn-plush-navy {
-    @apply rounded-3xl border border-white/15 px-5 py-3.5 font-semibold shadow-plush-navy transition-all duration-150 select-none;
-    background-image: linear-gradient(
-      160deg,
-      #243765 0%,
-      #182650 50%,
-      #0f1b3d 100%
-    );
-    color: #f7f5ef;
-  }
+/* ---------- Sections ---------- */
+.plush-section-title {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.25rem;
+}
+.plush-section-title h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f1b3d;
+}
+.plush-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4b82c3;
+}
 
-  .btn-plush-navy:active {
-    @apply shadow-plush-pressed;
-    transform: scale(0.97);
+/* ---------- Puffy animations ---------- */
+@keyframes puff-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
   }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes pulse-fast {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.4);
+  }
+}
 
-  .btn-plush-success {
-    @apply rounded-3xl border border-white/30 px-5 py-3.5 font-semibold text-white shadow-glow-success transition-all duration-150 select-none;
-    background-image: linear-gradient(
-      160deg,
-      #a8d3b8 0%,
-      #7bb892 60%,
-      #5ea07b 100%
-    );
-  }
+.animate-puff-in {
+  animation: puff-in 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.animate-pulse-fast {
+  animation: pulse-fast 1.2s ease-in-out infinite;
+}
 
-  .btn-plush-success:active {
-    @apply shadow-plush-pressed;
-    transform: scale(0.97);
-  }
-
-  .btn-plush-warning {
-    @apply rounded-3xl border border-white/30 px-5 py-3.5 font-semibold text-white shadow-glow-warning transition-all duration-150 select-none;
-    background-image: linear-gradient(
-      160deg,
-      #efc99e 0%,
-      #e0a567 60%,
-      #c98d4f 100%
-    );
-  }
-
-  .btn-plush-warning:active {
-    @apply shadow-plush-pressed;
-    transform: scale(0.97);
-  }
-
-  .btn-plush-danger {
-    @apply rounded-3xl border border-white/30 px-5 py-3.5 font-semibold text-white shadow-glow-danger transition-all duration-150 select-none;
-    background-image: linear-gradient(
-      160deg,
-      #e9a5a5 0%,
-      #d77a7a 60%,
-      #be5f5f 100%
-    );
-  }
-
-  .btn-plush-danger:active {
-    @apply shadow-plush-pressed;
-    transform: scale(0.97);
-  }
-
-  .btn-plush-soft {
-    @apply rounded-3xl border border-white/60 px-4 py-2.5 font-medium text-ink shadow-plush-sm transition-all duration-150 select-none;
-    background-image: linear-gradient(
-      160deg,
-      #e1edf9 0%,
-      #cfe0f0 60%,
-      #bfd5e8 100%
-    );
-  }
-
-  .btn-plush-soft:active {
-    @apply shadow-plush-pressed;
-    transform: scale(0.97);
-  }
-
-  .btn-plush-icon {
-    @apply flex items-center justify-center rounded-2xl border border-white/60 p-2.5 text-ink shadow-plush-sm transition-all duration-150 select-none;
-    background-image: linear-gradient(
-      160deg,
-      #f0f5fb 0%,
-      #dde7f2 60%,
-      #d2deeb 100%
-    );
-  }
-
-  .btn-plush-icon:active {
-    @apply shadow-plush-pressed;
-    transform: scale(0.94);
-  }
-
-  /* ================= PLUSH SECTION ================= */
-  .plush-section-title {
-    @apply mb-2 flex items-center justify-between px-1;
-  }
-
-  .plush-section-title h2 {
-    @apply text-base font-bold text-ink;
-  }
-
-  .plush-link {
-    @apply text-sm font-medium text-blue;
-  }
-
-  /* ================= PLUSH STAGGER ================= */
-  .plush-stagger > * {
-    @apply animate-puff-in;
-  }
-  .plush-stagger > *:nth-child(1) {
-    animation-delay: 0ms;
-  }
-  .plush-stagger > *:nth-child(2) {
-    animation-delay: 40ms;
-  }
-  .plush-stagger > *:nth-child(3) {
-    animation-delay: 80ms;
-  }
-  .plush-stagger > *:nth-child(4) {
-    animation-delay: 120ms;
-  }
-  .plush-stagger > *:nth-child(5) {
-    animation-delay: 160ms;
-  }
-  .plush-stagger > *:nth-child(6) {
-    animation-delay: 200ms;
-  }
-  .plush-stagger > *:nth-child(7) {
-    animation-delay: 240ms;
-  }
-  .plush-stagger > *:nth-child(8) {
-    animation-delay: 280ms;
-  }
+.plush-stagger > * {
+  animation: puff-in 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.plush-stagger > *:nth-child(1) {
+  animation-delay: 0ms;
+}
+.plush-stagger > *:nth-child(2) {
+  animation-delay: 40ms;
+}
+.plush-stagger > *:nth-child(3) {
+  animation-delay: 80ms;
+}
+.plush-stagger > *:nth-child(4) {
+  animation-delay: 120ms;
+}
+.plush-stagger > *:nth-child(5) {
+  animation-delay: 160ms;
+}
+.plush-stagger > *:nth-child(6) {
+  animation-delay: 200ms;
+}
+.plush-stagger > *:nth-child(7) {
+  animation-delay: 240ms;
+}
+.plush-stagger > *:nth-child(8) {
+  animation-delay: 280ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
