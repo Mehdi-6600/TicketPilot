@@ -32,45 +32,41 @@ export default function ContactSheet({
       label: "تماس",
       icon: "📞",
       href: `tel:${cleanPhone}`,
-      bg: "bg-pastel-blue",
+      bg: "bg-plush-powder",
     },
     {
       label: "پیامک",
       icon: "💬",
       href: `sms:${cleanPhone}`,
-      bg: "bg-pastel-mint",
+      bg: "bg-plush-sky",
     },
     {
       label: "واتساپ",
       icon: "🟢",
       href: `https://wa.me/${wa}`,
-      bg: "bg-pastel-mint",
+      bg: "bg-plush-success",
     },
     {
       label: "تلگرام",
       icon: "🔵",
       href: `https://t.me/+${wa}`,
-      bg: "bg-pastel-blue",
+      bg: "bg-plush-blue",
     },
   ];
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className={className}
-      >
+      <button type="button" onClick={() => setOpen(true)} className={className}>
         {children}
       </button>
 
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-end justify-center bg-black/30 backdrop-blur-sm sm:items-center"
+          className="fixed inset-0 z-50 flex items-end justify-center bg-navy/40 backdrop-blur-md sm:items-center"
           onClick={() => setOpen(false)}
         >
           <div
-            className="w-full max-w-sm rounded-t-3xl bg-surface p-5 pb-8 shadow-raised sm:rounded-3xl"
+            className="w-full max-w-sm rounded-t-5xl border border-white/70 bg-plush-surface p-5 pb-8 shadow-plush-lg sm:rounded-4xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-1 text-xs text-ink-muted">
@@ -90,10 +86,12 @@ export default function ContactSheet({
                       : undefined
                   }
                   onClick={() => setOpen(false)}
-                  className={`flex flex-col items-center gap-1 rounded-2xl ${a.bg} p-3 text-center shadow-raised-sm transition-all duration-150 active:scale-95 active:shadow-pressed`}
+                  className={`flex flex-col items-center gap-1 rounded-3xl border border-white/60 ${a.bg} p-3 text-center shadow-plush-sm transition-all duration-150 active:scale-95 active:shadow-plush-pressed`}
                 >
-                  <span className="text-2xl">{a.icon}</span>
-                  <span className="text-xs text-ink-soft">{a.label}</span>
+                  <span className="text-2xl">{iconFor(a.label)}</span>
+                  <span className="text-xs font-medium text-white">
+                    {a.label}
+                  </span>
                 </a>
               ))}
             </div>
@@ -101,7 +99,7 @@ export default function ContactSheet({
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="btn-ios-gray mt-5 w-full"
+              className="btn-plush mt-5 w-full"
             >
               بستن
             </button>
@@ -110,4 +108,19 @@ export default function ContactSheet({
       )}
     </>
   );
+}
+
+function iconFor(label: string): string {
+  switch (label) {
+    case "تماس":
+      return "📞";
+    case "پیامک":
+      return "💬";
+    case "واتساپ":
+      return "🟢";
+    case "تلگرام":
+      return "🔵";
+    default:
+      return "•";
+  }
 }
