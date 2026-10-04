@@ -15,8 +15,8 @@ export default async function PanelLayout({
 
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-10 bg-surface-base/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
+      <header className="sticky top-0 z-20 px-3 pt-3">
+        <div className="mx-auto flex max-w-3xl items-center justify-between gap-2 rounded-4xl border border-white/70 bg-white/70 px-3 py-2.5 shadow-plush backdrop-blur-xl">
           <div className="flex items-center gap-3">
             <Avatar name={session.username} size="sm" />
             <div className="flex flex-col leading-tight">
@@ -32,9 +32,7 @@ export default async function PanelLayout({
           </div>
         </div>
       </header>
-      <main className="mx-auto max-w-3xl px-4 py-5 pb-28">
-        {children}
-      </main>
+      <main className="mx-auto max-w-3xl px-3 py-4 pb-32">{children}</main>
       <BottomNav />
     </div>
   );
