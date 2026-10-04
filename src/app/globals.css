@@ -14,12 +14,17 @@
   body {
     min-height: 100vh;
     background: #DCE6F2;
-    background-image:
-      radial-gradient(120% 80% at 20% 0%, #EAF2FB 0%, #DDEAF6 30%, #D0DCEA 65%, #C4D2E2 100%);
+    background-image: radial-gradient(
+      120% 80% at 20% 0%,
+      #EAF2FB 0%,
+      #DDEAF6 30%,
+      #D0DCEA 65%,
+      #C4D2E2 100%
+    );
     background-attachment: fixed;
     position: relative;
     -webkit-font-smoothing: antialiased;
-    color: #0F1B3D;
+    color: #0f1b3d;
   }
 
   body::before {
@@ -29,10 +34,21 @@
     pointer-events: none;
     z-index: 0;
     opacity: 0.35;
-    background-image:
-      radial-gradient(circle at 25% 15%, rgba(255, 255, 255, 0.6) 0%, transparent 40%),
-      radial-gradient(circle at 80% 85%, rgba(75, 130, 195, 0.10) 0%, transparent 45%),
-      radial-gradient(circle at 60% 40%, rgba(255, 255, 255, 0.35) 0%, transparent 35%);
+    background-image: radial-gradient(
+        circle at 25% 15%,
+        rgba(255, 255, 255, 0.6) 0%,
+        transparent 40%
+      ),
+      radial-gradient(
+        circle at 80% 85%,
+        rgba(75, 130, 195, 0.1) 0%,
+        transparent 45%
+      ),
+      radial-gradient(
+        circle at 60% 40%,
+        rgba(255, 255, 255, 0.35) 0%,
+        transparent 35%
+      );
   }
 
   body > * {
@@ -49,7 +65,12 @@
   /* ================= PLUSH CARD ================= */
   .plush-card {
     @apply rounded-4xl border border-white/60 p-4 shadow-plush transition-all duration-200;
-    background-image: linear-gradient(160deg, #F0F5FB 0%, #DDE7F2 60%, #D2DEEB 100%);
+    background-image: linear-gradient(
+      160deg,
+      #f0f5fb 0%,
+      #dde7f2 60%,
+      #d2deeb 100%
+    );
   }
 
   .plush-card:active {
@@ -59,7 +80,12 @@
 
   .plush-card-sm {
     @apply rounded-3xl border border-white/60 p-3 shadow-plush-sm transition-all duration-150;
-    background-image: linear-gradient(160deg, #F0F5FB 0%, #DDE7F2 60%, #D2DEEB 100%);
+    background-image: linear-gradient(
+      160deg,
+      #f0f5fb 0%,
+      #dde7f2 60%,
+      #d2deeb 100%
+    );
   }
 
   .plush-card-sm:active {
@@ -69,25 +95,50 @@
 
   .plush-card-lg {
     @apply rounded-4xl border border-white/70 p-5 shadow-plush-lg transition-all duration-200;
-    background-image: linear-gradient(160deg, #F0F5FB 0%, #DDE7F2 60%, #D2DEEB 100%);
+    background-image: linear-gradient(
+      160deg,
+      #f0f5fb 0%,
+      #dde7f2 60%,
+      #d2deeb 100%
+    );
   }
 
   .plush-card-sky {
     @apply rounded-4xl border border-white/70 p-4 shadow-plush transition-all duration-200;
-    background-image: linear-gradient(160deg, #E1EDF9 0%, #CFE0F0 60%, #BFD5E8 100%);
+    background-image: linear-gradient(
+      160deg,
+      #e1edf9 0%,
+      #cfe0f0 60%,
+      #bfd5e8 100%
+    );
   }
   .plush-card-powder {
     @apply rounded-4xl border border-white/70 p-4 shadow-plush transition-all duration-200;
-    background-image: linear-gradient(160deg, #D7E5F5 0%, #C9DDF0 60%, #B8D0E8 100%);
+    background-image: linear-gradient(
+      160deg,
+      #d7e5f5 0%,
+      #c9ddf0 60%,
+      #b8d0e8 100%
+    );
   }
   .plush-card-cream {
     @apply rounded-4xl border border-white/70 p-4 shadow-plush transition-all duration-200;
-    background-image: linear-gradient(160deg, #FFFDF8 0%, #F7F5EF 60%, #EDEAE0 100%);
+    background-image: linear-gradient(
+      160deg,
+      #fffdf8 0%,
+      #f7f5ef 60%,
+      #edeae0 100%
+    );
   }
   .plush-card-navy {
     @apply rounded-4xl border border-white/10 p-4 shadow-plush-navy transition-all duration-200;
-    background-image: linear-gradient(160deg, #243765 0%, #182650 50%, #0F1B3D 100%);
-    color: #F7F5EF;
+    background-image: linear-gradient(
+      160deg,
+      #243765 0%,
+      #182650 50%,
+      #0f1b3d 100%
+    );
+    color: #f7f5ef;
   }
 
   .plush-card-sky:active,
@@ -98,38 +149,103 @@
     transform: scale(0.985);
   }
 
-  /* ================= PLUSH INPUT ================= */
-  .plush-input {
-    @apply w-full rounded-3xl border border-white/70 px-4 py-3.5 text-ink shadow-plush-inset outline-none transition-all duration-150 placeholder:text-ink-faint;
-    background-color: #EEF3F9;
+  /* ================= PLUSH INPUT (真正 recessed fabric) ================= */
+  .plush-input,
+  .plush-input-sm,
+  .plush-select,
+  .plush-textarea {
+    width: 100%;
+    color: #0f1b3d;
+    outline: none;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    background-color: #d8e2ee;
+    background-image: linear-gradient(
+      180deg,
+      #cfdae8 0%,
+      #dde7f2 40%,
+      #e6eef7 100%
+    );
+    box-shadow:
+      inset 0 3px 6px rgba(15, 27, 61, 0.14),
+      inset 0 6px 14px rgba(15, 27, 61, 0.08),
+      inset 0 -2px 3px rgba(255, 255, 255, 0.9),
+      0 1px 0 rgba(255, 255, 255, 0.8);
+    transition: box-shadow 0.18s ease, background-color 0.18s ease,
+      border-color 0.18s ease;
   }
 
-  .plush-input:focus {
-    @apply shadow-plush-inset;
-    background-color: #E9EFF6;
-    border-color: rgba(139, 200, 232, 0.8);
+  .plush-input {
+    padding: 0.9rem 1rem;
+    font-size: 0.95rem;
   }
 
   .plush-input-sm {
-    @apply w-full rounded-2xl border border-white/70 px-3 py-2.5 text-sm text-ink shadow-plush-inset-sm outline-none placeholder:text-ink-faint transition-all duration-150;
-    background-color: #EEF3F9;
+    padding: 0.6rem 0.85rem;
+    font-size: 0.85rem;
+    border-radius: 1.25rem;
   }
 
   .plush-select {
-    @apply w-full rounded-3xl border border-white/70 px-4 py-3.5 text-ink shadow-plush-inset outline-none transition-all duration-150;
-    background-color: #EEF3F9;
+    padding: 0.9rem 1rem;
+    font-size: 0.95rem;
+    appearance: none;
+    -webkit-appearance: none;
+    background-repeat: no-repeat;
+    background-position: left 0.9rem center;
+    background-size: 0.8rem;
+    background-image: linear-gradient(
+        180deg,
+        #cfdae8 0%,
+        #dde7f2 40%,
+        #e6eef7 100%
+      ),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%230F1B3D'><path d='M5.5 7.5l4.5 5 4.5-5z'/></svg>");
+    background-position: 0 0, left 0.9rem center;
+    background-size: auto, 1rem;
+    padding-left: 2.5rem;
   }
 
   .plush-textarea {
-    @apply w-full rounded-3xl border border-white/70 px-4 py-3.5 text-ink shadow-plush-inset outline-none transition-all duration-150 placeholder:text-ink-faint;
-    background-color: #EEF3F9;
+    padding: 0.9rem 1rem;
+    font-size: 0.95rem;
     resize: vertical;
+    min-height: 6rem;
+  }
+
+  .plush-input::placeholder,
+  .plush-input-sm::placeholder,
+  .plush-textarea::placeholder {
+    color: #94a3b8;
+  }
+
+  .plush-input:focus,
+  .plush-input-sm:focus,
+  .plush-select:focus,
+  .plush-textarea:focus {
+    background-image: linear-gradient(
+      180deg,
+      #c6d3e3 0%,
+      #d6e1ee 40%,
+      #e2ebf5 100%
+    );
+    border-color: rgba(111, 174, 214, 0.85);
+    box-shadow:
+      inset 0 4px 8px rgba(15, 27, 61, 0.18),
+      inset 0 8px 18px rgba(15, 27, 61, 0.09),
+      inset 0 -2px 3px rgba(255, 255, 255, 0.9),
+      0 0 0 4px rgba(139, 200, 232, 0.25);
   }
 
   /* ================= PLUSH BUTTONS ================= */
   .btn-plush {
     @apply rounded-3xl border border-white/60 px-5 py-3.5 font-semibold text-ink shadow-plush transition-all duration-150 select-none;
-    background-image: linear-gradient(160deg, #F0F5FB 0%, #DDE7F2 60%, #D2DEEB 100%);
+    background-image: linear-gradient(
+      160deg,
+      #f0f5fb 0%,
+      #dde7f2 60%,
+      #d2deeb 100%
+    );
   }
 
   .btn-plush:active {
@@ -139,7 +255,12 @@
 
   .btn-plush-blue {
     @apply rounded-3xl border border-white/30 px-5 py-3.5 font-semibold text-white shadow-glow-blue transition-all duration-150 select-none;
-    background-image: linear-gradient(160deg, #6FAED6 0%, #4B82C3 60%, #3A6BA8 100%);
+    background-image: linear-gradient(
+      160deg,
+      #6faed6 0%,
+      #4b82c3 60%,
+      #3a6ba8 100%
+    );
   }
 
   .btn-plush-blue:active {
@@ -149,8 +270,13 @@
 
   .btn-plush-navy {
     @apply rounded-3xl border border-white/15 px-5 py-3.5 font-semibold shadow-plush-navy transition-all duration-150 select-none;
-    background-image: linear-gradient(160deg, #243765 0%, #182650 50%, #0F1B3D 100%);
-    color: #F7F5EF;
+    background-image: linear-gradient(
+      160deg,
+      #243765 0%,
+      #182650 50%,
+      #0f1b3d 100%
+    );
+    color: #f7f5ef;
   }
 
   .btn-plush-navy:active {
@@ -160,7 +286,12 @@
 
   .btn-plush-success {
     @apply rounded-3xl border border-white/30 px-5 py-3.5 font-semibold text-white shadow-glow-success transition-all duration-150 select-none;
-    background-image: linear-gradient(160deg, #A8D3B8 0%, #7BB892 60%, #5EA07B 100%);
+    background-image: linear-gradient(
+      160deg,
+      #a8d3b8 0%,
+      #7bb892 60%,
+      #5ea07b 100%
+    );
   }
 
   .btn-plush-success:active {
@@ -170,7 +301,12 @@
 
   .btn-plush-warning {
     @apply rounded-3xl border border-white/30 px-5 py-3.5 font-semibold text-white shadow-glow-warning transition-all duration-150 select-none;
-    background-image: linear-gradient(160deg, #EFC99E 0%, #E0A567 60%, #C98D4F 100%);
+    background-image: linear-gradient(
+      160deg,
+      #efc99e 0%,
+      #e0a567 60%,
+      #c98d4f 100%
+    );
   }
 
   .btn-plush-warning:active {
@@ -180,7 +316,12 @@
 
   .btn-plush-danger {
     @apply rounded-3xl border border-white/30 px-5 py-3.5 font-semibold text-white shadow-glow-danger transition-all duration-150 select-none;
-    background-image: linear-gradient(160deg, #E9A5A5 0%, #D77A7A 60%, #BE5F5F 100%);
+    background-image: linear-gradient(
+      160deg,
+      #e9a5a5 0%,
+      #d77a7a 60%,
+      #be5f5f 100%
+    );
   }
 
   .btn-plush-danger:active {
@@ -190,7 +331,12 @@
 
   .btn-plush-soft {
     @apply rounded-3xl border border-white/60 px-4 py-2.5 font-medium text-ink shadow-plush-sm transition-all duration-150 select-none;
-    background-image: linear-gradient(160deg, #E1EDF9 0%, #CFE0F0 60%, #BFD5E8 100%);
+    background-image: linear-gradient(
+      160deg,
+      #e1edf9 0%,
+      #cfe0f0 60%,
+      #bfd5e8 100%
+    );
   }
 
   .btn-plush-soft:active {
@@ -200,7 +346,12 @@
 
   .btn-plush-icon {
     @apply flex items-center justify-center rounded-2xl border border-white/60 p-2.5 text-ink shadow-plush-sm transition-all duration-150 select-none;
-    background-image: linear-gradient(160deg, #F0F5FB 0%, #DDE7F2 60%, #D2DEEB 100%);
+    background-image: linear-gradient(
+      160deg,
+      #f0f5fb 0%,
+      #dde7f2 60%,
+      #d2deeb 100%
+    );
   }
 
   .btn-plush-icon:active {
@@ -225,14 +376,30 @@
   .plush-stagger > * {
     @apply animate-puff-in;
   }
-  .plush-stagger > *:nth-child(1) { animation-delay: 0ms; }
-  .plush-stagger > *:nth-child(2) { animation-delay: 40ms; }
-  .plush-stagger > *:nth-child(3) { animation-delay: 80ms; }
-  .plush-stagger > *:nth-child(4) { animation-delay: 120ms; }
-  .plush-stagger > *:nth-child(5) { animation-delay: 160ms; }
-  .plush-stagger > *:nth-child(6) { animation-delay: 200ms; }
-  .plush-stagger > *:nth-child(7) { animation-delay: 240ms; }
-  .plush-stagger > *:nth-child(8) { animation-delay: 280ms; }
+  .plush-stagger > *:nth-child(1) {
+    animation-delay: 0ms;
+  }
+  .plush-stagger > *:nth-child(2) {
+    animation-delay: 40ms;
+  }
+  .plush-stagger > *:nth-child(3) {
+    animation-delay: 80ms;
+  }
+  .plush-stagger > *:nth-child(4) {
+    animation-delay: 120ms;
+  }
+  .plush-stagger > *:nth-child(5) {
+    animation-delay: 160ms;
+  }
+  .plush-stagger > *:nth-child(6) {
+    animation-delay: 200ms;
+  }
+  .plush-stagger > *:nth-child(7) {
+    animation-delay: 240ms;
+  }
+  .plush-stagger > *:nth-child(8) {
+    animation-delay: 280ms;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
