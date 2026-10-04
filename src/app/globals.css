@@ -72,11 +72,8 @@
     #e3ecf6 45%,
     #cfdcea 100%
   );
-  box-shadow:
-    /* سایه بیرونی متقارن — قلمبه شدن */
-    8px 8px 20px rgba(120, 145, 175, 0.35),
+  box-shadow: 8px 8px 20px rgba(120, 145, 175, 0.35),
     -8px -8px 20px rgba(255, 255, 255, 0.95),
-    /* سایه داخلی — پف کردگی */
     inset 0 2px 3px rgba(255, 255, 255, 0.95),
     inset 0 -3px 6px rgba(15, 27, 61, 0.08);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
@@ -84,8 +81,7 @@
 
 .plush-card:active {
   transform: scale(0.98);
-  box-shadow:
-    inset 0 3px 6px rgba(15, 27, 61, 0.12),
+  box-shadow: inset 0 3px 6px rgba(15, 27, 61, 0.12),
     inset 0 -1px 2px rgba(255, 255, 255, 0.8),
     0 0 0 2px rgba(123, 184, 146, 0.25),
     0 0 20px 4px rgba(123, 184, 146, 0.35);
@@ -102,8 +98,7 @@
     #e3ecf6 45%,
     #cfdcea 100%
   );
-  box-shadow:
-    6px 6px 14px rgba(120, 145, 175, 0.32),
+  box-shadow: 6px 6px 14px rgba(120, 145, 175, 0.32),
     -6px -6px 14px rgba(255, 255, 255, 0.9),
     inset 0 2px 3px rgba(255, 255, 255, 0.95),
     inset 0 -2px 5px rgba(15, 27, 61, 0.07);
@@ -112,8 +107,7 @@
 
 .plush-card-sm:active {
   transform: scale(0.97);
-  box-shadow:
-    inset 0 3px 6px rgba(15, 27, 61, 0.12),
+  box-shadow: inset 0 3px 6px rgba(15, 27, 61, 0.12),
     inset 0 -1px 2px rgba(255, 255, 255, 0.8),
     0 0 0 2px rgba(123, 184, 146, 0.25),
     0 0 16px 3px rgba(123, 184, 146, 0.35);
@@ -130,15 +124,13 @@
     #e8eef7 45%,
     #d4dfec 100%
   );
-  box-shadow:
-    12px 12px 28px rgba(120, 145, 175, 0.38),
+  box-shadow: 12px 12px 28px rgba(120, 145, 175, 0.38),
     -12px -12px 28px rgba(255, 255, 255, 1),
     inset 0 3px 4px rgba(255, 255, 255, 1),
     inset 0 -4px 8px rgba(15, 27, 61, 0.09);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-/* کارت‌های رنگی */
 .plush-card-sky {
   border-radius: 2.5rem;
   border: 1px solid rgba(255, 255, 255, 0.8);
@@ -150,8 +142,7 @@
     #d8e8f8 50%,
     #c0d6ee 100%
   );
-  box-shadow:
-    8px 8px 20px rgba(120, 145, 175, 0.32),
+  box-shadow: 8px 8px 20px rgba(120, 145, 175, 0.32),
     -8px -8px 20px rgba(255, 255, 255, 0.95),
     inset 0 2px 3px rgba(255, 255, 255, 0.9),
     inset 0 -3px 6px rgba(15, 27, 61, 0.08);
@@ -169,8 +160,7 @@
     #cfe0f3 50%,
     #b8cde6 100%
   );
-  box-shadow:
-    8px 8px 20px rgba(120, 145, 175, 0.32),
+  box-shadow: 8px 8px 20px rgba(120, 145, 175, 0.32),
     -8px -8px 20px rgba(255, 255, 255, 0.95),
     inset 0 2px 3px rgba(255, 255, 255, 0.9),
     inset 0 -3px 6px rgba(15, 27, 61, 0.08);
@@ -188,8 +178,7 @@
     #f7f4ec 50%,
     #ece7db 100%
   );
-  box-shadow:
-    8px 8px 20px rgba(150, 140, 120, 0.28),
+  box-shadow: 8px 8px 20px rgba(150, 140, 120, 0.28),
     -8px -8px 20px rgba(255, 255, 255, 0.98),
     inset 0 2px 3px rgba(255, 255, 255, 0.95),
     inset 0 -3px 6px rgba(80, 70, 50, 0.08);
@@ -207,8 +196,7 @@
     #1a2650 50%,
     #0f1b3d 100%
   );
-  box-shadow:
-    8px 8px 20px rgba(15, 27, 61, 0.4),
+  box-shadow: 8px 8px 20px rgba(15, 27, 61, 0.4),
     -8px -8px 20px rgba(255, 255, 255, 0.5),
     inset 0 2px 3px rgba(255, 255, 255, 0.18),
     inset 0 -3px 6px rgba(0, 0, 0, 0.35);
@@ -239,8 +227,7 @@
     #d9e4f1 45%,
     #e6eef7 100%
   );
-  box-shadow:
-    inset 4px 4px 10px rgba(120, 145, 175, 0.28),
+  box-shadow: inset 4px 4px 10px rgba(120, 145, 175, 0.28),
     inset -2px -2px 6px rgba(255, 255, 255, 0.9),
     inset 0 -1px 2px rgba(255, 255, 255, 0.7);
   transition: box-shadow 0.18s ease, background-image 0.18s ease,
@@ -266,13 +253,12 @@
 }
 
 .plush-select {
-  padding: 1rem 1.1rem;
+  padding: 1rem 2.75rem 1rem 1.1rem;
   font-size: 0.95rem;
   appearance: none;
   -webkit-appearance: none;
   background-repeat: no-repeat;
-  background-position: left 1rem center;
-  background-size: 1rem;
+  background-size: auto, 1rem;
   background-image: linear-gradient(
       180deg,
       #c8d5e5 0%,
@@ -281,8 +267,6 @@
     ),
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%230F1B3D'><path d='M5.5 7.5l4.5 5 4.5-5z'/></svg>");
   background-position: 0 0, left 1rem center;
-  background-size: auto, 1rem;
-  padding-left: 2.75rem;
 }
 
 .plush-input::placeholder,
@@ -302,15 +286,13 @@
     #dde7f3 100%
   );
   border-color: rgba(111, 174, 214, 0.9);
-  box-shadow:
-    inset 5px 5px 12px rgba(120, 145, 175, 0.32),
+  box-shadow: inset 5px 5px 12px rgba(120, 145, 175, 0.32),
     inset -2px -2px 6px rgba(255, 255, 255, 0.9),
     0 0 0 4px rgba(139, 200, 232, 0.3);
 }
 
-/* ==================== BUTTONS (Puffy + Glow on touch) ==================== */
+/* ==================== BUTTONS ==================== */
 
-/* دکمه پایه — پف کرده */
 .btn-plush {
   border-radius: 1.75rem;
   border: 1px solid rgba(255, 255, 255, 0.85);
@@ -323,8 +305,7 @@
     #e4eef7 45%,
     #d0dde9 100%
   );
-  box-shadow:
-    6px 6px 14px rgba(120, 145, 175, 0.32),
+  box-shadow: 6px 6px 14px rgba(120, 145, 175, 0.32),
     -6px -6px 14px rgba(255, 255, 255, 0.95),
     inset 0 2px 3px rgba(255, 255, 255, 0.95),
     inset 0 -2px 5px rgba(15, 27, 61, 0.08);
@@ -334,14 +315,12 @@
 
 .btn-plush:active {
   transform: scale(0.97);
-  box-shadow:
-    inset 0 4px 8px rgba(15, 27, 61, 0.14),
+  box-shadow: inset 0 4px 8px rgba(15, 27, 61, 0.14),
     inset 0 -1px 2px rgba(255, 255, 255, 0.7),
     0 0 0 2px rgba(123, 184, 146, 0.35),
     0 0 24px 6px rgba(123, 184, 146, 0.45);
 }
 
-/* آبی iOS — با نور سبز موقع لمس */
 .btn-plush-blue {
   border-radius: 1.75rem;
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -354,8 +333,7 @@
     #4b82c3 55%,
     #39649c 100%
   );
-  box-shadow:
-    6px 6px 16px rgba(75, 130, 195, 0.4),
+  box-shadow: 6px 6px 16px rgba(75, 130, 195, 0.4),
     -4px -4px 12px rgba(255, 255, 255, 0.7),
     inset 0 2px 4px rgba(255, 255, 255, 0.55),
     inset 0 -3px 6px rgba(15, 27, 61, 0.25);
@@ -365,14 +343,12 @@
 
 .btn-plush-blue:active {
   transform: scale(0.97);
-  box-shadow:
-    inset 0 4px 8px rgba(15, 27, 61, 0.28),
+  box-shadow: inset 0 4px 8px rgba(15, 27, 61, 0.28),
     inset 0 -1px 2px rgba(255, 255, 255, 0.3),
     0 0 0 2px rgba(123, 184, 146, 0.4),
     0 0 26px 8px rgba(123, 184, 146, 0.5);
 }
 
-/* سرمه‌ای */
 .btn-plush-navy {
   border-radius: 1.75rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -385,25 +361,22 @@
     #1a2650 55%,
     #0f1b3d 100%
   );
-  box-shadow:
-    6px 6px 16px rgba(15, 27, 61, 0.42),
+  box-shadow: 6px 6px 16px rgba(15, 27, 61, 0.42),
     -4px -4px 12px rgba(255, 255, 255, 0.55),
     inset 0 2px 4px rgba(255, 255, 255, 0.2),
-    inset 0 -3px 6px rgba(0, 0, 0, 0.4);
+    inset 0 -3pxpx  6px rgba(05, 0,px 0, 0 .4);
   transition: box-shadow 0.15s ease, transform 0.15s ease;
   user-select: none;
 }
 
 .btn-plush-navy:active {
   transform: scale(0.97);
-  box-shadow:
-    inset 0 4px 8px rgba(0, 0, 0, 0.5),
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.5),
     inset 0 -1px 2px rgba(255, 255, 255, 0.15),
     0 0 0 2px rgba(123, 184, 146, 0.4),
     0 0 26px 8px rgba(123, 184, 146, 0.5);
 }
 
-/* سبز */
 .btn-plush-success {
   border-radius: 1.75rem;
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -416,8 +389,7 @@
     #7bb892 55%,
     #5da078 100%
   );
-  box-shadow:
-    6px 6px 16px rgba(123, 184, 146, 0.42),
+  box-shadow: 6px 6px 16px rgba(123, 184, 146, 0.42),
     -4px -4px 12px rgba(255, 255, 255, 0.7),
     inset 0 2px 4px rgba(255, 255, 255, 0.6),
     inset 0 -3px 6px rgba(15, 27, 61, 0.22);
@@ -427,14 +399,12 @@
 
 .btn-plush-success:active {
   transform: scale(0.97);
-  box-shadow:
-    inset 0 4px 8px rgba(15, 27, 61, 0.26),
+  box-shadow: inset 0 4px 8px rgba(15, 27, 61, 0.26),
     inset 0 -1px 2px rgba(255, 255, 255, 0.35),
     0 0 0 2px rgba(123, 184, 146, 0.55),
     0 0 30px 10px rgba(123, 184, 146, 0.65);
 }
 
-/* نارنجی */
 .btn-plush-warning {
   border-radius: 1.75rem;
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -447,8 +417,7 @@
     #e0a567 55%,
     #c98d4f 100%
   );
-  box-shadow:
-    6px 6px 16px rgba(224, 165, 103, 0.42),
+  box-shadow: 6px 6px 16px rgba(224, 165, 103, 0.42),
     -4px -4px 12px rgba(255, 255, 255, 0.7),
     inset 0 2px 4px rgba(255, 255, 255, 0.6),
     inset 0 -3px 6px rgba(15, 27, 61, 0.22);
@@ -458,14 +427,12 @@
 
 .btn-plush-warning:active {
   transform: scale(0.97);
-  box-shadow:
-    inset 0 4px 8px rgba(15, 27, 61, 0.26),
+  box-shadow: inset 0 4px 8px rgba(15, 27, 61, 0.26),
     inset 0 -1px 2px rgba(255, 255, 255, 0.35),
     0 0 0 2px rgba(123, 184, 146, 0.5),
     0 0 30px 10px rgba(123, 184, 146, 0.6);
 }
 
-/* قرمز */
 .btn-plush-danger {
   border-radius: 1.75rem;
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -478,8 +445,7 @@
     #d77a7a 55%,
     #be5f5f 100%
   );
-  box-shadow:
-    6px 6px 16px rgba(215, 122, 122, 0.42),
+  box-shadow: 6px 6px 16px rgba(215, 122, 122, 0.42),
     -4px -4px 12px rgba(255, 255, 255, 0.7),
     inset 0 2px 4px rgba(255, 255, 255, 0.6),
     inset 0 -3px 6px rgba(15, 27, 61, 0.22);
@@ -489,15 +455,12 @@
 
 .btn-plush-danger:active {
   transform: scale(0.97);
-  box-shadow:
-    inset 0 4px 8px rgba(15, 27, 61, 0.26),
-    inset 0 -1px 2px rgba(255,;
-  background 255,-image 255, 0.35),
+  box-shadow: inset 0 4px 8px rgba(15, 27, 61, 0.26),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.35),
     0 0 0 2px rgba(123, 184, 146, 0.5),
     0 0 30px 10px rgba(123, 184, 146, 0.6);
 }
 
-/* آبی روشن — کم‌اهمیت */
 .btn-plush-soft {
   border-radius: 1.75rem;
   border: 1px solid rgba(255, 255, 255, 0.8);
@@ -510,8 +473,7 @@
     #d5e4f3 50%,
     #bed2e6 100%
   );
-  box-shadow:
-    5px 5px 12px rgba(120, 145, 175, 0.3),
+  box-shadow: 5px 5px 12px rgba(120, 145, 175, 0.3),
     -5px -5px 12px rgba(255, 255, 255, 0.92),
     inset 0 2px 3px rgba(255, 255, 255, 0.9),
     inset 0 -2px 5px rgba(15, 27, 61, 0.07);
@@ -521,14 +483,12 @@
 
 .btn-plush-soft:active {
   transform: scale(0.97);
-  box-shadow:
-    inset 0 4px 8px rgba(15, 27, 61, 0.12),
+  box-shadow: inset 0 4px 8px rgba(15, 27, 61, 0.12),
     inset 0 -1px 2px rgba(255, 255, 255, 0.7),
     0 0 0 2px rgba(123, 184, 146, 0.3),
     0 0 20px 5px rgba(123, 184, 146, 0.4);
 }
 
-/* آیکون کوچیک */
 .btn-plush-icon {
   display: inline-flex;
   align-items: center;
@@ -536,14 +496,14 @@
   border-radius: 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.85);
   padding: 0.65rem;
-  color: #0f1b3d: linear-gradient(
+  color: #0f1b3d;
+  background-image: linear-gradient(
     165deg,
     #f8fbff 0%,
     #e4eef7 45%,
     #d0dde9 100%
   );
-  box-shadow:
-    5px 5px 12px rgba(120, 145, 175, 0.3),
+  box-shadow: 512px rgba(120, 145, 175, 0.3),
     -5px -5px 12px rgba(255, 255, 255, 0.92),
     inset 0 2px 3px rgba(255, 255, 255, 0.95),
     inset 0 -2px 5px rgba(15, 27, 61, 0.08);
@@ -553,8 +513,7 @@
 
 .btn-plush-icon:active {
   transform: scale(0.94);
-  box-shadow:
-    inset 0 4px 8px rgba(15, 27, 61, 0.14),
+  box-shadow: inset 0 4px 8px rgba(15, 27, 61, 0.14),
     inset 0 -1px 2px rgba(255, 255, 255, 0.7),
     0 0 0 2px rgba(123, 184, 146, 0.35),
     0 0 20px 5px rgba(123, 184, 146, 0.45);
